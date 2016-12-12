@@ -62,11 +62,16 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'row' },
 	      React.createElement(
-	        'p',
-	        null,
+	        'div',
+	        { className: 'col-xs-8' },
 	        'hello world'
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'col-xs-4' },
+	        'hello world 2'
 	      )
 	    );
 	  }

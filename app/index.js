@@ -5,8 +5,9 @@ const routes = require('./config/routes');
 const HelloWorld = React.createClass({
   render() {
     return(
-      <div>
-        <p>hello world</p>
+      <div className='row'>
+        <div className='col-xs-8'>hello world</div>
+        <div className='col-xs-4'>hello world 2</div>
       </div>
     )
   }
