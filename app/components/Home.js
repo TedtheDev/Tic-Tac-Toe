@@ -5,8 +5,8 @@ const Link = ReactRouter.Link;
 const Home = React.createClass({
   render(){
     return(
-      <div>
-        <p>test from home</p>
+      <div className='row'>
+        <p className='col-md-4'>Home</p>
       </div>
     )
   }

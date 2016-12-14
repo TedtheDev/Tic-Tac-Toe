@@ -3,19 +3,21 @@ const React = require('react');
 const ReactRouter = require('react-router');
 const Router = ReactRouter.Router;
 const Route = ReactRouter.Route;
-const IndexRoute = ReactRouter.IndexRouter;
+const IndexRoute = ReactRouter.IndexRoute;
 const hashHistory = ReactRouter.hashHistory;
 
 //load components from app directory
-const Main = require('../components/Main')
-const Home = require('../components/Home')
+const Main = require('../components/Main');
+const Home = require('../components/Home');
+const Play = require('../components/Play');
 
 //set routes
 const routes = (
   <Router history={hashHistory}>
-    <Router path='/' component={Main}>
+    <Route path='/' component={Main}>
       <IndexRoute component={Home} />
-    </Router>
+      <Route path='/play' component={Play} />
+    </Route>
   </Router>
 );
 

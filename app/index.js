@@ -14,6 +14,6 @@ const HelloWorld = React.createClass({
 });
 
 ReactDOM.render(
-  <HelloWorld />,
+  routes,
   document.getElementById('app')
 );
