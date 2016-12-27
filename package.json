@@ -25,6 +25,7 @@
   "homepage": "https://github.com/TedtheDev/tic-tac-toe#readme",
   "dependencies": {
     "express": "^4.14.0",
+    "mongodb": "^2.2.16",
     "path": "^0.12.7",
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
