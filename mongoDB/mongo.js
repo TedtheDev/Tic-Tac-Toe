@@ -4,7 +4,7 @@
 //require MongoDB
 const mongodb = require('mongodb');
 
-//Load the MongoClient to connect
+//Load the MongoClient interface to connect
 const MongoClient = mongodb.MongoClient;
 
 //decalre URL
@@ -15,7 +15,7 @@ const mongoDBUrl = 'mongodb';
 const hostWithPort = 'localhost:27017';
 const databaseName = 'test';
 
-//construct fullURL
+//concat fullURL
 fullURL = mongoDBUrl + '://' + hostWithPort +'/' + databaseName;
 
 //Connect to DB and do some work
