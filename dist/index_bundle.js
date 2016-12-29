@@ -77,7 +77,7 @@
 	  }
 	});
 
-	ReactDOM.render(React.createElement(HelloWorld, null), document.getElementById('app'));
+	ReactDOM.render(routes, document.getElementById('app'));
 
 /***/ },
 /* 2 */
@@ -21497,21 +21497,23 @@
 	var ReactRouter = __webpack_require__(180);
 	var Router = ReactRouter.Router;
 	var Route = ReactRouter.Route;
-	var IndexRoute = ReactRouter.IndexRouter;
+	var IndexRoute = ReactRouter.IndexRoute;
 	var hashHistory = ReactRouter.hashHistory;
 
 	//load components from app directory
 	var Main = __webpack_require__(235);
-	var Home = __webpack_require__(236);
+	var Home = __webpack_require__(240);
+	var Play = __webpack_require__(241);
 
 	//set routes
 	var routes = React.createElement(
 	  Router,
 	  { history: hashHistory },
 	  React.createElement(
-	    Router,
+	    Route,
 	    { path: '/', component: Main },
-	    React.createElement(IndexRoute, { component: Home })
+	    React.createElement(IndexRoute, { component: Home }),
+	    React.createElement(Route, { path: '/play', component: Play })
 	  )
 	);
 
@@ -26428,15 +26430,27 @@
 
 	'use strict';
 
+	//load React and modules
 	var React = __webpack_require__(2);
+	var styles = __webpack_require__(236);
 
+	//require componenets
+	var Navbar = __webpack_require__(237);
+	var CustomNavbar = __webpack_require__(238);
+
+	//component fucntionality
 	var Main = React.createClass({
 	  displayName: 'Main',
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
-	      React.cloneElement(this.props.children, { key: this.props.location.pathname })
+	      { style: styles.mainHeight },
+	      React.createElement(Navbar, null),
+	      React.createElement(
+	        'div',
+	        { className: 'container-fluid', style: styles.mainHeight },
+	        React.cloneElement(this.props.children, { key: this.props.location.pathname })
+	      )
 	    );
 	  }
 	});
@@ -26445,6 +26459,159 @@
 
 /***/ },
 /* 236 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	var styles = {
+	  mainHeight: {
+	    height: '100%'
+
+	  },
+	  space: {
+	    marginTop: '25px'
+	  }
+	};
+
+	module.exports = styles;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+	var ReactRouter = __webpack_require__(180);
+	var Link = ReactRouter.Link;
+
+	var Navbar = React.createClass({
+	  displayName: 'Navbar',
+	  render: function render() {
+	    return React.createElement(
+	      'nav',
+	      { className: 'navbar navbar-inverse' },
+	      React.createElement(
+	        'div',
+	        { className: 'container-fluid' },
+	        React.createElement(
+	          'div',
+	          { className: 'navbar-header' },
+	          React.createElement(
+	            'button',
+	            { type: 'button', className: 'navbar-toggle', 'data-toggle': 'collapse', 'data-target': '#myNavbar' },
+	            React.createElement('span', { className: 'icon-bar' }),
+	            React.createElement('span', { className: 'icon-bar' }),
+	            React.createElement('span', { className: 'icon-bar' })
+	          ),
+	          React.createElement(
+	            'a',
+	            { className: 'navbar-brand', href: '#' },
+	            'Tic Tac Toe'
+	          )
+	        ),
+	        React.createElement(
+	          'div',
+	          { className: 'collapse navbar-collapse', id: 'myNavbar' },
+	          React.createElement(
+	            'ul',
+	            { className: 'nav navbar-nav' },
+	            React.createElement(
+	              'li',
+	              { className: 'active' },
+	              React.createElement(
+	                Link,
+	                { to: '/' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#' },
+	                  'Home'
+	                )
+	              )
+	            ),
+	            React.createElement(
+	              'li',
+	              null,
+	              React.createElement(
+	                Link,
+	                { to: '/play' },
+	                React.createElement(
+	                  'a',
+	                  { href: '#' },
+	                  'Play'
+	                )
+	              )
+	            )
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Navbar;
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+
+	//require componenets
+	var HamburgerSVG = __webpack_require__(239);
+
+	//Create JSX
+	var CustomNavbar = React.createClass({
+	  displayName: 'CustomNavbar',
+	  render: function render() {
+	    return React.createElement(
+	      'nav',
+	      null,
+	      React.createElement(
+	        'div',
+	        null,
+	        React.createElement(
+	          'p',
+	          null,
+	          'Tic Tac Toe'
+	        ),
+	        React.createElement(HamburgerSVG, null)
+	      )
+	    );
+	  }
+	});
+
+	module.exports = CustomNavbar;
+
+/***/ },
+/* 239 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+
+	var HamburgerSVG = React.createClass({
+	  displayName: 'HamburgerSVG',
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        'test'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = HamburgerSVG;
+
+/***/ },
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26458,17 +26625,155 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'jumbotron' },
+	      React.createElement(
+	        'h1',
+	        null,
+	        'Welcome to Tic-Tac-Toe with Socket.IO!'
+	      ),
 	      React.createElement(
 	        'p',
 	        null,
-	        'test from home'
-	      )
+	        'Click to Login or Sign Up for an Account to get started playing with your friends'
+	      ),
+	      React.createElement('i', { className: 'fa fa-sign-in fa-5x', 'aria-hidden': 'true' }),
+	      React.createElement('i', { className: 'fa fa-user fa-5x', 'aria-hidden': 'true' })
 	    );
 	  }
 	});
 
 	module.exports = Home;
+
+/***/ },
+/* 241 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+
+	var Chat = __webpack_require__(242);
+	var TicTacToeGrid = __webpack_require__(244);
+
+	//styles
+	var setHeight = function setHeight(percent) {
+	  var style = {
+	    height: percent + '%'
+	  };
+	  return style;
+	};
+
+	var Play = React.createClass({
+	  displayName: 'Play',
+	  render: function render() {
+
+	    return React.createElement(
+	      'div',
+	      { style: setHeight(100) },
+	      React.createElement(
+	        'div',
+	        { className: 'row', style: setHeight(50) },
+	        React.createElement('div', { className: 'col-xs-2' }),
+	        React.createElement(
+	          'div',
+	          { className: 'col-xs-8' },
+	          React.createElement(Chat, null)
+	        ),
+	        React.createElement('div', { className: 'col-xs-2' })
+	      ),
+	      React.createElement(
+	        'div',
+	        { className: 'row', style: setHeight(50) },
+	        React.createElement('div', { className: 'col-xs-2' }),
+	        React.createElement(
+	          'div',
+	          { className: 'col-xs-8' },
+	          React.createElement(TicTacToeGrid, null)
+	        ),
+	        React.createElement('div', { className: 'col-xs-2' })
+	      )
+	    );
+	  }
+	});
+
+	module.exports = Play;
+
+/***/ },
+/* 242 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+
+	var MainChat = __webpack_require__(243);
+
+	var Chat = React.createClass({
+	  displayName: 'Chat',
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(MainChat, null)
+	    );
+	  }
+	});
+
+	module.exports = Chat;
+
+/***/ },
+/* 243 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	//load Reac
+	var React = __webpack_require__(2);
+
+	//Dependencies
+
+	//Main Component
+	var MainChat = React.createClass({
+	  displayName: 'MainChat',
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        'Main Chat'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = MainChat;
+
+/***/ },
+/* 244 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	var React = __webpack_require__(2);
+
+	var TicTacToeGrid = React.createClass({
+	  displayName: 'TicTacToeGrid',
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'p',
+	        null,
+	        'Tic Tac Toe'
+	      )
+	    );
+	  }
+	});
+
+	module.exports = TicTacToeGrid;
 
 /***/ }
 /******/ ]);
