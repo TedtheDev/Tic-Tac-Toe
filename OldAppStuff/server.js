@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //set port and ip address with Openshift or set default ones
-const server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080;
+const server_port = process.env.OPENSHIFT_NODEJS_PORT || 8888;
 const server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
 
 //set express to use static html
