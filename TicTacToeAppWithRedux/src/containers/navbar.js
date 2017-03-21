@@ -12,19 +12,15 @@ export default class Navbar extends Component {
               <span className='icon-bar'></span>
               <span className='icon-bar'></span>
             </button>
-            <a className='navbar-brand' href='#'>Tic Tac Toe</a>
+            <Link className='navbar-brand' to='/'>Tic Tac Toe</Link>
           </div>
           <div className='collapse navbar-collapse' id='myNavbar'>
             <ul className='nav navbar-nav'>
               <li className='active'>
-                <Link to='/'>
-                  <a href='#'>Home</a>
-                </Link>
+                <Link to='/'>Home</Link>
               </li>
               <li>
-                <Link to='/play'>
-                  <a href='#'>Play</a>
-                </Link>
+                <Link to='/play'>Play</Link>
               </li>
             </ul>
           </div>
