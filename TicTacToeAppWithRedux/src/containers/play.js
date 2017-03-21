@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
 
-class Play extends Component {
-  //styles
-  let setHeight = (percent) => {
-    let style = {
-      height: percent + '%',
-    }
-    return style;
-  }
+import Chat from './chat';
+import TicTacToeGrid from './tictactoegrid';
 
+class Play extends Component {
   render() {
+
+    //styles
+    let setHeight = (percent) => {
+      let style = {
+        height: percent + '%'
+      }
+      return style;
+    }
+
     return(
       <div style={setHeight(100)}>
         <div className='row' style={setHeight(50)}>
