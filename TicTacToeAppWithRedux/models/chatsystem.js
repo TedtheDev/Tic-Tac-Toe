@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const ChatSystemSchema = new Schema({
   user: String,
-  date: Date,
+  date: String,
   message: String
-});
+}, { collection: 'chatsystem' });
 
 const ChatSystem = mongoose.model('chatsystem', ChatSystemSchema);
 

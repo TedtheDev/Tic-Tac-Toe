@@ -1,11 +1,9 @@
 const mongoose = require('mongoose');
 
-
-
-const startDB = () => {
-mongoose.connection('mongodb://localhost/tic-tac-toe');
+const startDB = (database) => {
+mongoose.connect(`mongodb://localhost/${database}`);
 mongoose.connection
-  .once('open', () => console.log('open') )
+  .once('open', () => console.log('MongoDB Connected') )
   .on('error', (error) => {
     console.warn('Warning', error);
   });

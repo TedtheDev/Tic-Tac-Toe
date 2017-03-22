@@ -7,11 +7,11 @@ const startDB = require('./utils/mongoconnection');
 
 mongoose.Promise = global.Promise;
 
-if(process.env.NODE_ENV !== 'test') {
-  mongoose.connect('mongodb://localhost/tic-tac-toe_test');
+if(process.env.NODE_ENV === 'test') {
+  startDB('tic-tac-toe_test');
 }
 else {
-  startDB();
+  startDB('tic-tac-toe');
 }
 
 app.use(bodyParser.json());
