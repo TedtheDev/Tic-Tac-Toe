@@ -1,9 +1,9 @@
 import React from 'react';
 
-const MainChat = () => {
+const MainChat = (message) => {
   return (
     <div>
-      <p>Main Chat</p>
+      <p>{message}</p>
     </div>
   )
 };
