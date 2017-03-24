@@ -6,20 +6,15 @@ import { bindActionCreators } from 'redux';
 import MainChat from './mainchat';
 
 class Chat extends Component {
-  fetchMessages() {
-      //return this.props.messages.map((message) => {
-        return (
-          <div>
-            {this.props.messages.toString()}
-          </div>
-        )
-      //})
+  componentWillMount() {
+    this.props.fetchChatMessages();
+    console.log(this.props.messages);
   }
 
   render() {
     return (
       <div>
-        {this.fetchMessages()}
+        {this.props.messages[0]}
       </div>
     )
   }
