@@ -2,28 +2,40 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchChatMessages } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import _ from 'lodash'
 
 import MainChat from './mainchat';
 
 class Chat extends Component {
   componentWillMount() {
     this.props.fetchChatMessages();
-    console.log(this.props.messages);
+  }
+
+  renderList(messages) {
+    return this.props.messages.map((message) => {
+      return (
+        <p>{message.user}</p>
+      );
+    });
   }
 
   render() {
     return (
       <div>
-        {this.props.messages[0]}
+        {
+          //this.renderList()
+          //console.log("Chat", this.props.messages.messages)
+          JSON.stringify(this.props.messages.messages)
+        }
       </div>
-    )
-  }
+    );
+  };
 };
 
 function mapStateToProps(state) {
   //whatever is returned will show up as props inside of Chat
   return {
-    messages: state.messages
+    messages: state.chatMessages.messages
   };
 }
 

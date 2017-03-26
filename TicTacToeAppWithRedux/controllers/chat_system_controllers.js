@@ -5,13 +5,13 @@ module.exports = {
     res.send({ hi: 'there' });
   },
   getMessages(req, res, next) {
-    console.log('called /api/chatsystem/messages');
-
+    //res.header('Content-Type', 'application/json; charset=utf-8')
     ChatSystem.find({ })
       .then((messages) => {
-        console.log(messages);
-
-        res.send({messages});
+        const theMessages = messages.map((message) => {
+          return { "user": message.user, "date": message.date, "message": message.message }
+        })
+        res.json({ "messages": theMessages });
       })
       .catch(next);
   }
