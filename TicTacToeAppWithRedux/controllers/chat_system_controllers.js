@@ -11,7 +11,7 @@ module.exports = {
         const theMessages = messages.map((message) => {
           return { "user": message.user, "date": message.date, "message": message.message }
         })
-        res.json({ "messages": theMessages });
+        res.send(messages);
       })
       .catch(next);
   }

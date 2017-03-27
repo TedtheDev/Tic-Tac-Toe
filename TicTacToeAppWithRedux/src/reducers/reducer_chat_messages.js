@@ -6,7 +6,7 @@ export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
     case FETCH_CHAT_MESSAGES:
       const dater = { ...state, messages: action.payload.data };
-      console.log( "dater", dater.messages.messages);
+      console.log( "dater", dater.messages);
       return { ...state, messages: action.payload.data };
     default:
       return state;

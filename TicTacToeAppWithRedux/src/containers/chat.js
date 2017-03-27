@@ -11,10 +11,14 @@ class Chat extends Component {
     this.props.fetchChatMessages();
   }
 
-  renderList(messages) {
+  renderChatMessages(messages) {
     return this.props.messages.map((message) => {
       return (
-        <p>{message.user}</p>
+        <div style={{border: '1px solid red' }}>
+          <p>{message.user}</p>
+          <p>{message.date}</p>
+          <p>{message.message}</p>
+        </div>
       );
     });
   }
@@ -23,9 +27,7 @@ class Chat extends Component {
     return (
       <div>
         {
-          //this.renderList()
-          //console.log("Chat", this.props.messages.messages)
-          JSON.stringify(this.props.messages.messages)
+          this.renderChatMessages()
         }
       </div>
     );
