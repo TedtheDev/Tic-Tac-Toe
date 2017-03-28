@@ -22,5 +22,7 @@ module.exports = (app) => {
   // to the route https://localhost:3050/api
   app.get('/api', ChatSystemController.greeting);
   app.get('/api/chatsystem/messages', ChatSystemController.getMessages);
+  app.post('/api/chatsystem/messages', ChatSystemController.createMessage);
+  app.delete('/api/chatsystem/messages/:id', ChatSystemController.deleteMessage);
 
 }

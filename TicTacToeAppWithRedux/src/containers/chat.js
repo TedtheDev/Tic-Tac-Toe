@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChatMessages } from '../actions/index';
+import { fetchChatMessages, deleteChatMessage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash'
 
-import MainChat from './mainchat';
+import CreateChatMessage from './create_chat_message';
 
 class Chat extends Component {
   componentWillMount() {
@@ -12,23 +12,35 @@ class Chat extends Component {
   }
 
   renderChatMessages(messages) {
+    console.log('Chat Container: messages', this.props.messages);
     return this.props.messages.map((message) => {
       return (
-        <div style={{border: '1px solid red' }}>
+        <div key={message._id} style={{border: '1px solid red' }}>
           <p>{message.user}</p>
           <p>{message.date}</p>
           <p>{message.message}</p>
+          <button
+            className='btn btn-danger'
+            onClick={this.onDeleteMessage.bind(this, message._id)}>
+            Delete
+          </button>
         </div>
       );
     });
   }
 
+  onDeleteMessage(id) {
+    this.props.deleteChatMessage(id)
+
+  }
+
   render() {
     return (
-      <div>
-        {
-          this.renderChatMessages()
-        }
+      <div style={{height: '100%'}}>
+        <div style={{overflow: 'scroll', height: '100%'}}>
+          {this.renderChatMessages()}
+        </div>
+        <CreateChatMessage />
       </div>
     );
   };
@@ -46,7 +58,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   // whenever fetchChatMessages is called, the result should be
   // passed to all of the reducers
-  return bindActionCreators({ fetchChatMessages: fetchChatMessages }, dispatch);
+  return bindActionCreators({ fetchChatMessages, deleteChatMessage }, dispatch);
 }
 
 // Promote Chat from a component to a container - it needs to know

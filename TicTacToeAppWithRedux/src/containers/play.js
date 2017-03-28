@@ -16,7 +16,7 @@ class Play extends Component {
 
     return(
       <div style={setHeight(100)}>
-        <div className='row' style={setHeight(50)}>
+        <div className='row' style={{height: '50%'}}>
           <div className='col-xs-2'></div>
           <div className='col-xs-8'><Chat /></div>
           <div className='col-xs-2'></div>

@@ -11,8 +11,22 @@ module.exports = {
         const theMessages = messages.map((message) => {
           return { "user": message.user, "date": message.date, "message": message.message }
         })
-        res.send(messages);
+        res.json(messages);
       })
+      .catch(next);
+  },
+  createMessage(req, res, next) {
+    const theMessage = req.body;
+
+    ChatSystem.create({ user: theMessage.user, message: theMessage.message})
+      .then((theMessageCreated) => res.json(theMessageCreated))
+      .catch(next);
+  },
+  deleteMessage(req, res, next) {
+    const theId = req.params.id;
+    console.log(theId);
+    ChatSystem.findByIdAndRemove({ _id: theId })
+      .then((messageDeleted) => res.json(messageDeleted))
       .catch(next);
   }
 }
