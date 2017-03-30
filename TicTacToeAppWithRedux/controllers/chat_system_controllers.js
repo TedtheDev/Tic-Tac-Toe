@@ -24,7 +24,6 @@ module.exports = {
   },
   deleteMessage(req, res, next) {
     const theId = req.params.id;
-    console.log(theId);
     ChatSystem.findByIdAndRemove({ _id: theId })
       .then((messageDeleted) => res.json(messageDeleted))
       .catch(next);
