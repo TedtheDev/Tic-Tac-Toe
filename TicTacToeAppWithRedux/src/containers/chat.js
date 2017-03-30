@@ -7,8 +7,8 @@ import _ from 'lodash'
 import CreateChatMessage from './create_chat_message';
 
 class Chat extends Component {
-  componentWillMount() {
-    this.props.fetchChatMessages();
+  componentDidMount() {
+    setTimeout(this.props.fetchChatMessages());
   }
 
   renderChatMessages(messages) {
@@ -34,6 +34,16 @@ class Chat extends Component {
   }
 
   render() {
+    if(this.props.messages === null) {
+      return (
+        <div style={{height: '100%'}}>
+          <div style={{overflow: 'auto', height: '100%'}}>
+            Loading Messages...
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div style={{height: '100%'}}>
         <div style={{overflow: 'scroll', height: '100%'}}>
