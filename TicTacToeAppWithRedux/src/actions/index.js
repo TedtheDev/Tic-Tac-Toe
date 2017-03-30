@@ -16,7 +16,6 @@ export function fetchChatMessages() {
 
 export function deleteChatMessage(id) {
   const request = axios.delete(`${ROOT_URL}/chatsystem/messages/${id}`);
-  console.log('request', request);
   return {
     type: DELETE_CHAT_MESSAGE,
     payload: request
@@ -26,9 +25,7 @@ export function deleteChatMessage(id) {
 export function createChatMessage(user, message) {
   const reqBody = { user: user, message: message };
   const config = { headers: { "Content-Type": "application/json" } };
-  console.log('reqBody', reqBody)
   const request = axios.post(`${ROOT_URL}/chatsystem/messages`, reqBody);
-  console.log('create messages request', request);
   return {
     type: CREATE_CHAT_MESSAGE,
     payload: request

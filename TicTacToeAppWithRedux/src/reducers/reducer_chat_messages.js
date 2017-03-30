@@ -11,8 +11,7 @@ export default function(state = INITIAL_STATE, action) {
       const messages = state.messages.filter(message => message._id !== data._id)
       return { ...state, messages: messages };
     case CREATE_CHAT_MESSAGE:
-      console.log('payload data', action.payload.data);
-      return { ...state, messages: action.payload.data };
+      return { ...state, messages: [...state.messages, action.payload.data] };
     default:
       return state;
   }

@@ -12,7 +12,6 @@ class Chat extends Component {
   }
 
   renderChatMessages(messages) {
-    console.log('Chat Container: messages', this.props.messages);
     return this.props.messages.map((message) => {
       return (
         <div key={message._id} style={{border: '1px solid red' }}>
