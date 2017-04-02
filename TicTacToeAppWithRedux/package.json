@@ -8,7 +8,9 @@
     "start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test_mongodb": "nodemon --exec \"mocha --recursive ./test/mongodb\"",
-    "test:watch": "npm run test -- --watch"
+    "test:watch": "npm run test -- --watch",
+    "start_server_test": "set NODE_ENV=test&& nodemon index.js",
+    "start_server_prod": "set NODE_ENV=prod&& nodemon index.js"
   },
   "author": "",
   "license": "ISC",
