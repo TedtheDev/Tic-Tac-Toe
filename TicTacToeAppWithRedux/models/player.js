@@ -17,7 +17,7 @@ const PlayerSchema = new Schema({
 });
 
 PlayerSchema.virtual('gamesPlayed').get(function() {
-  return this.gamesWon + this.gamesLost + gamesDrawn;
+  return this.gamesWon + this.gamesLost + this.gamesDrawn;
 });
 
 const Player = mongoose.model('player', PlayerSchema);
