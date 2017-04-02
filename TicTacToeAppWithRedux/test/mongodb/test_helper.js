@@ -12,7 +12,12 @@ before((done) => {
 })
 
 beforeEach((done) => {
-  const { players } = mongoose.connection.collections;
+  const { players, chatsystem } = mongoose.connection.collections;
 
-  players.drop(() => done());
+  players.drop(() => {
+    chatsystem.drop(() => {
+      done();
+    });
+  });
+
 });
