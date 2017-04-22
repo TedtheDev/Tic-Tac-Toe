@@ -1,8 +1,6 @@
 import React, { Component, PropTypes } from 'react';
-import LoginScreen from './login';
-import { Link } from 'react-router';
-
-class Home extends Component {
+import { }
+class LoginScreen extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
@@ -29,23 +27,30 @@ class Home extends Component {
     event.preventDefault();
     this.context.router.push('/play');
   }
+
   render() {
-    return(
-      <div className='jumbotron'>
-        <h1>Welcome to Tic-Tac-Toe with Socket.IO!</h1>
-        <p>Click to Login or Sign Up for an Account to get started playing with your friends</p>
-        <div>
-          <i className="fa fa-sign-in fa-5x" aria-hidden="true"></i>
-          <span>Sign-in</span>
-        </div>
-        <Link to='/account'>
-          <i className="fa fa-user fa-5x" aria-hidden="true"></i>
-          <span>Create an Account</span>
-        </Link>
-        <LoginScreen />
+    return (
+      <div>
+        <form onSubmit={ this.onLoginSubmit }>
+          <label>Login: </label>
+          <input
+            type='text'
+            value={this.state.username}
+            placeholder='Username'
+            onChange={this.onInputChangeUsername}
+          />
+          <label>Password: </label>
+          <input
+            type='password'
+            value={this.state.password}
+            placeholder='Password'
+            onChange={this.onInputChangePassword}
+          />
+          <button type="submit" className='btn btn-success'>Login</button>
+        </form>
       </div>
     );
   };
 };
 
-export default Home;
+export default LoginScreen;

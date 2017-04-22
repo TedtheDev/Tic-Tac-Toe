@@ -1,4 +1,7 @@
+const jwt = require('jsonwebtoken');
+const secret = require('../creds/secret');
 const ChatSystemController = require('../controllers/chat_system_controllers');
+const AuthenticationController = require('../controllers/authentication_controllers');
 
 module.exports = (app) => {
   // this function adds Access-Control-Allow-Origin to all requests with
@@ -18,11 +21,34 @@ module.exports = (app) => {
   };
 
   app.use(allowCrossDomain);
+
+  // Setup middleware to handle that all requests
+  // have a token to access
+  app.use((req, res, next) => {
+    const token = req.body.token || req.query.token || req.header['x-access-token'];
+
+    if(token) {
+      jwt.verify(token, secret.theSecret, (err, decoded) => {
+        if(err) {
+          return res.json({ succes: false, message: 'Failed to authenticate token'});
+        } else {
+          req.decoded = decoded;
+          next();
+        }
+      })
+    } else {
+      return res.status(403).send({ success: false, message: 'No token provided'})
+    }
+  });
+
   // Watch for incoming requests of method GET
   // to the route https://localhost:3050/api
   app.get('/api', ChatSystemController.greeting);
   app.get('/api/chatsystem/messages', ChatSystemController.getMessages);
   app.post('/api/chatsystem/messages', ChatSystemController.createMessage);
   app.delete('/api/chatsystem/messages/:id', ChatSystemController.deleteMessage);
+
+
+  app.post('/api/authenticate', AuthenticationController.getToken);
 
 }

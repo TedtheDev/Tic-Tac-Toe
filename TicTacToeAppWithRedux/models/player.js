@@ -13,7 +13,9 @@ const PlayerSchema = new Schema({
   avatar: String,
   gamesWon: Number,
   gamesLost: Number,
-  gamesDrawn: Number
+  gamesDrawn: Number,
+  username: String,
+  password: String
 });
 
 PlayerSchema.virtual('gamesPlayed').get(function() {
