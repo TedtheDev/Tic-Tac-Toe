@@ -27,7 +27,9 @@ module.exports = (app) => {
   app.use((req, res, next) => {
     const token = req.body.token || req.query.token || req.header['x-access-token'];
 
-    if(token) {
+    // check token on request to validate user is authenticated
+    if(token && req.path !== '/api/authenticate') {
+      console.log('token')
       jwt.verify(token, secret.theSecret, (err, decoded) => {
         if(err) {
           return res.json({ succes: false, message: 'Failed to authenticate token'});
@@ -36,19 +38,21 @@ module.exports = (app) => {
           next();
         }
       })
+    } else if(req.path === '/api/authenticate') {
+      next();
     } else {
       return res.status(403).send({ success: false, message: 'No token provided'})
     }
   });
 
-  // Watch for incoming requests of method GET
-  // to the route https://localhost:3050/api
+  // routes for the chat system with an api test greeting
   app.get('/api', ChatSystemController.greeting);
   app.get('/api/chatsystem/messages', ChatSystemController.getMessages);
   app.post('/api/chatsystem/messages', ChatSystemController.createMessage);
   app.delete('/api/chatsystem/messages/:id', ChatSystemController.deleteMessage);
 
-
+  // authentication route
   app.post('/api/authenticate', AuthenticationController.getToken);
+
 
 }
