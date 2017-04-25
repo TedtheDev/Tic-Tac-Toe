@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/index';
 
-const INITIAL_STATE = { isFetching: false, isAuthenticated: localStorage.getItem('id_token') ? true : false };
+const INITIAL_STATE = { isFetching: false, isAuthenticated: localStorage.getItem('token') ? true : false };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
@@ -8,7 +8,7 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        user: action.creds
+        player: action.creds
       });
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
@@ -18,7 +18,7 @@ export default function(state = INITIAL_STATE, action) {
       });
     case LOGIN_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false;
+        isFetching: false,
         isAuthenticated: false,
         errorMessage: action.message
       });

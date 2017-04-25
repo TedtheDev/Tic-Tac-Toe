@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
-import { }
+import { loginPlayer } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 class LoginScreen extends Component {
   static contextTypes = {
     router: PropTypes.object
@@ -25,10 +28,20 @@ class LoginScreen extends Component {
 
   onLoginSubmit(event) {
     event.preventDefault();
-    this.context.router.push('/play');
+    const creds = { username: this.state.username, password: this.state.password };
+    this.props.loginPlayer(creds)
+    //this.context.router.push('/play');
   }
 
   render() {
+    if(this.props.isFetching) {
+      return (
+        <div>
+          <p>Loading..</p>
+        </div>
+      )
+    }
+    
     return (
       <div>
         <form onSubmit={ this.onLoginSubmit }>
@@ -53,4 +66,14 @@ class LoginScreen extends Component {
   };
 };
 
-export default LoginScreen;
+function mapStateToProps(state) {
+  return {
+    auth: state.creds
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ loginPlayer }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

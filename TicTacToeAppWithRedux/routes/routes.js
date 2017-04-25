@@ -29,7 +29,6 @@ module.exports = (app) => {
 
     // check token on request to validate user is authenticated
     if(token && req.path !== '/api/authenticate') {
-      console.log('token')
       jwt.verify(token, secret.theSecret, (err, decoded) => {
         if(err) {
           return res.json({ succes: false, message: 'Failed to authenticate token'});

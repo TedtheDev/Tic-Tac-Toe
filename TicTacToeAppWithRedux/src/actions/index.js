@@ -6,7 +6,7 @@ export const CREATE_CHAT_MESSAGE = 'CREATE_CHAT_MESSAGE';
 
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
@@ -44,6 +44,7 @@ export function createChatMessage(user, message) {
 // to handle user authentication
 // used in loginUser action creator below
 function requestLogin(creds) {
+  console.log('requestLogin', creds)
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -52,16 +53,18 @@ function requestLogin(creds) {
   }
 }
 
-function receiveLogin(user) {
+function receiveLogin(player) {
+  console.log('receiveLogin', player)
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    id_token: user.id_token
+    token: player.token
   }
 }
 
 function loginError(message) {
+  console.log('loginError', message)
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
@@ -73,7 +76,8 @@ function loginError(message) {
 
 // --------
 // handle logging in user
-export function loginUser(creds) {
+export function loginPlayer(creds) {
+  console.log('loginPlayer', creds);
   const reqBody = { username: creds.username, password: creds.password };
   const config = { headers: { "Content-Type": "application/json" } };
   //const request = axios.post(`${ROOT_URL}/login`, reqBody);
@@ -81,22 +85,23 @@ export function loginUser(creds) {
   return (dispatch) => {
     dispatch(requestLogin(creds))
 
+    setTimeout(console.log('before post authenticate'), 10000);
     return axios.post(`${ROOT_URL}/authenticate`, reqBody)
-      .then(response =>
-        response.json().then(user => ({ user, response }))
-            ).then(({ user, response }) =>  {
-        if (!response.ok) {
+      .then((res) => {
+        console.log(res)
+        if (!res.status || res.status !== 200 || res.data.success === false) {
           // If there was a problem, we want to
           // dispatch the error condition
-          dispatch(loginError(user.message))
-          return Promise.reject(user)
+          dispatch(loginError(res.data.message))
+          return Promise.reject(res.data.player)
         } else {
           // If login was successful, set the token in local storage
-          localStorage.setItem('id_token', user.id_token)
+          localStorage.setItem('token', res.data.player.token)
           // Dispatch the success action
-          dispatch(receiveLogin(user))
+          dispatch(receiveLogin(res.data.player))
         }
-      }).catch(err => console.log("Error: ", err))
+      })
+      .catch(err => console.log("Error: ", err))
     }
 }
 
@@ -121,7 +126,7 @@ function receiveLogout() {
 export function logoutUser() {
   return dispatch => {
     dispatch(requestLogout())
-    localStorage.removeItem('id_token')
+    localStorage.removeItem('token')
     dispatch(receiveLogout())
   }
 }
