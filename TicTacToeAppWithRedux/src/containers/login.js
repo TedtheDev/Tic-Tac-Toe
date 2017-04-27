@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import LoadingIcon from '../components/loading';
 
 class LoginScreen extends Component {
   static contextTypes = {
@@ -30,18 +31,18 @@ class LoginScreen extends Component {
     event.preventDefault();
     const creds = { username: this.state.username, password: this.state.password };
     this.props.loginPlayer(creds)
-    //this.context.router.push('/play');
+      .then(() => { this.context.router.push('/play');})
+      .catch()
+
   }
 
   render() {
     if(this.props.isFetching) {
       return (
-        <div>
-          <p>Loading..</p>
-        </div>
+        <LoadingIcon />
       )
     }
-    
+
     return (
       <div>
         <form onSubmit={ this.onLoginSubmit }>
@@ -60,6 +61,7 @@ class LoginScreen extends Component {
             onChange={this.onInputChangePassword}
           />
           <button type="submit" className='btn btn-success'>Login</button>
+          <span>{this.state.errorMessage}</span>
         </form>
       </div>
     );
@@ -68,7 +70,9 @@ class LoginScreen extends Component {
 
 function mapStateToProps(state) {
   return {
-    auth: state.creds
+    isFetching: state.auth.isFetching,
+    isAuthenticated: state.auth.isAuthenticated,
+    errorMessage: state.auth.errorMessage
   };
 }
 

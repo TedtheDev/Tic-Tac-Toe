@@ -15,7 +15,8 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 const ROOT_URL = 'http://localhost:3050/api';
 
 export function fetchChatMessages() {
-  const request = axios.get(`${ROOT_URL}/chatsystem/messages`);
+  const token = localStorage.getItem('token');
+  const request = axios.get(`${ROOT_URL}/chatsystem/messages?token=${token}`);
   return {
     type: FETCH_CHAT_MESSAGES,
     payload: request
@@ -23,7 +24,8 @@ export function fetchChatMessages() {
 }
 
 export function deleteChatMessage(id) {
-  const request = axios.delete(`${ROOT_URL}/chatsystem/messages/${id}`);
+  const token = localStorage.getItem('token');
+  const request = axios.delete(`${ROOT_URL}/chatsystem/messages/${id}?token=${token}`);
   return {
     type: DELETE_CHAT_MESSAGE,
     payload: request
@@ -31,8 +33,8 @@ export function deleteChatMessage(id) {
 }
 
 export function createChatMessage(user, message) {
-  const reqBody = { user: user, message: message };
-  const config = { headers: { "Content-Type": "application/json" } };
+  const token = localStorage.getItem('token');
+  const reqBody = { user: user, message: message, token: token };
   const request = axios.post(`${ROOT_URL}/chatsystem/messages`, reqBody);
   return {
     type: CREATE_CHAT_MESSAGE,
@@ -44,7 +46,6 @@ export function createChatMessage(user, message) {
 // to handle user authentication
 // used in loginUser action creator below
 function requestLogin(creds) {
-  console.log('requestLogin', creds)
   return {
     type: LOGIN_REQUEST,
     isFetching: true,
@@ -54,7 +55,6 @@ function requestLogin(creds) {
 }
 
 function receiveLogin(player) {
-  console.log('receiveLogin', player)
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
@@ -64,12 +64,11 @@ function receiveLogin(player) {
 }
 
 function loginError(message) {
-  console.log('loginError', message)
   return {
     type: LOGIN_FAILURE,
     isFetching: false,
     isAuthenticated: false,
-    message
+    errorMessage: message
   }
 }
 // ----------------------------------
@@ -77,31 +76,27 @@ function loginError(message) {
 // --------
 // handle logging in user
 export function loginPlayer(creds) {
-  console.log('loginPlayer', creds);
   const reqBody = { username: creds.username, password: creds.password };
   const config = { headers: { "Content-Type": "application/json" } };
-  //const request = axios.post(`${ROOT_URL}/login`, reqBody);
-
   return (dispatch) => {
     dispatch(requestLogin(creds))
 
-    setTimeout(console.log('before post authenticate'), 10000);
     return axios.post(`${ROOT_URL}/authenticate`, reqBody)
       .then((res) => {
-        console.log(res)
         if (!res.status || res.status !== 200 || res.data.success === false) {
           // If there was a problem, we want to
           // dispatch the error condition
           dispatch(loginError(res.data.message))
-          return Promise.reject(res.data.player)
+          return Promise.reject();
         } else {
           // If login was successful, set the token in local storage
-          localStorage.setItem('token', res.data.player.token)
+          localStorage.setItem('token', res.data.token);
           // Dispatch the success action
           dispatch(receiveLogin(res.data.player))
+          return Promise.resolve();
         }
       })
-      .catch(err => console.log("Error: ", err))
+      .catch((err) => Promise.reject())
     }
 }
 

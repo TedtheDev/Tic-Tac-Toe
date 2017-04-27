@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/index';
 
-const INITIAL_STATE = { isFetching: false, isAuthenticated: localStorage.getItem('token') ? true : false };
+const INITIAL_STATE = { isFetching: false, isAuthenticated: localStorage.getItem('token') ? true : false, errorMessage: null};
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
