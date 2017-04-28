@@ -1,9 +1,10 @@
 import React from 'react';
+import GameBoard from './gameboard';
 
 const TicTacToeGrid = () => {
   return (
     <div>
-      <p>Tic Tac Toe</p>
+      <GameBoard />
     </div>
   )
 };

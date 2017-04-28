@@ -1,8 +1,39 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
+import { logoutUser } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
 import { Link } from 'react-router';
 
-export default class Navbar extends Component {
+class Navbar extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
+  constructor(props){
+    super(props);
+
+    this.onClickLogoutUser = this.onClickLogoutUser.bind(this);
+  }
+
+  onClickLogoutUser() {
+      this.props.logoutUser();
+      this.context.router.push('/');
+  }
+
   render() {
+
+    let logout = null;
+
+    if(this.state !== null && this.state.isAuthenticated !== null && this.state.isAuthenticated) {
+      logout = (
+        <li>
+          <button onClick={this.onClickLogoutUser} value='Logout'>Logout</button>
+        </li>
+      )
+    } else {
+      logout = <div />
+    }
+
     return (
       <nav className='navbar navbar-inverse'>
         <div className='container-fluid' >
@@ -22,6 +53,7 @@ export default class Navbar extends Component {
               <li>
                 <Link to='/play'>Play</Link>
               </li>
+              {logout}
             </ul>
           </div>
         </div>
@@ -29,3 +61,16 @@ export default class Navbar extends Component {
     )
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    isAuthenticated: state.auth.isAuthenticated,
+    isFetching: state.auth.isFetching
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ logoutUser }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

@@ -3,6 +3,7 @@ import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingIcon from '../components/loading';
+import { Link } from 'react-router';
 
 class LoginScreen extends Component {
   static contextTypes = {
@@ -40,6 +41,14 @@ class LoginScreen extends Component {
     if(this.props.isFetching) {
       return (
         <LoadingIcon />
+      )
+    }
+
+    if(this.props.isAuthenticated) {
+      return (
+        <div>
+          <Link to='/play'>Play a Game</Link>
+        </div>
       )
     }
 

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const secret = require('../creds/secret');
 const ChatSystemController = require('../controllers/chat_system_controllers');
 const AuthenticationController = require('../controllers/authentication_controllers');
+const AccountController = require('../controllers/account_controllers');
 
 module.exports = (app) => {
   // this function adds Access-Control-Allow-Origin to all requests with
@@ -37,21 +38,24 @@ module.exports = (app) => {
           next();
         }
       })
-    } else if(req.path === '/api/authenticate') {
+    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create') {
       next();
     } else {
       return res.status(403).send({ success: false, message: 'No token provided'})
     }
   });
 
+  // chatsystem API
   // routes for the chat system with an api test greeting
   app.get('/api', ChatSystemController.greeting);
   app.get('/api/chatsystem/messages', ChatSystemController.getMessages);
   app.post('/api/chatsystem/messages', ChatSystemController.createMessage);
   app.delete('/api/chatsystem/messages/:id', ChatSystemController.deleteMessage);
 
-  // authentication route
+  // authentication API
   app.post('/api/authenticate', AuthenticationController.getToken);
 
+  // account API
+  app.post('/api/account/create', AccountController.createAccount)
 
 }

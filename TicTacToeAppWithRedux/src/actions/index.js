@@ -119,7 +119,7 @@ function receiveLogout() {
 
 // Logs the user out
 export function logoutUser() {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(requestLogout())
     localStorage.removeItem('token')
     dispatch(receiveLogout())

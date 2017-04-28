@@ -4,18 +4,36 @@ const Schema = mongoose.Schema;
 const PlayerSchema = new Schema({
   name: {
     type: String,
-    required: [true, 'Name is reqruied.']
+    required: [true, 'Name is required.']
   },
   email: {
     type: String,
     required: [true, 'Email is required.']
   },
-  avatar: String,
-  gamesWon: Number,
-  gamesLost: Number,
-  gamesDrawn: Number,
-  username: String,
-  password: String
+  avatar: {
+    type: String,
+    default: 'default avatar url'
+  },
+  gamesWon: {
+    type: Number,
+    default: 0
+  },
+  gamesLost: {
+    type: Number,
+    default: 0
+  },
+  gamesDrawn: {
+    type: Number,
+    default: 0
+  },
+  username: {
+    type: String,
+    required: [true, 'Username is required.']
+  },
+  password: {
+    type: String,
+    required: [true, 'Password is required.']
+  },
 });
 
 PlayerSchema.virtual('gamesPlayed').get(function() {
