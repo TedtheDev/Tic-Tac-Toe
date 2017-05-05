@@ -24,14 +24,14 @@ class Navbar extends Component {
 
     let logout = null;
 
-    if(this.state !== null && this.state.isAuthenticated !== null && this.state.isAuthenticated) {
+    if(this.props.isAuthenticated) {
       logout = (
         <li>
           <button onClick={this.onClickLogoutUser} value='Logout'>Logout</button>
         </li>
       )
     } else {
-      logout = <div />
+      logout = <li></li>
     }
 
     return (

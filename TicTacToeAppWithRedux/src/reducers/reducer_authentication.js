@@ -24,7 +24,7 @@ export default function(state = INITIAL_STATE, action) {
       });
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
-        isFetching: true,
+        isFetching: false,
         isAuthenticated: false
       })
     default:

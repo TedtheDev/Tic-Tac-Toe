@@ -12,6 +12,8 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
+export const CREATING_PLAYER = 'CREATING_PLAYER';
+
 const ROOT_URL = 'http://localhost:3050/api';
 
 export function fetchChatMessages() {
@@ -41,6 +43,21 @@ export function createChatMessage(user, message) {
     payload: request
   }
 }
+
+
+// handle account creation
+// ----
+export function createPlayer(player) {
+  const { firstname, lastname, password, username, email } = player;
+  const reqBody = { firstname, lastname, password, username, email}
+  const request = axios.post(`${ROOT_URL}/account/create/${id}?token=${token}`, reqBody);
+  return {
+    type: CREATING_PLAYER,
+    payload: request
+  }
+}
+
+
 
 // ------------------------------
 // to handle user authentication

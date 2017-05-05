@@ -44,7 +44,7 @@ class LoginScreen extends Component {
       )
     }
 
-    if(this.props.isAuthenticated) {
+    if(this.props.isAuthenticated === true) {
       return (
         <div>
           <Link to='/play'>Play a Game</Link>
