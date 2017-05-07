@@ -3,7 +3,7 @@ import GameBoard from './gameboard';
 
 const TicTacToeGrid = () => {
   return (
-    <div>
+    <div style={{height: "100%"}}>
       <GameBoard />
     </div>
   )

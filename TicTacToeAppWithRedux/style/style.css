@@ -1,3 +1,46 @@
 html, body, .container {
   height: 100%;
 }
+
+.gameboard {
+  display: grid;
+  grid: "col1row1 col2row1 col3row1" 33%
+        "col1row2 col2row2 col3row2" 33%
+        "col1row3 col2row3 col3row3" 33%
+        / 33% 33% 33%;
+  grid-gap: 10px 10px;
+  background: #4286f4;
+  height: 100%;
+}
+
+.gameboard > [class^="col-"] {
+  color: white;
+  background: #89b2f4;
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+.col-1 {
+  grid-column: 1 / 2;
+  background: #89b2f4;
+}
+
+.col-2 {
+  grid-column: 2 / 3;
+}
+
+.col-3 {
+  grid-column: 3 / auto;
+}
+
+.row-1 {
+  grid-row: 1 / 2;
+}
+
+.row-2 {
+  grid-row: 2 / 3;
+}
+
+.row-3 {
+  grid-row: 3 / auto;
+}

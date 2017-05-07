@@ -6,23 +6,17 @@ import { bindActionCreators } from 'redux';
 class GameBoard extends Component {
   render() {
     return (
-      <div>
+      <div style={{height:"100%"}}>
         <div className='gameboard'>
-          <div className='row-1'>
-            <div>X</div>
-            <div>X</div>
-            <div>O</div>
-          </div>
-          <div className='row-2'>
-            <div>O</div>
-            <div>X</div>
-            <div>X</div>
-          </div>
-          <div className='row-3'>
-            <div>X</div>
-            <div>O</div>
-            <div>O</div>
-          </div>
+          <div className='col-1 row-1'>col1row1</div>
+          <div className='col-1 row-2'>col1row2</div>
+          <div className='col-1 row-3'>col1row3</div>
+          <div className='col-2 row-1'>col2row1</div>
+          <div className='col-2 row-2'>col2row2</div>
+          <div className='col-2 row-3'>col2row3</div>
+          <div className='col-3 row-1'>col3row1</div>
+          <div className='col-3 row-2'>col3row2</div>
+          <div className='col-3 row-3'>col3row3</div>
         </div>
       </div>
     )

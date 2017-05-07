@@ -23,7 +23,7 @@ class Play extends Component {
         </div>
         <div className='row' style={setHeight(50)}>
           <div className='col-xs-2'></div>
-          <div className='col-xs-8'><TicTacToeGrid /></div>
+          <div className='col-xs-8' style={{height:"100%"}}><TicTacToeGrid /></div>
           <div className='col-xs-2'></div>
         </div>
       </div>
