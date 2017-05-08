@@ -48,9 +48,10 @@ export function createChatMessage(user, message) {
 // handle account creation
 // ----
 export function createPlayer(player) {
+  console.log(player);
   const { firstname, lastname, password, username, email } = player;
   const reqBody = { firstname, lastname, password, username, email}
-  const request = axios.post(`${ROOT_URL}/account/create/${id}?token=${token}`, reqBody);
+  const request = axios.post(`${ROOT_URL}/account/create`, reqBody);
   return {
     type: CREATING_PLAYER,
     payload: request

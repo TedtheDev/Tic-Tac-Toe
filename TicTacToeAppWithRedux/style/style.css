@@ -1,6 +1,7 @@
-html, body, .container {
+html, body, .container-fluid, .jumbotron {
   height: 100%;
 }
+
 
 .gameboard {
   display: grid;
@@ -21,12 +22,11 @@ html, body, .container {
 }
 
 .col-1 {
-  grid-column: 1 / 2;
-  background: #89b2f4;
+  grid-column: 1 / auto;
 }
 
 .col-2 {
-  grid-column: 2 / 3;
+  grid-column: 2 / auto;
 }
 
 .col-3 {
@@ -34,13 +34,51 @@ html, body, .container {
 }
 
 .row-1 {
-  grid-row: 1 / 2;
+  grid-row: 1 / auto;
 }
 
 .row-2 {
-  grid-row: 2 / 3;
+  grid-row: 2 / auto;
 }
 
 .row-3 {
   grid-row: 3 / auto;
+}
+
+.message-board {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: blue;
+}
+
+.message-bubble {
+  width: 50%;
+  height: 100%;
+  background: green;
+  position: relative;
+}
+
+.message-bubble .time {
+  position: absolute;
+  top: 60%;
+  right: 0px;
+}
+
+.message-bubble .message {
+  word-wrap: break-word;
+}
+
+.message-bubble .delete {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
+}
+
+.message-bubble i {
+  border: 1px solid #000;
+  border-radius: 4px;
+  width: auto;
+  height: auto;
 }

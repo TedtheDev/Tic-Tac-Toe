@@ -7,7 +7,7 @@ class App extends Component {
     return(
       <div style={ styles.mainHeight }>
         <Navbar />
-        <div className='container-fluid' style={ styles.mainHeight }>
+        <div className='' style={ styles.mainHeight }>
           {React.cloneElement(this.props.children, {key: this.props.location.pathname})}
         </div>
       </div>

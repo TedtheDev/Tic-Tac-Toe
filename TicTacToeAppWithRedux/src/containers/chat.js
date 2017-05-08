@@ -5,24 +5,25 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash'
 
 import CreateChatMessage from './create_chat_message';
+import LoadingIcon from '../components/loading'
 
 class Chat extends Component {
   componentDidMount() {
-    setTimeout(this.props.fetchChatMessages());
+    this.props.fetchChatMessages();
   }
 
   renderChatMessages(messages) {
-    return this.props.messages.map((message) => {
+    return messages.map((message) => {
       return (
-        <div key={message._id} style={{border: '1px solid red' }}>
-          <p>{message.user}</p>
-          <p>{message.date}</p>
-          <p>{message.message}</p>
-          <button
-            className='btn btn-danger'
+        <div key={message._id} className='message-bubble' style={{border: '1px solid red' }}>
+          <p className="player">{message.user}</p>
+          <p className="time">{message.date}</p>
+          <p className="message">{message.message}</p>
+          <div
+            className='delete'
             onClick={this.onDeleteMessage.bind(this, message._id)}>
-            Delete
-          </button>
+            <i className="fa fa-times fa-2x"></i>
+          </div>
         </div>
       );
     });
@@ -34,24 +35,24 @@ class Chat extends Component {
   }
 
   render() {
-    if(this.props.messages === null) {
+    if(this.props.messages !== null && this.props.messages.length > 0) {
+      return (
+        <div style={{height: '100%'}}>
+          <div className="message-board" style={{overflowY: 'scroll', height: '100%'}}>
+            {this.renderChatMessages(this.props.messages)}
+          </div>
+          <CreateChatMessage />
+        </div>
+      )
+    } else {
       return (
         <div style={{height: '100%'}}>
           <div style={{overflow: 'auto', height: '100%'}}>
-            Loading Messages...
+            <LoadingIcon />
           </div>
         </div>
       )
     }
-
-    return (
-      <div style={{height: '100%'}}>
-        <div style={{overflow: 'scroll', height: '100%'}}>
-          {this.renderChatMessages()}
-        </div>
-        <CreateChatMessage />
-      </div>
-    );
   };
 };
 

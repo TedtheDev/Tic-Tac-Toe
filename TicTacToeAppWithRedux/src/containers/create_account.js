@@ -1,9 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createPlayer } from '../actions/index';
 import { bindActionCreators } from 'redux'
 
 class CreateAccount extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
   constructor(props) {
     super(props);
     this.state = ({
@@ -15,7 +19,7 @@ class CreateAccount extends Component {
       confirmPassword: '',
     });
 
-    this.onSubmitCreateForm = this.onSubmitCreateForm.bind(this);
+    this.onSubmitCreateAccount = this.onSubmitCreateAccount.bind(this);
 
     this.onInputChangeFirstName = this.onInputChangeFirstName.bind(this);
     this.onInputChangeLastName = this.onInputChangeLastName.bind(this);
@@ -25,7 +29,7 @@ class CreateAccount extends Component {
     this.onInputChangeConfirmPassword = this.onInputChangeConfirmPassword.bind(this);
   }
 
-  onSubmitCreateForm(event) {
+  onSubmitCreateAccount(event) {
     event.preventDefault();
     const newPlayer = {
         firstName: this.state.firstName,
@@ -36,6 +40,7 @@ class CreateAccount extends Component {
     };
 
     this.props.createPlayer(newPlayer);
+      this.context.router.push('/play');
 
   }
 
@@ -62,7 +67,7 @@ class CreateAccount extends Component {
     return(
       <div>
         <h2>Create Your Account</h2>
-        <form onSubmit={this.onSubmitCreateForm}>
+        <form onSubmit={this.onSubmitCreateAccount}>
           <label>First Name: </label>
           <input
             type="text"
