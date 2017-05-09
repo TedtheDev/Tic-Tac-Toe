@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchChatMessages, deleteChatMessage } from '../actions/index';
 import { bindActionCreators } from 'redux';
-import _ from 'lodash'
+
 
 import CreateChatMessage from './create_chat_message';
 import LoadingIcon from '../components/loading'

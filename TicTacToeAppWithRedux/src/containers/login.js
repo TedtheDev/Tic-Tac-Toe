@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingIcon from '../components/loading';
 import { Link } from 'react-router';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 class LoginScreen extends Component {
   static contextTypes = {
@@ -55,22 +58,23 @@ class LoginScreen extends Component {
     return (
       <div>
         <form onSubmit={ this.onLoginSubmit }>
-          <label>Login: </label>
-          <input
-            type='text'
-            value={this.state.username}
-            placeholder='Username'
-            onChange={this.onInputChangeUsername}
-          />
-          <label>Password: </label>
-          <input
-            type='password'
-            value={this.state.password}
-            placeholder='Password'
-            onChange={this.onInputChangePassword}
-          />
-          <button type="submit" className='btn btn-success'>Login</button>
-          <span>{this.state.errorMessage}</span>
+          <Paper zDepth={2} style={{display:"flex", flexDirection:"column"}}>
+            <TextField
+              type='text'
+              floatingLabelText="Username"
+              value={this.state.username}
+              onChange={this.onInputChangeUsername}
+            />
+            <TextField
+              type='password'
+              floatingLabelText="Password"
+              value={this.state.password}
+              onChange={this.onInputChangePassword}
+              errorText=""
+            />
+            <span>{this.state.errorMessage}</span>
+          </Paper>
+          <RaisedButton type='submit' primary={true} label='Login' />
         </form>
       </div>
     );

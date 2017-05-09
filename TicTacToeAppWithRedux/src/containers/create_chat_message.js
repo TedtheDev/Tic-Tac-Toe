@@ -3,7 +3,9 @@ import { createChatMessage } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm } from 'redux-form';
-import _  from 'lodash';
+import _ from 'lodash';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 const FIELDS = {
   message: {
@@ -37,12 +39,12 @@ class CreateChatMessage extends Component {
     return (
       <div>
         <form onSubmit={ this.onFormSubmitCreateMessage}>
-          <label>Message:</label>
-          <input
+          <TextField
+            type="text"
             value={this.state.messageToSend}
-            placeholder='Enter Message'
+            floatingLabelText="Enter Message"
             onChange={this.onInputChangeMessage}/>
-          <button type='submit' className='btn btn-success'>Send</button>
+          <RaisedButton type='submit' label="Send" />
         </form>
       </div>
     );
