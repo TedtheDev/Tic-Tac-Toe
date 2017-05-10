@@ -3,25 +3,24 @@ const secret = require('../creds/secret');
 const ChatSystemController = require('../controllers/chat_system_controllers');
 const AuthenticationController = require('../controllers/authentication_controllers');
 const AccountController = require('../controllers/account_controllers');
+const cors = require('cors');
 
 module.exports = (app) => {
   // this function adds Access-Control-Allow-Origin to all requests with
   // GET PUT POST DELETE and OPTIONS
-  const allowCrossDomain = function(req, res, next) {
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
 
-      // intercept OPTIONS method
-      if ('OPTIONS' == req.method) {
-        res.sendStatus(200);
-      } else {
-        next();
-      }
+  const whitelist = (process.env.NODE_ENV === 'Dev' ) ? ['http://localhost:8080'] : [];
+  const corsOptionsDelegate = function (req, callback) {
+    let corsOptions;
+    if (whitelist.indexOf(req.header('Origin')) !== -1) {
+      corsOptions = { origin: true, credentials: true } // reflect (enable) the requested origin in the CORS response
+    }else{
+      corsOptions = { origin: false, credentials: false } // disable CORS for this request
+    }
+    callback(null, corsOptions) // callback expects two parameters: error and options
+  }
+  app.use(cors(corsOptionsDelegate));
 
-  };
-
-  app.use(allowCrossDomain);
 
   // Setup middleware to handle that all requests
   // have a token to access
@@ -38,7 +37,7 @@ module.exports = (app) => {
           next();
         }
       })
-    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create') {
+    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create' || req.path === '/') {
       next();
     } else {
       return res.status(403).send({ success: false, message: 'No token provided'})

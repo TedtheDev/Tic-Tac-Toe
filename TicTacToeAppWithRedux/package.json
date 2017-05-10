@@ -32,7 +32,7 @@
     "axios": "^0.15.3",
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.17.1",
-    "express-session": "^1.15.2",
+    "cors": "^2.8.3",
     "jsonwebtoken": "^7.3.0",
     "lodash": "^3.10.1",
     "material-ui": "^0.18.0",
@@ -40,15 +40,18 @@
     "nodemon": "^1.11.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^4.0.0",
     "react-router": "^2.0.1",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.0.4",
-    "redux-form": "^6.6.1",
+    "redux-form": "^6.7.0",
     "redux-promise": "^0.5.3",
     "redux-thunk": "^2.2.0",
-    "snapsvg": "^0.5.1"
+    "snapsvg": "^0.5.1",
+    "socket.io": "^2.0.1",
+    "socket.io-client": "^2.0.1"
   }
 }
