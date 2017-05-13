@@ -1,4 +1,4 @@
-html, body, .container-fluid, .jumbotron {
+html, body, .app {
   height: 100%;
 }
 
@@ -81,4 +81,39 @@ html, body, .container-fluid, .jumbotron {
   border-radius: 4px;
   width: auto;
   height: auto;
+}
+
+.container-grid {
+  display: grid;
+  grid-template-columns: 16.67% 16.67% 16.67% 16.67% 16.67% 16.67%;
+  grid-template-rows: 10% 80% 10%;
+  grid-template-areas: "header header header header header header"
+        ". main main main main ."
+        "footer footer footer footer footer footer";
+  background: #d4005f;
+  height: 100%;
+  /*
+  #d4a600
+  */
+}
+
+.main {
+  grid-area: main;
+  justify-items: center;
+}
+
+.navbar-wrapper {
+  grid-area: header;
+}
+
+.create-account {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.create-account > form {
+  display: flex;
+  flex-direction: column;
 }

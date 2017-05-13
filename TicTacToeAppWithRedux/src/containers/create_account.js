@@ -1,7 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createPlayer } from '../actions/index';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 class CreateAccount extends Component {
   static contextTypes = {
@@ -65,46 +68,48 @@ class CreateAccount extends Component {
 
   render() {
     return(
-      <div>
+      <div className="create-account">
         <h2>Create Your Account</h2>
         <form onSubmit={this.onSubmitCreateAccount}>
-          <label>First Name: </label>
-          <input
-            type="text"
-            onChange={this.onInputChangeFirstName}
-            value={this.state.firstName}
-          />
-          <label>Last name: </label>
-          <input
-            type="text"
-            onChange={this.onInputChangeLastName}
-            value={this.state.lastName}
-          />
-          <label>Email: </label>
-          <input
-            type="text"
-            onChange={this.onInputChangeEmail}
-            value={this.state.email}
-          />
-          <label>Username: </label>
-          <input
-            type="text"
-            onChange={this.onInputChangeUsername}
-            value={this.state.username}
-          />
-          <label>Password: </label>
-          <input
-            type="password"
-            onChange={this.onInputChangePassword}
-            value={this.state.password}
-          />
-          <label>Confirm Password: </label>
-          <input
-            type="password"
-            onChange={this.onInputChangeConfirmPassword}
-            value={this.state.confirmPassword}
-          />
-          <button type="submit" className='btn btn-success'>Create Account</button>
+          <Paper>
+            <TextField
+              type="text"
+              floatingLabelText="First Name"
+              onChange={this.onInputChangeFirstName}
+              value={this.state.firstName}
+            />
+            <TextField
+              type="text"
+              floatingLabelText="Last Name"
+              onChange={this.onInputChangeLastName}
+              value={this.state.lastName}
+            />
+            <TextField
+              type="text"
+              floatingLabelText="Email"
+              onChange={this.onInputChangeEmail}
+              value={this.state.email}
+            />
+            <TextField
+              type="text"
+              floatingLabelText="Username"
+              onChange={this.onInputChangeUsername}
+              value={this.state.username}
+            />
+            <TextField
+              type="password"
+              floatingLabelText="Password"
+              onChange={this.onInputChangePassword}
+              value={this.state.password}
+            />
+            <TextField
+              type="password"
+              floatingLabelText="Confirm Password"
+              onChange={this.onInputChangeConfirmPassword}
+              value={this.state.confirmPassword}
+            />
+            <RaisedButton type="submit" primary={true} label='Create Account' />
+          </Paper>
         </form>
       </div>
     );

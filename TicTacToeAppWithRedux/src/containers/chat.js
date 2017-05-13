@@ -35,7 +35,7 @@ class Chat extends Component {
   }
 
   render() {
-    if(this.props.messages !== null && this.props.messages.length > 0) {
+    if(this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length > 0) {
       return (
         <div style={{height: '100%'}}>
           <div className="message-board" style={{overflowY: 'scroll', height: '100%'}}>

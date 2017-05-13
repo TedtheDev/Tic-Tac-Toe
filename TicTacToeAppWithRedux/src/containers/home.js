@@ -45,7 +45,7 @@ class Home extends Component {
 
   render() {
     return(
-      <div className='jumbotron'>
+      <div className='home'>
         <h1>Welcome to Tic-Tac-Toe with Socket.IO!</h1>
         <p>Click to Login or Sign Up for an Account to get started playing with your friends</p>
         <div>

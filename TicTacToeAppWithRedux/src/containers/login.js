@@ -58,7 +58,7 @@ class LoginScreen extends Component {
     return (
       <div>
         <form onSubmit={ this.onLoginSubmit }>
-          <Paper zDepth={2} style={{display:"flex", flexDirection:"column"}}>
+          <Paper zDepth={5} style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
             <TextField
               type='text'
               floatingLabelText="Username"

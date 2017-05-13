@@ -25,4 +25,4 @@ ReactDOM.render(
         <Router history={browserHistory} routes={routes} />
     </Provider>
   </MuiThemeProvider>
-  , document.querySelector('.container-fluid'));
+  , document.querySelector('.app'));

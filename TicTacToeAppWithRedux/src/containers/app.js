@@ -5,9 +5,9 @@ import styles from '../../style/stylejs';
 class App extends Component {
   render() {
     return(
-      <div style={ styles.mainHeight }>
+      <div className="container-grid">
         <Navbar />
-        <div className='' style={ styles.mainHeight }>
+        <div className='main' >
           {React.cloneElement(this.props.children, {key: this.props.location.pathname})}
         </div>
       </div>

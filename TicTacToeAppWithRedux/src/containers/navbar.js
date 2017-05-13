@@ -3,6 +3,7 @@ import { logoutUser } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router';
+import AppBar from 'material-ui/AppBar';
 
 class Navbar extends Component {
   static contextTypes = {
@@ -35,29 +36,11 @@ class Navbar extends Component {
     }
 
     return (
-      <nav className='navbar navbar-inverse'>
-        <div className='container-fluid' >
-          <div className='navbar-header'>
-            <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
-              <span className='icon-bar'></span>
-              <span className='icon-bar'></span>
-              <span className='icon-bar'></span>
-            </button>
-            <Link className='navbar-brand' to='/'>Tic Tac Toe</Link>
-          </div>
-          <div className='collapse navbar-collapse' id='myNavbar'>
-            <ul className='nav navbar-nav'>
-              <li className='active'>
-                <Link to='/'>Home</Link>
-              </li>
-              <li>
-                <Link to='/play'>Play</Link>
-              </li>
-              {logout}
-            </ul>
-          </div>
-        </div>
-      </nav>
+      <div className="navbar-wrapper">
+        <AppBar
+          title="Tic Tac Toe"
+        />
+      </div>
     )
   }
 }
@@ -74,3 +57,31 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
+
+
+
+/*
+  <nav className='navbar navbar-inverse'>
+    <div className='container-fluid' >
+      <div className='navbar-header'>
+        <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
+          <span className='icon-bar'></span>
+          <span className='icon-bar'></span>
+          <span className='icon-bar'></span>
+        </button>
+        <Link className='navbar-brand' to='/'>Tic Tac Toe</Link>
+      </div>
+      <div className='collapse navbar-collapse' id='myNavbar'>
+        <ul className='nav navbar-nav'>
+          <li className='active'>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/play'>Play</Link>
+          </li>
+          {logout}
+        </ul>
+      </div>
+    </div>
+  </nav>
+*/
