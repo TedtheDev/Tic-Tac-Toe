@@ -4,6 +4,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
 import { Link } from 'react-router';
 import AppBar from 'material-ui/AppBar';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import Paper from 'material-ui/Paper';
+import Drawer from 'material-ui/Drawer';
+import NavbarRightElement from './navbarrightelement';
 
 class Navbar extends Component {
   static contextTypes = {
@@ -13,33 +18,63 @@ class Navbar extends Component {
   constructor(props){
     super(props);
 
-    this.onClickLogoutUser = this.onClickLogoutUser.bind(this);
+    this.state =({
+      drawerOpen: false
+    })
+
+    this.onTitleTouchTap = this.onTitleTouchTap.bind(this);
+    this.onLeftIconButtonTouchTapMenu = this.onLeftIconButtonTouchTapMenu.bind(this);
+    this.onTouchTapDrawerClose = this.onTouchTapDrawerClose.bind(this);
+    this.onDrawerClose = this.onDrawerClose.bind(this);
   }
 
-  onClickLogoutUser() {
-      this.props.logoutUser();
-      this.context.router.push('/');
+  onTitleTouchTap() {
+    this.context.router.push('/');
+  }
+
+  onLeftIconButtonTouchTapMenu() {
+    this.setState({drawerOpen: true})
+  }
+
+  onTouchTapDrawerClose() {
+    this.setState({drawerOpen: false})
+  }
+
+  onDrawerClose() {
+    this.setState({drawerOpen: false})
   }
 
   render() {
-
-    let logout = null;
-
-    if(this.props.isAuthenticated) {
-      logout = (
-        <li>
-          <button onClick={this.onClickLogoutUser} value='Logout'>Logout</button>
-        </li>
-      )
-    } else {
-      logout = <li></li>
-    }
+    const linkStyle = {textDecoration:"none"};
 
     return (
       <div className="navbar-wrapper">
         <AppBar
-          title="Tic Tac Toe"
+          title={<span style={{cursor:"pointer"}}>Tic Tac Toe</span>}
+          onTitleTouchTap={this.onTitleTouchTap}
+          onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
+          iconElementRight={<NavbarRightElement/>}//this.state.isAuthenticated === true ? <LogoutButton /> : <p>why</p>}
         />
+        <Drawer
+          open={this.state.drawerOpen}
+          docked={false}
+          onRequestChange={this.onDrawerClose}
+        >
+          <Link style={linkStyle} to='/account'>
+            <MenuItem
+              onTouchTap={this.onTouchTapDrawerClose}
+            >
+              Create Account
+            </MenuItem>
+          </Link>
+          <Link style={linkStyle} to="/play">
+            <MenuItem
+              onTouchTap={this.onTouchTapDrawerClose}
+            >
+              Play
+            </MenuItem>
+          </Link>
+        </Drawer>
       </div>
     )
   }
@@ -57,31 +92,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navbar)
-
-
-
-/*
-  <nav className='navbar navbar-inverse'>
-    <div className='container-fluid' >
-      <div className='navbar-header'>
-        <button type='button' className='navbar-toggle' data-toggle='collapse' data-target='#myNavbar'>
-          <span className='icon-bar'></span>
-          <span className='icon-bar'></span>
-          <span className='icon-bar'></span>
-        </button>
-        <Link className='navbar-brand' to='/'>Tic Tac Toe</Link>
-      </div>
-      <div className='collapse navbar-collapse' id='myNavbar'>
-        <ul className='nav navbar-nav'>
-          <li className='active'>
-            <Link to='/'>Home</Link>
-          </li>
-          <li>
-            <Link to='/play'>Play</Link>
-          </li>
-          {logout}
-        </ul>
-      </div>
-    </div>
-  </nav>
-*/

@@ -36,7 +36,7 @@ class LoginScreen extends Component {
     const creds = { username: this.state.username, password: this.state.password };
     this.props.loginPlayer(creds)
       .then(() => { this.context.router.push('/play');})
-      .catch()
+      .catch((err) => { console.log(err)})
 
   }
 

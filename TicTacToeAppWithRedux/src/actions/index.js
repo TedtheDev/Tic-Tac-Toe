@@ -105,7 +105,7 @@ export function loginPlayer(creds) {
           // If there was a problem, we want to
           // dispatch the error condition
           dispatch(loginError(res.data.message))
-          return Promise.reject();
+          return Promise.reject(res.data.message);
         } else {
           // If login was successful, set the token in local storage
           localStorage.setItem('token', res.data.token);
@@ -114,7 +114,7 @@ export function loginPlayer(creds) {
           return Promise.resolve();
         }
       })
-      .catch((err) => Promise.reject())
+      .catch((err) => Promise.reject(err))
     }
 }
 

@@ -13,13 +13,13 @@ module.exports = (app) => {
   const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
     if (whitelist.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true, credentials: true } // reflect (enable) the requested origin in the CORS response
+      corsOptions = { origin: true, credentials: true, preflightContinue: true } // reflect (enable) the requested origin in the CORS response
     }else{
-      corsOptions = { origin: false, credentials: false } // disable CORS for this request
+      corsOptions = { origin: false, credentials: false, preflightContinue: false } // disable CORS for this request
     }
     callback(null, corsOptions) // callback expects two parameters: error and options
   }
-  app.use(cors(corsOptionsDelegate));
+  app.use(cors({ origin: true, credentials: true, preflightContinue: true }));
 
 
   // Setup middleware to handle that all requests

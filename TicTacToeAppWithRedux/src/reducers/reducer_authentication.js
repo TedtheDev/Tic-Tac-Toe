@@ -11,6 +11,7 @@ export default function(state = INITIAL_STATE, action) {
         player: action.creds
       });
     case LOGIN_SUCCESS:
+      console.log(state.isAuthenticated)
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
