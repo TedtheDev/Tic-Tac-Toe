@@ -7,6 +7,8 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import LoginForm from './loginform';
+
 
 class LoginScreen extends Component {
   static contextTypes = {
@@ -57,25 +59,12 @@ class LoginScreen extends Component {
 
     return (
       <div>
-        <form onSubmit={ this.onLoginSubmit }>
-          <Paper zDepth={5} style={{display:"flex", flexDirection:"column", alignItems:"center"}}>
-            <TextField
-              type='text'
-              floatingLabelText="Username"
-              value={this.state.username}
-              onChange={this.onInputChangeUsername}
-            />
-            <TextField
-              type='password'
-              floatingLabelText="Password"
-              value={this.state.password}
-              onChange={this.onInputChangePassword}
-              errorText=""
-            />
-            <span>{this.state.errorMessage}</span>
-          </Paper>
-          <RaisedButton type='submit' primary={true} label='Login' />
-        </form>
+        <LoginForm handleSumbit={ this.onLoginSubmit }
+          username={this.state.username}
+          onInputChangeUsername={this.onInputChangeUsername}
+          password={this.state.password}
+          onInputChangePassword={this.onInputChangePassword}
+        />
       </div>
     );
   };
@@ -94,3 +83,25 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
+
+/*
+<form onSubmit={ this.onLoginSubmit }>
+  <Paper zDepth={5} style={paperStyle}>
+    <TextField
+      type='text'
+      floatingLabelText="Username"
+      value={this.state.username}
+      onChange={this.onInputChangeUsername}
+    />
+    <TextField
+      type='password'
+      floatingLabelText="Password"
+      value={this.state.password}
+      onChange={this.onInputChangePassword}
+      errorText=""
+    />
+    <span>{this.state.errorMessage}</span>
+  </Paper>
+  <RaisedButton type='submit' primary={true} label='Login' />
+</form>
+*/
