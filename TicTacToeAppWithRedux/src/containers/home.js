@@ -47,11 +47,7 @@ class Home extends Component {
     return(
       <div className='home'>
         <h1>Welcome to Tic-Tac-Toe with Socket.IO!</h1>
-        <p>Click to Login or Sign Up for an Account to get started playing with your friends</p>
-        <div>
-          <i className="fa fa-sign-in fa-5x" aria-hidden="true"></i>
-          <span>Sign-in</span>
-        </div>
+        <p>Login or create an account to start playing with your friends</p>
         <Link to='/account'>
           <i className="fa fa-user fa-5x" aria-hidden="true"></i>
           <span>Create an Account</span>

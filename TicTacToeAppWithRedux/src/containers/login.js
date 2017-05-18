@@ -59,7 +59,7 @@ class LoginScreen extends Component {
 
     return (
       <div>
-        <LoginForm handleSumbit={ this.onLoginSubmit }
+        <LoginForm onLoginSubmit={ this.onLoginSubmit }
           username={this.state.username}
           onInputChangeUsername={this.onInputChangeUsername}
           password={this.state.password}

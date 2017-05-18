@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, SubmissionError } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -45,14 +45,17 @@ const paperStyle = {
 }
 
 const LoginForm = (props) => {
-  const { handleSumbit, username, onInputChangeUsername, password, onInputChangePassword } = props;
+  const { handleSubmit, onLoginSubmit, username, onInputChangeUsername, password, onInputChangePassword } = props;
   return (
-    <form onSubmit={ handleSumbit }>
+    <form onSubmit={ handleSubmit(onLoginSubmit) }>
       <Paper zDepth={5} style={paperStyle}>
         <Field name='username' username={username} onInputChangeUsername={onInputChangeUsername} component={renderTextField} label='Username' />
         <Field name='password' password={password} onInputChangePassword={onInputChangePassword} component={renderTextFieldPassword} label='Password' />
+        <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
+            <RaisedButton type='submit' primary={true} label='Login' />
+            <RaisedButton type='button' secondary={true} label='Forgot Password' />
+        </div>
       </Paper>
-      <RaisedButton type='submit' primary={true} label='Login' />
     </form>
   )
 
