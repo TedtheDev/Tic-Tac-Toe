@@ -4,6 +4,14 @@ import { } from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 class GameBoard extends Component {
+  constructor(props) {
+    super(props)
+
+  }
+
+  placeX(event){
+  }
+
   render() {
     return (
       <div style={{height:"100%"}}>

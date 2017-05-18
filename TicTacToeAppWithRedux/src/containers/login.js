@@ -33,8 +33,7 @@ class LoginScreen extends Component {
       this.setState({ password: event.target.value})
   }
 
-  onLoginSubmit(event) {
-    event.preventDefault();
+  onLoginSubmit() {
     const creds = { username: this.state.username, password: this.state.password };
     this.props.loginPlayer(creds)
       .then(() => { this.context.router.push('/play');})
@@ -83,25 +82,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
-
-/*
-<form onSubmit={ this.onLoginSubmit }>
-  <Paper zDepth={5} style={paperStyle}>
-    <TextField
-      type='text'
-      floatingLabelText="Username"
-      value={this.state.username}
-      onChange={this.onInputChangeUsername}
-    />
-    <TextField
-      type='password'
-      floatingLabelText="Password"
-      value={this.state.password}
-      onChange={this.onInputChangePassword}
-      errorText=""
-    />
-    <span>{this.state.errorMessage}</span>
-  </Paper>
-  <RaisedButton type='submit' primary={true} label='Login' />
-</form>
-*/

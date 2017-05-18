@@ -19,7 +19,8 @@ class Navbar extends Component {
     super(props);
 
     this.state =({
-      drawerOpen: false
+      drawerOpen: false,
+      showMenuIconButton: false
     })
 
     this.onTitleTouchTap = this.onTitleTouchTap.bind(this);
@@ -50,6 +51,7 @@ class Navbar extends Component {
     return (
       <div className="navbar-wrapper">
         <AppBar
+          showMenuIconButton={this.state.showMenuIconButton}
           title={<span style={{cursor:"pointer"}}>Tic Tac Toe</span>}
           onTitleTouchTap={this.onTitleTouchTap}
           onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
