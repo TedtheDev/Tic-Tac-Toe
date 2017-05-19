@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import { reduxForm } from 'redux-form';
+import CreateAccountForm from './create_account_form'
 
 class CreateAccount extends Component {
   static contextTypes = {
@@ -70,47 +72,21 @@ class CreateAccount extends Component {
     return(
       <div className="create-account">
         <h2>Create Your Account</h2>
-        <form onSubmit={this.onSubmitCreateAccount}>
-          <Paper>
-            <TextField
-              type="text"
-              floatingLabelText="First Name"
-              onChange={this.onInputChangeFirstName}
-              value={this.state.firstName}
-            />
-            <TextField
-              type="text"
-              floatingLabelText="Last Name"
-              onChange={this.onInputChangeLastName}
-              value={this.state.lastName}
-            />
-            <TextField
-              type="text"
-              floatingLabelText="Email"
-              onChange={this.onInputChangeEmail}
-              value={this.state.email}
-            />
-            <TextField
-              type="text"
-              floatingLabelText="Username"
-              onChange={this.onInputChangeUsername}
-              value={this.state.username}
-            />
-            <TextField
-              type="password"
-              floatingLabelText="Password"
-              onChange={this.onInputChangePassword}
-              value={this.state.password}
-            />
-            <TextField
-              type="password"
-              floatingLabelText="Confirm Password"
-              onChange={this.onInputChangeConfirmPassword}
-              value={this.state.confirmPassword}
-            />
-            <RaisedButton type="submit" primary={true} label='Create Account' />
-          </Paper>
-        </form>
+        <CreateAccountForm
+          onSubmitCreateAccount={this.onSubmitCreateAccount}
+          onInputChangeFirstName={this.onInputChangeFirstName}
+          firstName={this.state.firstName}
+          onInputChangeLastName={this.onInputChangeLastName}
+          lastName={this.state.lastName}
+          onInputChangeEmail={this.onInputChangeEmail}
+          email={this.state.email}
+          onInputChangeUsername={this.onInputChangeUsername}
+          username={this.state.username}
+          onInputChangePassword={this.onInputChangePassword}
+          password={this.state.password}
+          onInputChangeConfirmPassword={this.onInputChangeConfirmPassword}
+          confirmPassword={this.state.confirmPassword}
+        />
       </div>
     );
   };
