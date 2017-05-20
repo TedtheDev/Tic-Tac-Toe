@@ -19,14 +19,14 @@ module.exports = (app) => {
     }
     callback(null, corsOptions) // callback expects two parameters: error and options
   }
-  app.use(cors({ origin: true, credentials: true, preflightContinue: true }));
+  app.use(cors({ origin: 'http://localhost:8080', credentials: true, methods: ['GET', 'PUT', 'POST', 'DELETE'] }));
 
 
   // Setup middleware to handle that all requests
   // have a token to access
   app.use((req, res, next) => {
     const token = req.body.token || req.query.token || req.header['x-access-token'];
-
+    console.log(token)
     // check token on request to validate user is authenticated
     if(token && req.path !== '/api/authenticate') {
       jwt.verify(token, secret.theSecret, (err, decoded) => {

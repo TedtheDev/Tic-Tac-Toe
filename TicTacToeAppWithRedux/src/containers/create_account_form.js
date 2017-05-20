@@ -16,7 +16,7 @@ const validate = (values) => {
   ]
   requiredFields.map((field) => {
     if(!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = 'Required';
     }
   });
 
@@ -58,7 +58,8 @@ class CreateAccountForm extends Component {
     return (
       <form onSubmit={handleSubmit(onSubmitCreateAccount)}>
         <Paper zDepth={5} >
-          <Field name="firstName"
+          <Field
+            name="firstName"
             theType="text"
             onInputChange={rest.onInputChangeFirstName}
             theValue={rest.firstName}
