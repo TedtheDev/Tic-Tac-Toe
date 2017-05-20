@@ -19,8 +19,7 @@ class Navbar extends Component {
     super(props);
 
     this.state =({
-      drawerOpen: false,
-      showMenuIconButton: false
+      drawerOpen: false
     })
 
     this.onTitleTouchTap = this.onTitleTouchTap.bind(this);
@@ -51,11 +50,11 @@ class Navbar extends Component {
     return (
       <div className="navbar-wrapper">
         <AppBar
-          showMenuIconButton={this.state.showMenuIconButton}
+          showMenuIconButton={this.props.isAuthenticated}
           title={<span style={{cursor:"pointer"}}>Tic Tac Toe</span>}
           onTitleTouchTap={this.onTitleTouchTap}
           onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
-          iconElementRight={<NavbarRightElement/>}//this.state.isAuthenticated === true ? <LogoutButton /> : <p>why</p>}
+          iconElementRight={(this.props.isAuthenticated) ? <NavbarRightElement/> : <div></div>}//this.state.isAuthenticated === true ? <LogoutButton /> : <p>why</p>}
         />
         <Drawer
           open={this.state.drawerOpen}
