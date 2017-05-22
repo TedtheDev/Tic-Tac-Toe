@@ -58,7 +58,7 @@ class CreateChatMessage extends Component {
 
   render() {
     return (
-      <div>
+      <div style={{height: '20%'}}>
         <form onSubmit={ this.props.handleSubmit(this.onFormSubmitCreateMessage)}>
           <Field
             name="messageToSend"

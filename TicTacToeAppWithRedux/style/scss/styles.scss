@@ -1,0 +1,12 @@
+@import url('./mainpage/mainpage.scss');
+
+$orange: #cf650f;
+
+.orange-class {
+  background: $orange;
+  display: none;
+}
+
+.watcher {
+  display: block;
+}

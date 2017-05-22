@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 
 import CreateChatMessage from './create_chat_message';
-import LoadingIcon from '../components/loading'
+import LoadingIcon from '../components/loadingMaterialUICircular'
 
 class Chat extends Component {
   componentDidMount() {
@@ -37,9 +37,11 @@ class Chat extends Component {
   render() {
     if(this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length > 0) {
       return (
-        <div style={{height: '100%'}}>
-          <div className="message-board" style={{overflowY: 'scroll', height: '100%'}}>
-            {this.renderChatMessages(this.props.messages)}
+        <div style={{height: '80%', display:'flex', flexDirection:'column'}}>
+          <div className="message-board" style={{ height: '100%', width: '100%'}}>
+            <div className='message-board-scroll'>
+              {this.renderChatMessages(this.props.messages)}
+            </div>
           </div>
           <CreateChatMessage />
         </div>
