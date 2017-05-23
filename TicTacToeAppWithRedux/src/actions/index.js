@@ -13,6 +13,8 @@ export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 export const CREATING_PLAYER = 'CREATING_PLAYER';
+export const CREATED_PLAYER_ERROR = 'CREATED_PLAYER_ERROR';
+export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS'
 
 const ROOT_URL = 'http://localhost:3050/api';
 
@@ -49,16 +51,50 @@ export function createChatMessage(user, message) {
 
 // handle account creation
 // ----
+function creatingPlayer() {
+  return {
+    type: CREATING_PLAYER,
+    payload: { isCreating: true, created: false, player: {}, errorMessage: '' }
+  }
+}
+
+function createdPlayerSuccess(player) {
+  return {
+    type: CREATED_PLAYER_SUCCESS,
+    payload: { isCreating: true, created: true, player: player, errorMessage: '' }
+  }
+}
+
+function createdPlayerError(errorMessage) {
+  return {
+    type: CREATED_PLAYER_ERROR,
+    payload: { isCreating: false, created: false, player: {}, errorMessage: errorMessage }
+  }
+}
+
 export function createPlayer(player) {
-  console.log(player);
   const { firstname, lastname, password, username, email } = player;
   const reqBody = { firstname, lastname, password, username, email}
-  const request = axios.post(`${ROOT_URL}/account/create`, reqBody);
+  return (dispatch) => {
+    dispatch(creatingPlayer());
+    return axios.post(`${ROOT_URL}/account/create`, reqBody)
+      .then((request) => {
+        const { data } = request
+        if(data.success) {
+          dispatch(createdPlayerSuccess(data.player));
+        } else if(!data.success) {
+          dispatch(createdPlayerError(data.message));
+        }
+      })
+      .catch((err) => { dispatch(createdPlayerError(err)) })
+  }
+
   return {
     type: CREATING_PLAYER,
     payload: request
   }
 }
+
 
 
 
@@ -84,11 +120,10 @@ function receiveLogin(player) {
 }
 
 function loginError(message) {
+  const payload = { isFetching: false, isAuthenticated: false, errorMessage: message };
   return {
     type: LOGIN_FAILURE,
-    isFetching: false,
-    isAuthenticated: false,
-    errorMessage: message
+    payload: payload
   }
 }
 // ----------------------------------
@@ -107,16 +142,14 @@ export function loginPlayer(creds) {
           // If there was a problem, we want to
           // dispatch the error condition
           dispatch(loginError(res.data.message))
-          return Promise.reject(res.data.message);
         } else {
           // If login was successful, set the token in local storage
           localStorage.setItem('token', res.data.token);
           // Dispatch the success action
           dispatch(receiveLogin(res.data.player))
-          return Promise.resolve();
         }
       })
-      .catch((err) => Promise.reject(err))
+      .catch((err) => dispatch(loginError(err)))
     }
 }
 

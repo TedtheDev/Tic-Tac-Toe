@@ -6,7 +6,7 @@ module.exports = {
     Player.findOne({ username: body.username })
       .then((player) => {
         if(player !== null) {
-          res.json({message: 'Player already exists. Create a new Username.'});
+          res.json({success: false, message: 'Player already exists. Create a new Username.'});
         } else {
           const newPlayer = new Player({
             name: `${body.firstname} ${body.lastname}`,
@@ -16,11 +16,11 @@ module.exports = {
           })
           newPlayer.save()
             .then((player) => {
-              res.json({message: 'Player Created', player: player})
+              res.json({success: true, message: 'Player Created', player: player})
             })
-            .catch((err) => res.json(err))
+            .catch((err) => res.json({success: false, message: err}))
         }
       })
-      .catch((err) => res.json(err))
+      .catch((err) => res.json({success: false, message: err}))
   }
 }

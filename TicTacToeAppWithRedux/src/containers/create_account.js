@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import { reduxForm } from 'redux-form';
 import CreateAccountForm from './create_account_form'
+import LoadingCircle from '../components/loadingMaterialUICircular';
 
 class CreateAccount extends Component {
   static contextTypes = {
@@ -35,7 +36,6 @@ class CreateAccount extends Component {
   }
 
   onSubmitCreateAccount(event) {
-    event.preventDefault();
     const newPlayer = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -45,7 +45,6 @@ class CreateAccount extends Component {
     };
 
     this.props.createPlayer(newPlayer);
-      this.context.router.push('/play');
 
   }
 
@@ -68,7 +67,18 @@ class CreateAccount extends Component {
       this.setState({ confirmPassword: event.target.value });
   }
 
+  renderErrorMessage(errorMessage) {
+    return (
+      <div>{errorMessage}</div>
+    )
+  }
+
   render() {
+    if(this.props.isCreating) {
+      return (
+        <LoadingCircle />
+      )
+    }
     return(
       <div className="create-account">
         <h2>Create Your Account</h2>
@@ -86,6 +96,7 @@ class CreateAccount extends Component {
           password={this.state.password}
           onInputChangeConfirmPassword={this.onInputChangeConfirmPassword}
           confirmPassword={this.state.confirmPassword}
+          errorMessage={this.props.errorMessage}
         />
       </div>
     );
@@ -95,7 +106,9 @@ class CreateAccount extends Component {
 function mapStateToProps(state) {
   return {
     isCreating: state.account.isCreating,
-    created: state.account.created
+    created: state.account.created,
+    player: state.account.player,
+    errorMessage: state.account.errorMessage
   }
 }
 

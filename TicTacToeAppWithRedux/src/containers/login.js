@@ -35,11 +35,17 @@ class LoginScreen extends Component {
 
   onLoginSubmit() {
     const creds = { username: this.state.username, password: this.state.password };
-    this.props.loginPlayer(creds)
-      .then(() => { this.context.router.push('/play');})
-      .catch((err) => { console.log(err)})
+    this.props.loginPlayer(creds) /*
+      .then(() => {
+        console.log(this.props.isAuthenticated)
+        if(this.props.isAuthenticated) {
+          this.context.router.push('/play');
+        }
+      })
+      .catch((err) => { console.log(err)}) */
 
   }
+
 
   render() {
     if(this.props.isFetching) {
@@ -63,6 +69,7 @@ class LoginScreen extends Component {
           onInputChangeUsername={this.onInputChangeUsername}
           password={this.state.password}
           onInputChangePassword={this.onInputChangePassword}
+          errorMessage={this.props.errorMessage}
         />
       </div>
     );

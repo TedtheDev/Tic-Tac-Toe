@@ -48,14 +48,25 @@ class LoginForm extends Component {
   constructor(props) {
     super(props);
 
+    this.renderErrorMessage = this.renderErrorMessage.bind(this);
   }
+
+  renderErrorMessage(errorMessage) {
+    return (
+      <div style={{color:"#f44336", margin:"5% 0% 1% 0%"}}>
+        <strong>{errorMessage}</strong>
+      </div>
+    )
+  }
+
   render() {
-    const { handleSubmit, onLoginSubmit, username, onInputChangeUsername, password, onInputChangePassword } = this.props;
+    const { handleSubmit, onLoginSubmit, username, onInputChangeUsername, password, onInputChangePassword, errorMessage } = this.props;
     return (
       <form onSubmit={ handleSubmit(onLoginSubmit) }>
         <Paper zDepth={5} style={paperStyle}>
           <Field name='username' username={username} onInputChangeUsername={onInputChangeUsername} component={renderTextField} label='Username' />
           <Field name='password' password={password} onInputChangePassword={onInputChangePassword} component={renderTextFieldPassword} label='Password' />
+          {this.renderErrorMessage(errorMessage) }
           <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
               <RaisedButton type='submit' primary={true} label='Login' />
               <RaisedButton type='button' secondary={true} label='Forgot Password' />

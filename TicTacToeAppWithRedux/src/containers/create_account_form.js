@@ -38,6 +38,7 @@ class CreateAccountForm extends Component {
     super(props);
 
     this.renderTextField = this.renderTextField.bind(this);
+    this.renderErrorMessage = this.renderErrorMessage.bind(this);
   }
 
   renderTextField({input, label, theType, meta: {touched, error}, onInputChange, theValue, ...custom}) {
@@ -50,6 +51,14 @@ class CreateAccountForm extends Component {
         value={theValue}
         onChange={onInputChange}
       />
+    )
+  }
+
+  renderErrorMessage(errorMessage) {
+    return (
+      <div style={{color:"#f44336", margin:"5% 0% 1% 0%"}}>
+        <strong>{errorMessage}</strong>
+      </div>
     )
   }
 
@@ -106,6 +115,7 @@ class CreateAccountForm extends Component {
             component={this.renderTextField}
             label="Confirm Password"
           />
+          {this.renderErrorMessage(rest.errorMessage)}
           <RaisedButton type="submit" primary={true} label='Create Account' />
         </Paper>
       </form>
@@ -117,36 +127,3 @@ export default reduxForm({
   form: "CreateAccountForm",
   validate
 })(CreateAccountForm)
-
-/**
- * <TextField
-   type="text"
-   floatingLabelText="Last Name"
-   onChange={this.onInputChangeLastName}
-   value={this.state.lastName}
- />
- <TextField
-   type="text"
-   floatingLabelText="Email"
-   onChange={this.onInputChangeEmail}
-   value={this.state.email}
- />
- <TextField
-   type="text"
-   floatingLabelText="Username"
-   onChange={this.onInputChangeUsername}
-   value={this.state.username}
- />
- <TextField
-   type="password"
-   floatingLabelText="Password"
-   onChange={this.onInputChangePassword}
-   value={this.state.password}
- />
- <TextField
-   type="password"
-   floatingLabelText="Confirm Password"
-   onChange={this.onInputChangeConfirmPassword}
-   value={this.state.confirmPassword}
- />
- */
