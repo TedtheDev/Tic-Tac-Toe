@@ -45,14 +45,10 @@ html, body, .app {
 }
 
 .message-board {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
+  overflow-y: auto;
 }
 
 .message-board-scroll {
-  overflow-y: auto;
 }
 
 .message-bubble {

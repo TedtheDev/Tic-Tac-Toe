@@ -26,7 +26,6 @@ module.exports = (app) => {
   // have a token to access
   app.use((req, res, next) => {
     const token = req.body.token || req.query.token || req.header['x-access-token'];
-    console.log(token)
     // check token on request to validate user is authenticated
     if(token && req.path !== '/api/authenticate') {
       jwt.verify(token, secret.theSecret, (err, decoded) => {

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchChatMessages, deleteChatMessage } from '../actions/index';
 import { bindActionCreators } from 'redux';
-
-
 import CreateChatMessage from './create_chat_message';
 import LoadingIcon from '../components/loadingMaterialUICircular'
 
@@ -31,13 +29,12 @@ class Chat extends Component {
 
   onDeleteMessage(id) {
     this.props.deleteChatMessage(id)
-
   }
 
   render() {
     if(this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length > 0) {
       return (
-        <div style={{height: '80%', display:'flex', flexDirection:'column'}}>
+        <div style={{height: '80%'}}>
           <div className="message-board" style={{ height: '100%', width: '100%'}}>
             <div className='message-board-scroll'>
               {this.renderChatMessages(this.props.messages)}

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import promise from 'redux-promise';
-import thunkMiddleware from 'redux-thunk'
+import thunkMiddleware from 'redux-thunk';
 import routes from './routes';
 import reducers from './reducers';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,7 +16,7 @@ injectTapEventPlugin();
 
 const createStoreWithMiddleware = applyMiddleware(
   promise,
-  thunkMiddleware
+  thunkMiddleware,
 )(createStore);
 
 ReactDOM.render(

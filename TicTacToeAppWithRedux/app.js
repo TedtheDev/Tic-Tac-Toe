@@ -39,9 +39,9 @@ io.on('connection', (socket) => {
     console.log('user disconnected');
   });
 
-  socket.on('username', (data) => {
-    socket.broadcast.to(data).emit('recieve username', data);
-  });
+  socket.on('chat message', (data) => {
+    console.log(data);
+  })
 
 })
 

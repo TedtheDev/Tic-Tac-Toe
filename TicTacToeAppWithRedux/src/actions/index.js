@@ -37,8 +37,6 @@ export function deleteChatMessage(id) {
 }
 
 export function createChatMessage(user, message) {
-  console.log(user, message)
-  console.log(token);
   const token = localStorage.getItem('token');
   const reqBody = { user: user, message: message, token: token };
   const request = axios.post(`${ROOT_URL}/chatsystem/messages`, reqBody);

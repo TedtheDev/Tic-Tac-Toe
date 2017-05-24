@@ -1,16 +1,13 @@
 import React, { Component, PropTypes } from 'react';
 import LoginScreen from './login';
 import { Link } from 'react-router';
-import io from 'socket.io-client'
-
+import io from 'socket.io-client';
 const socket = io('http://localhost:3050');
 
 class Home extends Component {
   static contextTypes = {
     router: PropTypes.object
   };
-
-
 
   constructor(props) {
     super(props);
@@ -20,14 +17,8 @@ class Home extends Component {
     this.onInputChangeUsername = this.onInputChangeUsername.bind(this);
     this.onInputChangePassword = this.onInputChangePassword.bind(this);
     this.onLoginSubmit = this.onLoginSubmit.bind(this)
-    socket.on('recieve username', (payload) => {
-      this.updateUsernameFromSockets(payload).bind(this);
-    })
   }
 
-  updateUsernameFromSockets(payload) {
-    this.setState({username: payload})
-  }
   onInputChangeUsername(event) {
       this.setState({ username: event.target.value})
       io.emit('username', {username: event.target.value});
