@@ -11,7 +11,8 @@
     "test:watch": "npm run test -- --watch",
     "start_server_test": "set NODE_ENV=test&& nodemon index.js",
     "start_server_prod": "set NODE_ENV=prod&& nodemon index.js",
-    "gulp": "gulp watch"
+    "gulp": "gulp watch",
+    "build": "webpack -p"
   },
   "author": "",
   "license": "ISC",
@@ -22,17 +23,21 @@
     "babel-preset-react": "^6.1.18",
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
+    "css-loader": "^0.28.3",
+    "extract-text-webpack-plugin": "^2.1.0",
     "gulp": "^3.9.1",
     "gulp-sass": "^3.1.0",
-    "jquery": "^2.2.1",
     "jsdom": "^8.1.0",
     "mocha": "^2.4.5",
     "react-addons-test-utils": "^0.14.7",
-    "webpack": "^1.12.9",
-    "webpack-dev-server": "^1.14.0"
+    "sass-loader": "^6.0.5",
+    "style-loader": "^0.18.1",
+    "webpack": "^2.6.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
     "axios": "^0.15.3",
+    "babel-loader": "^6.4.1",
     "babel-preset-stage-1": "^6.1.18",
     "body-parser": "^1.17.1",
     "cors": "^2.8.3",
