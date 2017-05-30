@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import { reduxForm } from 'redux-form';
 import CreateAccountForm from './create_account_form'
 import LoadingCircle from '../components/loadingMaterialUICircular';
+import AccountSettings from './account_settings';
 
 class CreateAccount extends Component {
   static contextTypes = {

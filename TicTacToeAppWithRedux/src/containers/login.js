@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import LoadingIcon from '../components/loading';
+import LoadingIcon from '../components/loadingMaterialUICircular';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -35,14 +35,7 @@ class LoginScreen extends Component {
 
   onLoginSubmit() {
     const creds = { username: this.state.username, password: this.state.password };
-    this.props.loginPlayer(creds) /*
-      .then(() => {
-        console.log(this.props.isAuthenticated)
-        if(this.props.isAuthenticated) {
-          this.context.router.push('/play');
-        }
-      })
-      .catch((err) => { console.log(err)}) */
+    this.props.loginPlayer(creds);
 
   }
 

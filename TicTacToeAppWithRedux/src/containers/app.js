@@ -6,9 +6,9 @@ class App extends Component {
     return(
       <div className="container-grid">
         <Navbar />
-        <div className='main' >
+        <section className='main' >
           {React.cloneElement(this.props.children, {key: this.props.location.pathname})}
-        </div>
+        </section>
       </div>
     );
   };

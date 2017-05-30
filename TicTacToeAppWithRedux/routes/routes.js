@@ -9,17 +9,17 @@ module.exports = (app) => {
   // this function adds Access-Control-Allow-Origin to all requests with
   // GET PUT POST DELETE and OPTIONS
 
-  const whitelist = (process.env.NODE_ENV === 'Dev' ) ? ['http://localhost:8080'] : [];
+  const whitelist = (process.env.NODE_ENV === 'dev' ) ? ['http://localhost:8080'] : [];
   const corsOptionsDelegate = function (req, callback) {
     let corsOptions;
     if (whitelist.indexOf(req.header('Origin')) !== -1) {
-      corsOptions = { origin: true, credentials: true, preflightContinue: true } // reflect (enable) the requested origin in the CORS response
+      corsOptions = { origin: true, credentials: true, methods: ['GET', 'PUT', 'POST', 'DELETE']  } // reflect (enable) the requested origin in the CORS response
     }else{
-      corsOptions = { origin: false, credentials: false, preflightContinue: false } // disable CORS for this request
+      corsOptions = { origin: false, credentials: false } // disable CORS for this request
     }
     callback(null, corsOptions) // callback expects two parameters: error and options
   }
-  app.use(cors({ origin: 'http://localhost:8080', credentials: true, methods: ['GET', 'PUT', 'POST', 'DELETE'] }));
+  app.use(cors(corsOptionsDelegate));
 
 
   // Setup middleware to handle that all requests

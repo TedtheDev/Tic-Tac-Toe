@@ -1,7 +1,9 @@
+$pink: #d4005f; //background of app/theme
+$backgroundGameBoard: #89b2f4;
+
 html, body, .app {
   height: 100%;
 }
-
 
 .gameboard {
   display: grid;
@@ -15,12 +17,14 @@ html, body, .app {
 
 .gameboard > [class^="col-"] {
   color: white;
-  background: #89b2f4;
+  background: $backgroundGameBoard;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px red solid;
+  border: 1px $pink solid;
+  font-family: roboto;
+  font-size: calc(10vw + 5vh)
 }
 
 .col-1 {
@@ -92,7 +96,7 @@ html, body, .app {
   grid-template-areas: "header header header header header header"
         ". main main main main ."
         "footer footer footer footer footer footer";
-  background: #d4005f;
+  background: $pink;
   height: 100%;
   /*
   #d4a600

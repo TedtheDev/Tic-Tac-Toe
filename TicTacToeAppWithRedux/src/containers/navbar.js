@@ -48,35 +48,35 @@ class Navbar extends Component {
     const linkStyle = {textDecoration:"none"};
 
     return (
-      <div className="navbar-wrapper">
+      <header className="navbar-wrapper">
         <AppBar
           showMenuIconButton={this.props.isAuthenticated}
           title={<span style={{cursor:"pointer"}}>Tic Tac Toe</span>}
           onTitleTouchTap={this.onTitleTouchTap}
           onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
-          iconElementRight={(this.props.isAuthenticated) ? <NavbarRightElement/> : <div></div>}//this.state.isAuthenticated === true ? <LogoutButton /> : <p>why</p>}
+          iconElementRight={(this.props.isAuthenticated) ? <NavbarRightElement/> : <div></div>}
         />
         <Drawer
           open={this.state.drawerOpen}
           docked={false}
           onRequestChange={this.onDrawerClose}
         >
-          <Link style={linkStyle} to='/account'>
-            <MenuItem
-              onTouchTap={this.onTouchTapDrawerClose}
-            >
-              Create Account
-            </MenuItem>
-          </Link>
-          <Link style={linkStyle} to="/play">
+          <Link style={linkStyle} to='/play'>
             <MenuItem
               onTouchTap={this.onTouchTapDrawerClose}
             >
               Play
             </MenuItem>
           </Link>
+          <Link style={linkStyle} to="/account">
+            <MenuItem
+              onTouchTap={this.onTouchTapDrawerClose}
+            >
+              Account Settings
+            </MenuItem>
+          </Link>
         </Drawer>
-      </div>
+      </header>
     )
   }
 }

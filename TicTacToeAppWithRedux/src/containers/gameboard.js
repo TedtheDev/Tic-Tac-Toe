@@ -9,11 +9,21 @@ class GameBoard extends Component {
   constructor(props) {
     super(props)
 
-    this.state = {board: [['','',''],['','',''],['','','']], player: 'X'};
+    this.state = {
+      board: [
+        ['','',''],
+        ['','',''],
+        ['','','']
+      ],
+      player: 'X'
+    };
 
     this.play = this.play.bind(this);
     this.playComputer = this.playComputer.bind(this);
     this.checkForWinner = this.checkForWinner.bind(this);
+    this.checkPlayer = this.checkPlayer.bind(this);
+    this.checkRows = this.checkRows.bind(this);
+    this.checkColumns = this.checkColumns.bind(this);
   }
 
   playComputer(newBoard) {
@@ -30,8 +40,70 @@ class GameBoard extends Component {
     }
   }
 
-  checkForWinner(newBoard) {
+  checkRows(player, board) {
+    let won = false;
+    for(let i = 0; i < 3; i++) {
+      let countRow = 0;
+      for(let k = 0; k < 3; k++) {
+        if(board[i][k] === player) {
+          countRow++;
+          if(countRow === 3) {
+            won = true;
+          }
+        }
+      }
+    }
+    return won;
+  }
 
+  checkColumns(player, board) {
+    let won = false;
+    for(let i = 0; i < 3; i++) {
+      let countColumn = 0;
+      for(let k = 0; k < 3; k++) {
+        if(board[k][i] === player) {
+          countColumn++;
+          if(countColumn === 3) {
+            won = true;
+          }
+        }
+      }
+    }
+    return won;
+  }
+
+  checkPlayer(player, board) {
+    return this.checkColumns(player, board) || this.checkRows(player, board)
+  }
+
+  checkForWinner(newBoard) {
+    let noMoreMoves = 0;
+    newBoard.map((row) => {
+      return row.map((box) => {
+        if(box === '')
+          noMoreMoves++;
+      })
+    })
+
+    const XWin = this.checkPlayer('X', newBoard);
+    const OWin = this.checkPlayer('O', newBoard);
+
+    if(XWin || OWin || noMoreMoves === 0) {
+      if(XWin || OWin) {
+        if(XWin) {
+          alert('X Wins');
+        } else {
+          alert('O Wins');
+        }
+      } else {
+        alert('draw');
+      }
+      this.setState({board: [
+        ['','',''],
+        ['','',''],
+        ['','','']
+      ]});
+    }
   }
 
   play(index, player){
@@ -40,7 +112,7 @@ class GameBoard extends Component {
     newBoard[index[0]][index[1]] = player;
     this.playComputer(newBoard);
     this.setState({board: newBoard})
-    checkForWinner(this.state.board);
+    this.checkForWinner(this.state.board);
     //const updatePlayer = this.state.player === 'X' ? 'O' : 'X';
     //this.setState({player: updatePlayer});
   }
