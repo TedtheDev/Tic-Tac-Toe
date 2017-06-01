@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -11,10 +11,6 @@ import LoginForm from './loginform';
 
 
 class LoginScreen extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   constructor(props) {
     super(props);
 

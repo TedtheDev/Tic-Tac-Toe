@@ -1,14 +1,10 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import LoginScreen from './login';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import io from 'socket.io-client';
 const socket = io('http://localhost:3050');
 
 class Home extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
-
   constructor(props) {
     super(props);
 
@@ -31,7 +27,6 @@ class Home extends Component {
 
   onLoginSubmit(event) {
     event.preventDefault();
-    this.context.router.push('/play');
   }
 
   render() {

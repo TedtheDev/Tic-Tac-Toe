@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, IndexRoute } from 'react-router';
+import { Route } from 'react-router-dom';
 
 import App from './containers/app';
 import Home from './containers/home';
@@ -7,9 +7,9 @@ import Play from './containers/play';
 import CreateAccount from './containers/create_account';
 
 export default (
-  <Route path='/' component={App}>
-    <IndexRoute component={Home} />
+  <div>
+    <Route exact path='/' component={App} />
     <Route path='play' component={Play} />
     <Route path='account' component={CreateAccount} />
-  </Route>
+  </div>
 )

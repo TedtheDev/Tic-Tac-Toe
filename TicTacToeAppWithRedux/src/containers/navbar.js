@@ -1,8 +1,9 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { logoutUser } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
@@ -11,10 +12,6 @@ import Drawer from 'material-ui/Drawer';
 import NavbarRightElement from './navbarrightelement';
 
 class Navbar extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
   constructor(props){
     super(props);
 
@@ -22,14 +19,9 @@ class Navbar extends Component {
       drawerOpen: false
     })
 
-    this.onTitleTouchTap = this.onTitleTouchTap.bind(this);
     this.onLeftIconButtonTouchTapMenu = this.onLeftIconButtonTouchTapMenu.bind(this);
     this.onTouchTapDrawerClose = this.onTouchTapDrawerClose.bind(this);
     this.onDrawerClose = this.onDrawerClose.bind(this);
-  }
-
-  onTitleTouchTap() {
-    this.context.router.push('/');
   }
 
   onLeftIconButtonTouchTapMenu() {
@@ -51,8 +43,7 @@ class Navbar extends Component {
       <header className="navbar-wrapper">
         <AppBar
           showMenuIconButton={this.props.isAuthenticated}
-          title={<span style={{cursor:"pointer"}}>Tic Tac Toe</span>}
-          onTitleTouchTap={this.onTitleTouchTap}
+          title={<Link to='/' style={{cursor:"pointer",textDecoration:"none", color:"white"}}>Tic Tac Toe</Link>}
           onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
           iconElementRight={(this.props.isAuthenticated) ? <NavbarRightElement/> : <div></div>}
         />
