@@ -3,7 +3,7 @@ import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingIcon from '../components/loadingMaterialUICircular';
-import { Link } from 'react-router';
+import { Link, Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -31,7 +31,7 @@ class LoginScreen extends Component {
 
   onLoginSubmit() {
     const creds = { username: this.state.username, password: this.state.password };
-    this.props.loginPlayer(creds);
+    this.props.loginPlayer(creds)
 
   }
 
@@ -47,6 +47,7 @@ class LoginScreen extends Component {
       return (
         <div>
           <Link to='/play'>Play a Game</Link>
+          <Redirect push to='/play'/>
         </div>
       )
     }

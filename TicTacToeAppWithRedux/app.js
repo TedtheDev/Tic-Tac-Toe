@@ -4,6 +4,8 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const path = require('path');
 const bodyParser = require('body-parser');
+const morgan = require('morgan');
+const fs = require('file-system');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
 
@@ -19,6 +21,12 @@ else {
   startDB('tic-tac-toe');
 }
 
+if(app.get("env")=="dev") {
+  const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
+  app.use(morgan({stream: accessLogStream}));
+} else {
+  app.use(morgan("dev")); //log to console on development
+}
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 

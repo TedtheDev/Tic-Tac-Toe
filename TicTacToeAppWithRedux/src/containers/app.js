@@ -13,8 +13,8 @@ class App extends Component {
         <section className='main' >
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route exact path="/play" component={Play}/>
-            <Route exact path="/account" component={CreateAccount}/>
+            <Route path="/play" component={Play}/>
+            <Route path="/account" component={CreateAccount}/>
           </Switch>
         </section>
       </div>

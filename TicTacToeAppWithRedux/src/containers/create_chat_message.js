@@ -41,7 +41,6 @@ class CreateChatMessage extends Component {
   onFormSubmitCreateMessage() {
     this.props.createChatMessage(this.state.userLoggedIn, this.state.messageToSend);
     this.setState({ messageToSend: '' });
-    socket.emit('chat message', { message: this.state.messageToSend});
   }
 
   renderTextField({input, label, theType, meta: {error, touched}, onInputChange, theValue, ...custom}) {

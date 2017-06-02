@@ -7,8 +7,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 const validate = (values) => {
   const errors = {};
   const requiredFields = [
-    "firstName",
-    "lastName",
+    //"firstName",
+    //"lastName",
     "email",
     "username",
     "password",
@@ -23,6 +23,10 @@ const validate = (values) => {
   if(values.password !== values.confirmPassword) {
     errors['confirmPassword'] = 'Passwords do not match';
   }
+  if(values.email !== undefined && values.email.indexOf('@') === -1) {
+    errors['email'] = 'Invalid Email';
+  }
+
   return errors;
 }
 
@@ -68,20 +72,12 @@ class CreateAccountForm extends Component {
       <form onSubmit={handleSubmit(onSubmitCreateAccount)}>
         <Paper zDepth={5} >
           <Field
-            name="firstName"
             theType="text"
-            onInputChange={rest.onInputChangeFirstName}
-            theValue={rest.firstName}
+            name="username"
+            onInputChange={rest.onInputChangeUsername}
+            theValue={rest.username}
             component={this.renderTextField}
-            label="First Name"
-          />
-          <Field
-            theType="text"
-            name="lastName"
-            onInputChange={rest.onInputChangeLastName}
-            theValue={rest.lastName}
-            component={this.renderTextField}
-            label="Last Name"
+            label="Username"
           />
           <Field
             theType="text"
@@ -90,14 +86,6 @@ class CreateAccountForm extends Component {
             theValue={rest.email}
             component={this.renderTextField}
             label="Email"
-          />
-          <Field
-            theType="text"
-            name="username"
-            onInputChange={rest.onInputChangeUsername}
-            theValue={rest.username}
-            component={this.renderTextField}
-            label="Username"
           />
           <Field
             theType="password"
@@ -127,3 +115,22 @@ export default reduxForm({
   form: "CreateAccountForm",
   validate
 })(CreateAccountForm)
+
+/*
+<Field
+  name="firstName"
+  theType="text"
+  onInputChange={rest.onInputChangeFirstName}
+  theValue={rest.firstName}
+  component={this.renderTextField}
+  label="First Name"
+/>
+<Field
+  theType="text"
+  name="lastName"
+  onInputChange={rest.onInputChangeLastName}
+  theValue={rest.lastName}
+  component={this.renderTextField}
+  label="Last Name"
+/>
+ */

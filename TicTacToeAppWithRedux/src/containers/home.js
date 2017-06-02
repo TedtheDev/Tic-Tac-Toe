@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginScreen from './login';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 const socket = io('http://localhost:3050');
 
@@ -8,11 +8,10 @@ class Home extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { username: '', password: '' }
+    this.state = { username: '', password: '', redirect: false }
 
     this.onInputChangeUsername = this.onInputChangeUsername.bind(this);
     this.onInputChangePassword = this.onInputChangePassword.bind(this);
-    this.onLoginSubmit = this.onLoginSubmit.bind(this)
   }
 
   onInputChangeUsername(event) {
@@ -25,9 +24,6 @@ class Home extends Component {
       this.setState({ password: event.target.value})
   }
 
-  onLoginSubmit(event) {
-    event.preventDefault();
-  }
 
   render() {
     return(
