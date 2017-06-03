@@ -18,28 +18,28 @@ export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS'
 
 const ROOT_URL = 'http://localhost:3050/api';
 
-export function fetchChatMessages() {
+export function fetchChatMessages(username) {
   const token = localStorage.getItem('token');
-  const request = axios.get(`${ROOT_URL}/chatsystem/messages?token=${token}`);
+  const request = axios.get(`${ROOT_URL}/chatsystem/messages/${username}?token=${token}`);
   return {
     type: FETCH_CHAT_MESSAGES,
     payload: request
   };
 }
 
-export function deleteChatMessage(id) {
+export function deleteChatMessage(username, id) {
   const token = localStorage.getItem('token');
-  const request = axios.delete(`${ROOT_URL}/chatsystem/messages/${id}?token=${token}`);
+  const request = axios.delete(`${ROOT_URL}/chatsystem/messages/${username}/${id}?token=${token}`);
   return {
     type: DELETE_CHAT_MESSAGE,
     payload: request
   }
 }
 
-export function createChatMessage(user, message) {
+export function createChatMessage(username, message) {
   const token = localStorage.getItem('token');
-  const reqBody = { user: user, message: message, token: token };
-  const request = axios.post(`${ROOT_URL}/chatsystem/messages`, reqBody);
+  const reqBody = { user: username, message: message, token: token };
+  const request = axios.post(`${ROOT_URL}/chatsystem/messages/${username}`, reqBody);
   return {
     type: CREATE_CHAT_MESSAGE,
     payload: request

@@ -24,6 +24,7 @@ module.exports = (app) => {
 
   // Setup middleware to handle that all requests
   // have a token to access
+  /*
   app.use((req, res, next) => {
     const token = req.body.token || req.query.token || req.header['x-access-token'];
     // check token on request to validate user is authenticated
@@ -42,13 +43,13 @@ module.exports = (app) => {
       return res.status(403).send({ success: false, message: 'No token provided'})
     }
   });
-
+*/
   // chatsystem API
   // routes for the chat system with an api test greeting
   app.get('/api', ChatSystemController.greeting);
-  app.get('/api/chatsystem/messages', ChatSystemController.getMessages);
-  app.post('/api/chatsystem/messages', ChatSystemController.createMessage);
-  app.delete('/api/chatsystem/messages/:id', ChatSystemController.deleteMessage);
+  app.get('/api/chatsystem/messages/:username', ChatSystemController.getMessages);
+  app.post('/api/chatsystem/messages/:username', ChatSystemController.createMessage);
+  app.delete('/api/chatsystem/messages/:username/:id', ChatSystemController.deleteMessage);
 
   // authentication API
   app.post('/api/authenticate', AuthenticationController.getToken);

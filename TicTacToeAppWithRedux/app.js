@@ -23,7 +23,7 @@ else {
 
 if(app.get("env")=="dev") {
   const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
-  app.use(morgan({stream: accessLogStream}));
+  app.use(morgan("dev", {stream: accessLogStream}));
 } else {
   app.use(morgan("dev")); //log to console on development
 }

@@ -115,22 +115,23 @@ export default reduxForm({
   form: "CreateAccountForm",
   validate
 })(CreateAccountForm)
-
 /*
-<Field
-  name="firstName"
-  theType="text"
-  onInputChange={rest.onInputChangeFirstName}
-  theValue={rest.firstName}
-  component={this.renderTextField}
-  label="First Name"
-/>
-<Field
-  theType="text"
-  name="lastName"
-  onInputChange={rest.onInputChangeLastName}
-  theValue={rest.lastName}
-  component={this.renderTextField}
-  label="Last Name"
-/>
- */
+take out and saved here just in case to add back in first and last name
+
+  <Field
+    name="firstName"
+    theType="text"
+    onInputChange={rest.onInputChangeFirstName}
+    theValue={rest.firstName}
+    component={this.renderTextField}
+    label="First Name"
+  />
+  <Field
+    theType="text"
+    name="lastName"
+    onInputChange={rest.onInputChangeLastName}
+    theValue={rest.lastName}
+    component={this.renderTextField}
+    label="Last Name"
+  />
+*/

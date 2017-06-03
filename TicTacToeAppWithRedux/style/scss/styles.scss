@@ -1,4 +1,4 @@
-$pink: #d4005f; //background of app/theme
+$background-theme: #d4005f; //background of app/theme
 $backgroundGameBoard: #89b2f4;
 
 html, body, .app {
@@ -22,7 +22,7 @@ html, body, .app {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px $pink solid;
+  border: 1px $background-theme solid;
   font-family: roboto;
   font-size: calc(10vw + 5vh)
 }
@@ -96,7 +96,7 @@ html, body, .app {
   grid-template-areas: "header header header header header header"
         ". main main main main ."
         "footer footer footer footer footer footer";
-  background: $pink;
+  background: $background-theme;
   height: 100%;
   /*
   #d4a600

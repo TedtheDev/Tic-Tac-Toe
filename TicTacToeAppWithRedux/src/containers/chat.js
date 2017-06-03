@@ -7,7 +7,7 @@ import LoadingIcon from '../components/loadingMaterialUICircular'
 
 class Chat extends Component {
   componentDidMount() {
-    this.props.fetchChatMessages();
+    this.props.fetchChatMessages('TestBcrypt2');
   }
 
   renderChatMessages(messages) {
@@ -28,7 +28,7 @@ class Chat extends Component {
   }
 
   onDeleteMessage(id) {
-    this.props.deleteChatMessage(id)
+    this.props.deleteChatMessage('TestBcrypt2',id)
   }
 
   render() {
