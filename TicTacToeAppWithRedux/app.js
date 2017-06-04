@@ -21,7 +21,7 @@ else {
   startDB('tic-tac-toe');
 }
 
-if(app.get("env")=="dev") {
+if(app.get("env")=="production") {
   const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
   app.use(morgan("dev", {stream: accessLogStream}));
 } else {
