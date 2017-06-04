@@ -27,7 +27,7 @@ class CreateChatMessage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { messageToSend: '', userLoggedIn: 'Tyler' };
+    this.state = { messageToSend: '' };
 
     this.onInputChangeMessage = this.onInputChangeMessage.bind(this);
     this.onFormSubmitCreateMessage = this.onFormSubmitCreateMessage.bind(this);
@@ -39,7 +39,7 @@ class CreateChatMessage extends Component {
   }
 
   onFormSubmitCreateMessage() {
-    this.props.createChatMessage(this.state.userLoggedIn, this.state.messageToSend);
+    this.props.createChatMessage(this.props.player.username, this.state.messageToSend);
     this.setState({ messageToSend: '' });
   }
 
@@ -77,7 +77,8 @@ class CreateChatMessage extends Component {
 
 function mapStateToProps(state) {
   return {
-    messages: state.chatMessages.messages
+    messages: state.chatMessages.messages,
+    player: state.auth.player
   };
 }
 

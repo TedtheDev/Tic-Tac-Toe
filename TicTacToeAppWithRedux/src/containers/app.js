@@ -4,6 +4,7 @@ import Navbar from '../containers/navbar';
 import Home from '../containers/home';
 import Play from '../containers/play';
 import CreateAccount from '../containers/create_account';
+import UpdateAccount from '../containers/update_account';
 
 class App extends Component {
   render() {
@@ -15,6 +16,7 @@ class App extends Component {
             <Route exact path="/" component={Home}/>
             <Route path="/play" component={Play}/>
             <Route path="/account" component={CreateAccount}/>
+            <Route path="/update" component={UpdateAccount}/>
           </Switch>
         </section>
       </div>

@@ -59,7 +59,7 @@ class Navbar extends Component {
               Play
             </MenuItem>
           </Link>
-          <Link style={linkStyle} to="/account">
+          <Link style={linkStyle} to="/update">
             <MenuItem
               onTouchTap={this.onTouchTapDrawerClose}
             >

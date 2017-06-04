@@ -14,11 +14,12 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 export const CREATING_PLAYER = 'CREATING_PLAYER';
 export const CREATED_PLAYER_ERROR = 'CREATED_PLAYER_ERROR';
-export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS'
+export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS';
 
 const ROOT_URL = 'http://localhost:3050/api';
 
 export function fetchChatMessages(username) {
+  console.log(username)
   const token = localStorage.getItem('token');
   const request = axios.get(`${ROOT_URL}/chatsystem/messages/${username}?token=${token}`);
   return {
@@ -37,6 +38,8 @@ export function deleteChatMessage(username, id) {
 }
 
 export function createChatMessage(username, message) {
+  console.log(username)
+  console.log(message)
   const token = localStorage.getItem('token');
   const reqBody = { user: username, message: message, token: token };
   const request = axios.post(`${ROOT_URL}/chatsystem/messages/${username}`, reqBody);
@@ -58,8 +61,8 @@ function creatingPlayer() {
 
 function createdPlayerSuccess(player) {
   return {
-    type: CREATED_PLAYER_SUCCESS,
-    payload: { isCreating: true, created: true, player: player, errorMessage: '' }
+    type: CREATED_PLAYER_CHANGE,
+    payload: { isCreating: false, created: true, player: player, errorMessage: '' }
   }
 }
 
@@ -80,6 +83,7 @@ export function createPlayer(player) {
         const { data } = request
         if(data.success) {
           dispatch(createdPlayerSuccess(data.player));
+          dispatch(loginPlayer({username: username, password: password}))
         } else if(!data.success) {
           dispatch(createdPlayerError(data.message));
         }
@@ -113,7 +117,8 @@ function receiveLogin(player) {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    token: player.token
+    token: player.token,
+    player: { username: player.username, _id: player._id}
   }
 }
 
@@ -121,7 +126,8 @@ function loginError(message) {
   const payload = { isFetching: false, isAuthenticated: false, errorMessage: message };
   return {
     type: LOGIN_FAILURE,
-    payload: payload
+    payload: payload,
+    player: {}
   }
 }
 // ----------------------------------

@@ -41,7 +41,6 @@ const paperStyle = {
   display:"flex",
   flexDirection:"column",
   alignItems:"center"
-  //background:"#00bcd4"
 }
 
 class LoginForm extends Component {

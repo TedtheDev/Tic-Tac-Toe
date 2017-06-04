@@ -1,7 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createPlayer } from '../actions/index';
+import { createPlayer, loginPlayer } from '../actions/index';
 import { bindActionCreators } from 'redux';
+import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -9,6 +10,7 @@ import { reduxForm } from 'redux-form';
 import CreateAccountForm from './create_account_form'
 import LoadingCircle from '../components/loadingMaterialUICircular';
 import AccountSettings from './account_settings';
+import UpdateAccount from './update_account'
 
 class CreateAccount extends Component {
   static contextTypes = {
@@ -80,6 +82,13 @@ class CreateAccount extends Component {
         <LoadingCircle />
       )
     }
+
+    if(this.props.isAuthenticated && this.props.created) {
+      return (
+        <Redirect to="/play" push />
+      )
+    }
+
     return(
       <div className="create-account">
         <h2>Create Your Account</h2>
@@ -109,7 +118,8 @@ function mapStateToProps(state) {
     isCreating: state.account.isCreating,
     created: state.account.created,
     player: state.account.player,
-    errorMessage: state.account.errorMessage
+    errorMessage: state.account.errorMessage,
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

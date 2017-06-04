@@ -1,4 +1,9 @@
-import { CREATING_PLAYER, CREATED_PLAYER_SUCCESS, CREATED_PLAYER_ERROR } from '../actions/index'
+import {
+  CREATING_PLAYER,
+  CREATED_PLAYER_SUCCESS,
+  CREATED_PLAYER_ERROR,
+  CREATED_PLAYER_CHANGE
+} from '../actions/index'
 
 const INITIAL_STATE = { isCreating: false, created: false, player: {}, errorMessage: '' };
 
@@ -22,6 +27,13 @@ export default function(state = INITIAL_STATE, action) {
       };
       return { ...state, ...newState };
     case CREATED_PLAYER_SUCCESS:
+      newState = {
+        isCreating: action.payload.isCreating,
+        created: action.payload.created,
+        player: action.payload.player,
+        errorMessage: action.payload.errorMessage
+      }
+    case CREATED_PLAYER_CHANGE:
       newState = {
         isCreating: action.payload.isCreating,
         created: action.payload.created,

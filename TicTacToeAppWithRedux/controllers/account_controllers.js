@@ -9,12 +9,8 @@ module.exports = {
         if(player !== null) {
           res.json({success: false, message: 'Player already exists. Create a new Username.'});
         } else {
-          console.log('in hash');
-          console.log('in hash');
           bcrypt.genSalt(10, (err,salt) => {
-            console.log('salt', salt);
             bcrypt.hash(body.password, salt, (err, hash) => {
-              console.log(hash);
               const newPlayer = new Player({
                 name: `${body.firstname} ${body.lastname}`,
                 email: body.email,

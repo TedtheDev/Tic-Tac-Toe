@@ -15,6 +15,10 @@ html, body, .app {
   height: 100%;
 }
 
+.navbar-right-element {
+  display: flex;
+  align-items: center;
+}
 .gameboard > [class^="col-"] {
   color: white;
   background: $backgroundGameBoard;
