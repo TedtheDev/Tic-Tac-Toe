@@ -10,9 +10,9 @@
     "test_mongodb": "nodemon --exec \"mocha --recursive ./test/mongodb\"",
     "test:watch": "npm run test -- --watch",
     "start_server_test": "set NODE_ENV=test&& nodemon index.js",
-    "start_server_prod": "set NODE_ENV=prod&& nodemon index.js",
     "gulp": "gulp watch",
-    "build": "webpack -p"
+    "build": "webpack -p",
+    "nodemon:dev": "SET NODE_ENV=dev && nodemon index.js"
   },
   "author": "",
   "license": "ISC",

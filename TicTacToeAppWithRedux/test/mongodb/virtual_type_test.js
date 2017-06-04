@@ -8,6 +8,8 @@ describe('Can get virtual types', () => {
     playerOne = new Player({
       name: 'Tyler',
       email: 'test@test.com',
+      password: 'testpass',
+      username: 'testusername',
       avatar: 'http://i.imgur.com/OqQj7v4.jpg',
       gamesWon: 2,
       gamesLost: 3,
