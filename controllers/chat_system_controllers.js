@@ -5,10 +5,12 @@ module.exports = {
     res.send({ hi: 'there' });
   },
   getMessages(req, res, next) {
+    ChatSystem
     ChatSystem.find({ user: req.params.username})
       .then((messages) => {
         const theMessages = messages.map((message) => {
-          return { "user": message.user, "date": message.date, "message": message.message }
+          console.log(Date(message.date))
+          return { "user": message.user, "date": `${message.date.getHours()}:${message.date.getMinutes()} - ${message.date.getMonth()+1} ${message.date.getFullYear()}`, "message": message.message }
         })
         res.json(messages);
       })

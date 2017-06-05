@@ -5,7 +5,7 @@ const ChatSystemSchema = new Schema({
   user: String,
   date: {
     type: Date,
-    default: Date.now
+    default: new Date()
   },
   message: String
 }, { collection: 'chatsystem' });

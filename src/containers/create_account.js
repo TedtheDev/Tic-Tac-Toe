@@ -91,7 +91,6 @@ class CreateAccount extends Component {
 
     return(
       <div className="create-account">
-        <h2>Create Your Account</h2>
         <CreateAccountForm
           onSubmitCreateAccount={this.onSubmitCreateAccount}
           onInputChangeFirstName={this.onInputChangeFirstName}

@@ -6,11 +6,11 @@ import TicTacToeGrid from './tictactoegrid';
 class Play extends Component {
   render() {
     return(
-      <div style={{height: '100%'}}>
-        <div className='' style={{height: '50%'}}>
+      <div className="play" >
+        <div className='chat' >
           <Chat />
         </div>
-        <div className='' style={{height: '50%'}}>
+        <div className='tic-tac-toe-grid' >
           <TicTacToeGrid />
         </div>
       </div>

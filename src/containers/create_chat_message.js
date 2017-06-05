@@ -6,6 +6,7 @@ import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import Paper from 'material-ui/Paper';
 
 const validate = (values) => {
   let errors = {}
@@ -20,6 +21,12 @@ const validate = (values) => {
   })
 
   return errors;
+}
+
+const paperStyle = {
+  display:"flex",
+  flexDirection:"column",
+  alignItems:"center"
 }
 
 class CreateChatMessage extends Component {
@@ -52,23 +59,27 @@ class CreateChatMessage extends Component {
         errorText={touched && error}
         value={theValue}
         onChange={onInputChange}
+        autoComplete="off"
       />
     )
   }
 
   render() {
+
     return (
       <div style={{height: '20%'}}>
-        <form onSubmit={ this.props.handleSubmit(this.onFormSubmitCreateMessage)}>
-          <Field
-            name="messageToSend"
-            theType="text"
-            onInputChange={this.onInputChangeMessage}
-            theValue={this.state.messageToSend}
-            component={this.renderTextField}
-            label="Enter Message"
-          />
-          <RaisedButton type='submit' primary={true} label="Send" />
+         <form onSubmit={ this.props.handleSubmit(this.onFormSubmitCreateMessage)}>
+          <Paper zDepth={5} style={paperStyle} >
+            <Field
+              name="messageToSend"
+              theType="text"
+              onInputChange={this.onInputChangeMessage}
+              theValue={this.state.messageToSend}
+              component={this.renderTextField}
+              label="Enter Message"
+            />
+            <RaisedButton type='submit' primary={true} label="Send" />
+          </Paper>
         </form>
       </div>
     );

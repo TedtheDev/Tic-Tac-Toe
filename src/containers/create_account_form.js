@@ -24,7 +24,7 @@ const validate = (values) => {
     errors['confirmPassword'] = 'Passwords do not match';
   }
   if(values.email !== undefined && values.email.indexOf('@') === -1) {
-    errors['email'] = 'Invalid Email';
+    errors['email'] = 'Invalid: use @';
   }
 
   return errors;
@@ -54,6 +54,7 @@ class CreateAccountForm extends Component {
         errorText={touched && error}
         value={theValue}
         onChange={onInputChange}
+        autoComplete="off"
       />
     )
   }
@@ -70,7 +71,8 @@ class CreateAccountForm extends Component {
     const { handleSubmit, onSubmitCreateAccount, ...rest } = this.props;
     return (
       <form onSubmit={handleSubmit(onSubmitCreateAccount)}>
-        <Paper zDepth={5} >
+        <Paper zDepth={5} style={{padding:"1rem", display:"flex",flexDirection:"column", justifyContent:"center"}}>
+          <h2>Create Your Account</h2>
           <Field
             theType="text"
             name="username"
@@ -104,7 +106,9 @@ class CreateAccountForm extends Component {
             label="Confirm Password"
           />
           {this.renderErrorMessage(rest.errorMessage)}
-          <RaisedButton type="submit" primary={true} label='Create Account' />
+          <div style={{display:"flex", justifyContent:"center", margin:"3%"}}>
+            <RaisedButton type="submit" primary={true} label='Create Account' />
+          </div>
         </Paper>
       </form>
     );

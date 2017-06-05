@@ -55,8 +55,15 @@ html, body, .app {
   grid-row: 3 / auto;
 }
 
+.chat-board {
+  height: 50%;
+}
+
 .message-board {
   overflow-y: auto;
+  background: #9af4ff;
+  height: 100%;
+  width: 100%;
 }
 
 .message-board-scroll {
@@ -109,7 +116,9 @@ html, body, .app {
 
 .main {
   grid-area: main;
-  justify-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .navbar-wrapper {
@@ -126,4 +135,16 @@ html, body, .app {
 .create-account > form {
   display: flex;
   flex-direction: column;
+}
+
+.play {
+  height: 100%;
+
+  .chat {
+    height: 50%;
+  }
+
+  .tic-tac-toe-grid {
+    height: 50%;
+  }
 }

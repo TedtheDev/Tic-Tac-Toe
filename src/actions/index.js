@@ -18,8 +18,7 @@ export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS';
 
 const ROOT_URL = 'http://localhost:3050/api';
 
-export function fetchChatMessages(username) {
-  console.log(username)
+export function fetchChatMessages(username) {``
   const token = localStorage.getItem('token');
   const request = axios.get(`${ROOT_URL}/chatsystem/messages/${username}?token=${token}`);
   return {
@@ -38,8 +37,6 @@ export function deleteChatMessage(username, id) {
 }
 
 export function createChatMessage(username, message) {
-  console.log(username)
-  console.log(message)
   const token = localStorage.getItem('token');
   const reqBody = { user: username, message: message, token: token };
   const request = axios.post(`${ROOT_URL}/chatsystem/messages/${username}`, reqBody);

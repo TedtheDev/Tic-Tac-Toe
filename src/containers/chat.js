@@ -11,7 +11,6 @@ class Chat extends Component {
   }
 
   renderChatMessages(messages) {
-    if(this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length > 0) {
       return messages.map((message) => {
           return (
             <div key={message._id} className='message-bubble' style={{border: '1px solid red' }}>
@@ -26,23 +25,18 @@ class Chat extends Component {
             </div>
           );
       });
-    } else {
-      return (
-        <LoadingIcon />
-      )
-    }
   }
 
   onDeleteMessage(id) {
-    this.props.deleteChatMessage(this.props.player.username,id)
+    this.props.deleteChatMessage(this.props.player.username,id);
   }
 
   render() {
       return (
-        <div style={{height: '50%'}}>
-          <div className="message-board" style={{ height: '100%', width: '100%'}}>
+        <div className="chat-board">
+          <div className="message-board">
             <div className='message-board-scroll'>
-              {this.renderChatMessages(this.props.messages)}
+              {(this.props.messages !== null && this.props.messages !== undefined && this.props.messages.length > 0) ? this.renderChatMessages(this.props.messages) : <div />}
             </div>
           </div>
           <CreateChatMessage />
