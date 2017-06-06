@@ -67,7 +67,7 @@ class CreateChatMessage extends Component {
   render() {
 
     return (
-      <div style={{height: '20%'}}>
+      <div className="create-chat-message" >
          <form onSubmit={ this.props.handleSubmit(this.onFormSubmitCreateMessage)}>
           <Paper zDepth={5} style={paperStyle} >
             <Field

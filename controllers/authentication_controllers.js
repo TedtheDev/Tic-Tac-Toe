@@ -14,7 +14,7 @@ module.exports = {
             if(!response) {
               res.json({ success: false, message: 'Authentication failed. Password incorrect'});
             } else {
-              const token = jwt.sign(player._id, secret.theSecret, { expiresIn: 60 * 10 });
+              const token = jwt.sign(player._id, secret.theSecret, { expiresIn: 60 * 60 });
               res.json({ success: true, message: "YAY TOKEN", token: token, player: player})
             }
           })

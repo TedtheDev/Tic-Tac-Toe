@@ -45,6 +45,7 @@
     "jsonwebtoken": "^7.3.0",
     "lodash": "^3.10.1",
     "material-ui": "^0.18.0",
+    "moment": "^2.18.1",
     "mongoose": "^4.9.1",
     "morgan": "^1.8.2",
     "nodemon": "^1.11.0",

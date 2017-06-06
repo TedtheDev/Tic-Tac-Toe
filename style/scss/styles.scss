@@ -1,8 +1,13 @@
 $background-theme: #d4005f; //background of app/theme
 $backgroundGameBoard: #89b2f4;
 
+* {
+  box-sizing: border-box;
+}
+
 html, body, .app {
   height: 100%;
+  overflow-y: hidden;
 }
 
 .gameboard {
@@ -24,8 +29,8 @@ html, body, .app {
   background: $backgroundGameBoard;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   border: 1px $background-theme solid;
   font-family: roboto;
   font-size: calc(10vw + 5vh)
@@ -56,17 +61,27 @@ html, body, .app {
 }
 
 .chat-board {
-  height: 50%;
-}
-
-.message-board {
-  overflow-y: auto;
-  background: #9af4ff;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   height: 100%;
   width: 100%;
 }
 
-.message-board-scroll {
+.message-board {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  overflow-y: auto;
+  background: #9af4ff;
+  height: 50%;
+  width: 100%;
+}
+
+.create-chat-message {
+  height: 50%;
+  width: 100%;
 }
 
 .message-bubble {
@@ -74,6 +89,9 @@ html, body, .app {
   height: 100%;
   background: green;
   position: relative;
+  margin: .5rem;
+  border: .2rem red solid;
+  border-radius: .2rem;
 }
 
 .message-bubble .time {
