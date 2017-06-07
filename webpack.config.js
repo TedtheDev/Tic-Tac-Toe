@@ -1,13 +1,10 @@
+'use strict';
+
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const extractCSS = new ExtractTextPlugin('bundle.css');
-
-const extractCommons = new webpack.optimize.CommonsChunkPlugin({
-  name: 'commons.js',
-  filename: 'commons.js'
-})
 
 module.exports = {
   entry: ['./src/index.js', './style/scss/styles.scss'],
@@ -32,6 +29,15 @@ module.exports = {
         use: extractCSS.extract({
           use: [{
                 loader: "css-loader"
+              },{
+                loader: "postcss-loader",
+                options: {
+                  plugins: (loader) => [
+                    require('postcss-import')({ root: loader.resourcePath }),
+                    require('postcss-cssnext')(),
+                    require('cssnano')()
+                  ]
+                }
               },{
                 loader: "sass-loader"
               }]

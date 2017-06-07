@@ -26,7 +26,8 @@ const validate = (values) => {
 const paperStyle = {
   display:"flex",
   flexDirection:"column",
-  alignItems:"center"
+  justifyContent: "center",
+  alignItems: "center"
 }
 
 class CreateChatMessage extends Component {
@@ -60,6 +61,7 @@ class CreateChatMessage extends Component {
         value={theValue}
         onChange={onInputChange}
         autoComplete="off"
+        style={{width: "80%"}}
       />
     )
   }
@@ -78,7 +80,7 @@ class CreateChatMessage extends Component {
               component={this.renderTextField}
               label="Enter Message"
             />
-            <RaisedButton type='submit' primary={true} label="Send" />
+            <RaisedButton type='submit' primary={true} style={{}}label="Send" />
           </Paper>
         </form>
       </div>

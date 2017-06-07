@@ -43,6 +43,11 @@ class Chat extends Component {
     this.props.deleteChatMessage(this.props.player.username,id);
   }
 
+
+  /**
+   * [scrollToBottomChatMessages scroll chat messages to bottom on load and
+   * new messages]
+   */
   scrollToBottomChatMessages() {
     const scrollHeight = this.messageBoard.scrollHeight;
     const height = this.messageBoard.clientHeight;

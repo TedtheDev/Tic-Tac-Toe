@@ -24,6 +24,7 @@ const renderTextField = ({input, label, meta: {touched, error}, onInputChangeUse
       value={custom.username}
       onChange={onInputChangeUsername}
       autoComplete="off"
+      style={{width:"90%"}}
     />
 )
 
@@ -36,13 +37,16 @@ const renderTextFieldPassword = ({input, label, meta: {touched, error}, ...custo
       value={custom.password}
       onChange={custom.onInputChangePassword}
       autoComplete="off"
+      style={{width:"90%"}}
     />
 )
 
 const paperStyle = {
   display:"flex",
   flexDirection:"column",
-  alignItems:"center"
+  justifyContent:"center",
+  alignItems: "center",
+  padding: "1rem"
 }
 
 class LoginForm extends Component {
@@ -70,7 +74,7 @@ class LoginForm extends Component {
           {this.renderErrorMessage(errorMessage) }
           <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
               <RaisedButton type='submit' primary={true} label='Login' />
-              <RaisedButton type='button' secondary={true} label='Forgot Password' />
+              <RaisedButton type='button' secondary={true} label='Forgot Password' labelStyle={{fontSize:".6rem"}}/>
           </div>
         </Paper>
       </form>
