@@ -1,7 +1,13 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
-const secret = require('../creds/secret');
+
+if(!process.env.theSecret) {
+  const secret = require('../creds/secret');
+} else {
+  const secret = { secret: process.env.theSecret }
+}
+
 
 module.exports = {
   getToken(req, res, next) {
