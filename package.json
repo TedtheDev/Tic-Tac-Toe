@@ -1,5 +1,5 @@
 {
-  "name": "Tyler Edmunds-TedtheDev",
+  "name": "tic-tac-toe-socketio",
   "version": "1.0.0",
   "description": "Tic Tac Toe SocketIO",
   "main": "index.js",
@@ -20,7 +20,7 @@
     "build": "webpack -p",
     "nodemon:dev": "SET NODE_ENV=dev && nodemon index.js"
   },
-  "author": "",
+  "author": "Tyler Edmunds, TedtheDev",
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.2.1",

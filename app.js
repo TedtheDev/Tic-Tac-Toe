@@ -27,6 +27,7 @@ if(process.env.NODE_ENV === 'production') {
 } else {
   app.use(morgan("common")); //log to console on development
 }
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -44,8 +45,12 @@ app.get('/dist/bundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/dist/bundle.js'));
 });
 
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/index.html'));
+});
+
+app.get('*', (req, res) => {
+  res.redirect(path.resolve(__dirname + '/index.html'));
 });
 
 io.on('connection', (socket) => {
