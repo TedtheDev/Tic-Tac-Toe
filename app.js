@@ -36,6 +36,14 @@ app.use((err, req, res, next) => {
   res.status(422).send({ error: err.message });
 });
 
+app.get('/dist/bundle.css', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/dist/bundle.css'));
+});
+
+app.get('/dist/bundle.js', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/dist/bundle.js'));
+});
+
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/index.html'));
 });
@@ -53,7 +61,8 @@ io.on('connection', (socket) => {
 
 })
 
-server.listen(3050, () => {
+const port = (process.env.NODE_ENV === "production") ? 8080 : 3050;
+server.listen(port, () => {
   console.log('Listening on port 3050');
 });
 
