@@ -45,6 +45,10 @@ app.get('/dist/bundle.js', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/dist/bundle.js'));
 });
 
+app.get('/favicon.ico', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/favicon.ico'));
+});
+
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname + '/index.html'));
 });

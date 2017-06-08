@@ -37,7 +37,7 @@ module.exports = (app) => {
           next();
         }
       })
-    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create' || req.path === '/' || req.path === '/dist/bundle.js' || req.path === '/dist/bundle.css') {
+    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create' || req.path === '/' || req.path === '/dist/bundle.js' || req.path === '/dist/bundle.css' || req.path === '/favicon.ico') {
       next();
     } else {
       return res.status(403).send({ success: false, message: 'No token provided'})
