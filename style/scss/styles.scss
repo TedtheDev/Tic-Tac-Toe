@@ -1,6 +1,6 @@
 $background-theme: #d4005f; //background of app/theme
 $backgroundGameBoard: #89b2f4;
-
+$materialLightBlue: #00bcd4;
 * {
   box-sizing: border-box;
 }
@@ -121,7 +121,7 @@ html, body, .app {
 .container-grid {
   display: grid;
   grid-template-columns: 16.67% 16.67% 16.67% 16.67% 16.67% 16.67%;
-  grid-template-rows: 10% 80% 10%;
+  grid-template-rows: 15% 80% 5%;
   grid-template-areas: "header header header header header header"
         ". main main main main ."
         "footer footer footer footer footer footer";
@@ -136,7 +136,7 @@ html, body, .app {
   grid-area: main;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 .navbar-wrapper {
@@ -153,6 +153,13 @@ html, body, .app {
 .create-account > form {
   display: flex;
   flex-direction: column;
+}
+
+.create-account-wrapper {
+  margin: 1rem auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
 .play {

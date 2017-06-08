@@ -20,6 +20,8 @@ const renderTextField = ({input, label, meta: {touched, error}, onInputChangeUse
       {...input}
       type='text'
       floatingLabelText={label}
+      floatingLabelStyle={{color:"#000000"}}
+      underlineStyle={{color:"#000000"}}
       errorText={touched && error}
       value={custom.username}
       onChange={onInputChangeUsername}
@@ -33,6 +35,8 @@ const renderTextFieldPassword = ({input, label, meta: {touched, error}, ...custo
       {...input}
       type='password'
       floatingLabelText={label}
+      floatingLabelStyle={{color:"#000000"}}
+      underlineStyle={{color:"#000000"}}
       errorText={touched && error}
       value={custom.password}
       onChange={custom.onInputChangePassword}
@@ -73,7 +77,7 @@ class LoginForm extends Component {
           <Field name='password' password={password} onInputChangePassword={onInputChangePassword} component={renderTextFieldPassword} label='Password' />
           {this.renderErrorMessage(errorMessage) }
           <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
-              <RaisedButton type='submit' primary={true} label='Login' />
+              <RaisedButton type='submit' primary={true} label='Login' onSubmit={ handleSubmit(onLoginSubmit) } />
               <RaisedButton type='button' secondary={true} label='Forgot Password' labelStyle={{fontSize:".6rem"}}/>
           </div>
         </Paper>

@@ -51,6 +51,8 @@ class CreateAccountForm extends Component {
         {...input}
         type={theType}
         floatingLabelText={label}
+        floatingLabelStyle={{color:"#000000"}}
+        underlineStyle={{color:"#000000"}}
         errorText={touched && error}
         value={theValue}
         onChange={onInputChange}

@@ -3,6 +3,7 @@ import LoginScreen from './login';
 import { Link, Route } from 'react-router-dom';
 import io from 'socket.io-client';
 const socket = io('http://localhost:3050');
+import RaisedButton from 'material-ui/RaisedButton';
 
 class Home extends Component {
   constructor(props) {
@@ -28,12 +29,18 @@ class Home extends Component {
   render() {
     return(
       <div className='home'>
-        <h1>Welcome to Tic-Tac-Toe with Socket.IO!</h1>
-        <p>Login or create an account to start playing with your friends</p>
-        <Link to='/account'>
-          <i className="fa fa-user fa-5x" aria-hidden="true"></i>
-          <span>Create an Account</span>
-        </Link>
+        <h1>Tic-Tac-Toe with your friends!</h1>
+        <div className="create-account-wrapper">
+          <Link to='/account' style={{textDecoration:"none"}}>
+            <RaisedButton
+              label="Create Your Account"
+              labelPosition="before"
+              primary={true}
+              fullWidth={true}
+              icon={<i className="material-icons md-light" style={{color:"#ffffff"}}>account_circle</i>}
+            />
+          </Link>
+        </div>
         <LoginScreen />
       </div>
     );

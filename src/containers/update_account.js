@@ -4,11 +4,15 @@ import { bindActionCreators } from 'redux';
 
 class UpdateAccount extends Component {
   render() {
-    return (
-      <div>
-        Update Account Coming soon
-      </div>
-    )
+    if(1===1) {
+      return (
+        <div>
+          Update Account Coming soon
+        </div>
+      )
+    } else {
+
+    }
   }
 }
 

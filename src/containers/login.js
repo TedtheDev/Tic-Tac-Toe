@@ -22,11 +22,13 @@ class LoginScreen extends Component {
   }
 
   onInputChangeUsername(event) {
-      this.setState({ username: event.target.value})
+      if(event.target.value.length <= 75)
+        this.setState({ username: event.target.value})
   }
 
   onInputChangePassword(event) {
-      this.setState({ password: event.target.value})
+      if(event.target.value.length <= 75)
+        this.setState({ password: event.target.value})
   }
 
   onLoginSubmit() {
