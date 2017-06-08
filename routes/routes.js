@@ -1,9 +1,16 @@
 const jwt = require('jsonwebtoken');
-const secret = require('../creds/secret');
 const ChatSystemController = require('../controllers/chat_system_controllers');
 const AuthenticationController = require('../controllers/authentication_controllers');
 const AccountController = require('../controllers/account_controllers');
 const cors = require('cors');
+const path = require('path');
+
+let secret;
+if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
+  secret = { theSecret: process.env.THE_SECRET }
+} else {
+  secret = require('../creds/secret');
+}
 
 module.exports = (app) => {
   // this function adds Access-Control-Allow-Origin to all requests with
@@ -40,7 +47,7 @@ module.exports = (app) => {
     } else if(req.path === '/api/authenticate' || req.path === '/api/account/create' || req.path === '/' || req.path === '/dist/bundle.js' || req.path === '/dist/bundle.css' || req.path === '/favicon.ico') {
       next();
     } else {
-      return res.status(403).send({ success: false, message: 'No token provided'})
+      return res.sendFile(path.resolve(__dirname + '/'));
     }
   });
 

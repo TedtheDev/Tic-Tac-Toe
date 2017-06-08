@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  res.redirect(path.resolve(__dirname + '/index.html'));
+  res.sendFile(path.resolve(__dirname + '/index.html'));
 });
 
 io.on('connection', (socket) => {

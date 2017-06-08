@@ -1,10 +1,12 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
-const secret = require('../creds/secret');
 
+let secret;
 if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
-  const secret = { theSecret: process.env.THE_SECRET }
+  secret = { theSecret: process.env.THE_SECRET }
+} else {
+  secret = require('../creds/secret');
 }
 
 

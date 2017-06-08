@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const creds = require('../creds/creds');
 
 const startDB = (database) => {
   if(!process.env.MONGODB_URL) {
+    const creds = require('../creds/creds');
     if(database === 'tic-tac-toe')
       mongoose.connect(`mongodb://${creds.user}:${creds.pwd}@localhost/${database}?authSource=${creds.authSource}`);
     mongoose.connection
