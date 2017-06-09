@@ -32,7 +32,7 @@ class Chat extends Component {
               <div
                 className='delete'
                 onClick={this.onDeleteMessage.bind(this, message._id)}>
-                <i className="fa fa-times fa-2x"></i>
+                <i className="fa fa-times fa-1x"></i>
               </div>
             </div>
           );

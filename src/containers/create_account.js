@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { createPlayer, loginPlayer } from '../actions/index';
+import { createPlayer } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';

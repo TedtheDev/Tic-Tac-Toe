@@ -70,7 +70,7 @@ io.on('connection', (socket) => {
 
 const port = (process.env.NODE_ENV === "production") ? process.env.PORT : 3050;
 server.listen(port, () => {
-  console.log('Listening on port 3050');
+  console.log(`Listening on port ${port}`);
 });
 
 module.exports = app;
