@@ -29,7 +29,7 @@ class Home extends Component {
   render() {
     return(
       <div className='home'>
-        <h1>Tic-Tac-Toe with your friends!</h1>
+        <h1 style={{margin: "0 auto",textAlign:"center"}}>Tic-Tac-Toe with your friends!</h1>
         <div className="create-account-wrapper">
           <Link to='/account' style={{textDecoration:"none"}}>
             <RaisedButton

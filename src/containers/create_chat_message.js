@@ -3,7 +3,6 @@ import { createChatMessage } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { reduxForm, Field } from 'redux-form';
-import _ from 'lodash';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -63,7 +62,7 @@ class CreateChatMessage extends Component {
         value={theValue}
         onChange={onInputChange}
         autoComplete="off"
-        style={{width: "80%"}}
+        style={{width: "80%",transform:"translateY(-1.1rem)"}}
       />
     )
   }

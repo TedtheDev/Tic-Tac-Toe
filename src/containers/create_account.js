@@ -52,21 +52,27 @@ class CreateAccount extends Component {
   }
 
   onInputChangeFirstName(event) {
+    if(event.target.value.length <= 75)
       this.setState({ firstName: event.target.value });
   }
   onInputChangeLastName(event) {
+    if(event.target.value.length <= 75)
       this.setState({ lastName: event.target.value });
   }
   onInputChangeEmail(event) {
+    if(event.target.value.length <= 75)
       this.setState({ email: event.target.value });
   }
   onInputChangeUsername(event) {
+    if(event.target.value.length <= 75)
       this.setState({ username: event.target.value });
   }
   onInputChangePassword(event) {
+    if(event.target.value.length <= 75)
       this.setState({ password: event.target.value });
   }
   onInputChangeConfirmPassword(event) {
+    if(event.target.value.length <= 75)
       this.setState({ confirmPassword: event.target.value });
   }
 

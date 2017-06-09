@@ -20,11 +20,12 @@ const validate = (values) => {
     }
   });
 
-  if(values.password !== values.confirmPassword) {
+  if(values.password && values.password.length !== 0 && values.password !== values.confirmPassword) {
     errors['confirmPassword'] = 'Passwords do not match';
+    errors['password'] = 'Passwords do not match';
   }
   if(values.email !== undefined && values.email.indexOf('@') === -1) {
-    errors['email'] = 'Invalid: use @';
+    errors['email'] = 'Invalid Email: use @';
   }
 
   return errors;

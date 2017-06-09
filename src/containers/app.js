@@ -5,6 +5,7 @@ import Home from '../containers/home';
 import Play from '../containers/play';
 import CreateAccount from '../containers/create_account';
 import UpdateAccount from '../containers/update_account';
+import FourOhFourNotFound from '../components/404';
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
             <Route path="/play" component={Play}/>
             <Route path="/account" component={CreateAccount}/>
             <Route path="/update" component={UpdateAccount}/>
+            <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
         </section>
       </div>
