@@ -21,11 +21,9 @@ else {
   startDB('tic-tac-toe');
 }
 
-if(process.env.NODE_ENV === 'production') {
+if(process.env.NODE_ENV !== 'production') {
   const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
   app.use(morgan("common", {stream: accessLogStream}));
-} else {
-  app.use(morgan("common")); //log to console on development
 }
 
 app.use(bodyParser.urlencoded({ extended: false }));
