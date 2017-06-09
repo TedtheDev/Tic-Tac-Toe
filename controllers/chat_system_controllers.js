@@ -1,4 +1,4 @@
-const ChatSystem = require('../models/ChatSystem');
+const ChatSystem = require('../models/chatsystem');
 
 module.exports = {
   greeting(req, res) {
