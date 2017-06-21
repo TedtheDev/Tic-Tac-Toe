@@ -17,7 +17,7 @@ export const CREATED_PLAYER_ERROR = 'CREATED_PLAYER_ERROR';
 export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS';
 export const CREATED_PLAYER_CHANGE = 'CREATED_PLAYER_CHANGE';
 
-const ROOT_URL = 'http://localhost:8080/api';
+const ROOT_URL = './api';
 
 export function fetchChatMessages(username) {``
   const token = localStorage.getItem('token');
