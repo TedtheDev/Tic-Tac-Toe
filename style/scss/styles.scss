@@ -146,13 +146,12 @@ html, body, .app {
 .create-account {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
 }
 
 .create-account > form {
-  display: flex;
-  flex-direction: column;
+  width: 100%;
 }
 
 .create-account-wrapper {

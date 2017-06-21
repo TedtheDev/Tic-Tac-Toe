@@ -17,7 +17,7 @@ export const CREATED_PLAYER_ERROR = 'CREATED_PLAYER_ERROR';
 export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS';
 export const CREATED_PLAYER_CHANGE = 'CREATED_PLAYER_CHANGE';
 
-const ROOT_URL = 'http://localhost:3050/api';
+const ROOT_URL = 'http://localhost:8080/api';
 
 export function fetchChatMessages(username) {``
   const token = localStorage.getItem('token');
@@ -81,7 +81,6 @@ export function createPlayer(player) {
         const { data } = request
         if(data.success) {
           dispatch(createdPlayerSuccess(data.player));
-          console.log('loginPlayer', username, password);
           dispatch(loginPlayer({username: username, password: password}))
         } else if(!data.success) {
           dispatch(createdPlayerError(data.message));
@@ -134,7 +133,6 @@ function loginError(message) {
 // --------
 // handle logging in user
 export function loginPlayer(creds) {
-  console.log('creds',creds)
   const reqBody = { username: creds.username, password: creds.password };
   const config = { headers: { "Content-Type": "application/json" } };
   return (dispatch) => {
