@@ -35,7 +35,6 @@ const paperStyle = {
   display:"flex",
   flexDirection:"column",
   alignItems:"center"
-  //background:"#00bcd4"
 }
 
 class CreateAccountForm extends Component {
@@ -58,6 +57,7 @@ class CreateAccountForm extends Component {
         value={theValue}
         onChange={onInputChange}
         autoComplete="off"
+        style={{width:"90%"}}
       />
     )
   }
