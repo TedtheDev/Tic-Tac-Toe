@@ -17,7 +17,14 @@ export const CREATED_PLAYER_ERROR = 'CREATED_PLAYER_ERROR';
 export const CREATED_PLAYER_SUCCESS = 'CREATED_PLAYER_SUCCESS';
 export const CREATED_PLAYER_CHANGE = 'CREATED_PLAYER_CHANGE';
 
-const ROOT_URL = './api';
+
+export const UPDATE_PLAYER = 'UPDATE_PLAYER';
+export const UPDATING_PLAYER = 'UPDATING_PLAYER';
+export const UPDATE_PLAYER_ERROR = 'UPDATE_PLAYER_ERROR';
+export const UPDATE_PLAYER_SUCCESS = 'UPDATE_PLAYER_SUCCESS';
+export const SET_PLAYER_INFO = 'SET_PLAYER_INFO';
+
+const ROOT_URL = 'http://localhost:3050/api';
 
 export function fetchChatMessages(username) {``
   const token = localStorage.getItem('token');
@@ -95,7 +102,86 @@ export function createPlayer(player) {
   }
 }
 
+// ****************************************************************************
+// Update Player Info functions
+// to handle data and state
+// ****************************************************************************
+/**
+ * [updatingPlayer - simple action creator to initiate loading]
+ * @return {[action]} [description]
+ */
+function updatingPlayer() {
+  return {
+    type: UPDATING_PLAYER,
+    payload: { isCreating: true, created: false, player: {}, errorMessage: '' }
+  }
+}
 
+/**
+ * [updatePlayerError - update state for reducer_account
+ * when updating a player fails]
+ * @param  {[errorMessage]}  [error message from api]
+ * @return {[action]}        [redux action]
+ */
+function updatePlayerError(errorMessage) {
+  return {
+    type: UPDATE_PLAYER_ERROR,
+    payload: { isCreating: false, created: false, errorMessage: errorMessage }
+  }
+}
+
+/**
+ * [updatePlayerSuccess - ]
+ * @param  {[player]}  [player info of person playing the game]
+ * @return {[action]}  [redux action]
+ */
+function updatePlayerSuccess(player) {
+  return {
+    type: UPDATE_PLAYER_SUCCESS,
+    payload: { isCreating: false, created: false, player: player, errorMessage: '' }
+  }
+}
+
+/**
+ * [updatePlayer updates a player's account information]
+ * @param  {[player]}  [player that is playing the game]
+ * @return {[action]}  [redux action]
+ */
+export function updatePlayer(player) {
+  const token = localStorage.getItem('token');
+  const { username, email, oldPassword, newPassword } = player;
+  let reqBody;
+  if(oldPassword !== null && oldPassword !== undefined && newPassword !== null && newPassword !== undefined) {
+    reqBody = { email, oldPassword, newPassword }
+  } else {
+    reqBody = { email }
+  }
+  return (dispatch) => {
+    dispatch(updatingPlayer());
+    return axios.put(`${ROOT_URL}/account/update/${player.username}?token=${token}`, reqBody)
+      .then((request) => {
+        const { data } = request;
+        if(data.success) {
+          dispatch(updatePlayerSuccess(data.player));
+        } else {
+          dispatch(updatePlayerError(data.message))
+        }
+      })
+      .catch((err) => dispatch(createdPlayerError(err)))
+  }
+
+  return {
+    type: UPDATE_PLAYER,
+    payload: { isCreating: true }
+  }
+}
+
+function setPlayerInfo(player) {
+  return {
+    type: SET_PLAYER_INFO,
+    payload: { isCreating: false, created: false, player: player, errorMessage: '' }
+  }
+}
 
 
 // ------------------------------
@@ -116,7 +202,7 @@ function receiveLogin(player) {
     isFetching: false,
     isAuthenticated: true,
     token: player.token,
-    player: { username: player.username, _id: player._id}
+    player: {}
   }
 }
 
@@ -149,6 +235,7 @@ export function loginPlayer(creds) {
           localStorage.setItem('token', res.data.token);
           // Dispatch the success action
           dispatch(receiveLogin(res.data.player))
+          dispatch(setPlayerInfo(res.data.player))
         }
       })
       .catch((err) => dispatch(loginError(err)))
@@ -160,7 +247,8 @@ function requestLogout() {
   return {
     type: LOGOUT_REQUEST,
     isFetching: true,
-    isAuthenticated: true
+    isAuthenticated: true,
+    player: {}
   }
 }
 
@@ -168,7 +256,8 @@ function receiveLogout() {
   return {
     type: LOGOUT_SUCCESS,
     isFetching: false,
-    isAuthenticated: false
+    isAuthenticated: false,
+    player: {}
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createPlayer } from '../actions/index';
 import { bindActionCreators } from 'redux';
@@ -6,16 +6,11 @@ import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
-import { reduxForm } from 'redux-form';
 import CreateAccountForm from './create_account_form'
 import LoadingCircle from '../components/loadingMaterialUICircular';
 import AccountSettings from './account_settings';
-import UpdateAccount from './update_account'
 
 class CreateAccount extends Component {
-  static contextTypes = {
-    router: PropTypes.object
-  };
 
   constructor(props) {
     super(props);
@@ -38,7 +33,7 @@ class CreateAccount extends Component {
     this.onInputChangeConfirmPassword = this.onInputChangeConfirmPassword.bind(this);
   }
 
-  onSubmitCreateAccount(event) {
+  onSubmitCreateAccount() {
     const newPlayer = {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
@@ -99,10 +94,6 @@ class CreateAccount extends Component {
       <div className="create-account">
         <CreateAccountForm
           onSubmitCreateAccount={this.onSubmitCreateAccount}
-          onInputChangeFirstName={this.onInputChangeFirstName}
-          firstName={this.state.firstName}
-          onInputChangeLastName={this.onInputChangeLastName}
-          lastName={this.state.lastName}
           onInputChangeEmail={this.onInputChangeEmail}
           email={this.state.email}
           onInputChangeUsername={this.onInputChangeUsername}

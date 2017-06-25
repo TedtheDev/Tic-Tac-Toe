@@ -70,7 +70,7 @@ class Chat extends Component {
 function mapStateToProps(state) {
   return {
     messages: state.chatMessages.messages,
-    player: state.auth.player
+    player: state.account.player
   };
 }
 

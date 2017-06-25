@@ -12,7 +12,7 @@ const PlayerSchema = new Schema({
   },
   avatar: {
     type: String,
-    default: 'default avatar url'
+    default: 'https://s-media-cache-ak0.pinimg.com/originals/cb/3a/a7/cb3aa7a99159c706955dd9b4cf3ae944.jpg'
   },
   gamesWon: {
     type: Number,

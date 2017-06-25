@@ -30,7 +30,7 @@ module.exports = {
                 gamesDrawn: player.gamesDrawn,
                 gamesLost: player.gamesLost,
                 gamesWon: player.gamesWon,
-                name: player.name,
+                gamesPlayed: player.gamesPlayed
               }
               res.json({ success: true, message: "YAY TOKEN", token: token, player: thePlayer})
             }

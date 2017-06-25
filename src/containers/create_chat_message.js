@@ -92,7 +92,7 @@ class CreateChatMessage extends Component {
 function mapStateToProps(state) {
   return {
     messages: state.chatMessages.messages,
-    player: state.auth.player
+    player: state.account.player
   };
 }
 
