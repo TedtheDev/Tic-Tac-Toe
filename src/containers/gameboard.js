@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { } from '../actions/index';
+import { updateWins } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import SvgIcon from 'material-ui/SvgIcon';
 import GameBoardBox from './gameboardbox';
@@ -91,11 +91,15 @@ class GameBoard extends Component {
     if(XWin || OWin || noMoreMoves === 0) {
       if(XWin || OWin) {
         if(XWin) {
+          // add action win here
           alert('X Wins');
+          this.props.updateWins(this.props.player.username);
         } else {
+          // add action lose here
           alert('O Wins');
         }
       } else {
+        // add action draw here
         alert('draw');
       }
       this.setState({board: [
@@ -138,12 +142,12 @@ class GameBoard extends Component {
 
 function mapStateToProps(state) {
   return {
-
+    player: state.account.player
   }
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ }, dispatch);
+  return bindActionCreators({ updateWins }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameBoard)

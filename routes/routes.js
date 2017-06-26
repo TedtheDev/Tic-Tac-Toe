@@ -64,5 +64,6 @@ module.exports = (app) => {
   // account API
   app.post('/api/account/create', AccountController.createAccount)
   app.put('/api/account/update/:username', AccountController.updateAccount)
+  app.put('/api/account/update/:username/stats', AccountController.updateAccountStats)
 
 }

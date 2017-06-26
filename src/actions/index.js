@@ -6,9 +6,11 @@ export const DELETE_CHAT_MESSAGE = 'DELETE_CHAT_MESSAGE';
 export const CREATE_CHAT_MESSAGE = 'CREATE_CHAT_MESSAGE';
 
 // Login/logout Types
+// login types
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+// logout types
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
@@ -28,6 +30,7 @@ export const UPDATE_PLAYER_SUCCESS = 'UPDATE_PLAYER_SUCCESS';
 export const SET_PLAYER_INFO = 'SET_PLAYER_INFO';
 // Update player/account wins, draws, loses
 export const UPDATE_WINS = 'UPDATE_WINS';
+export const UPDATE_WINS_ERROR = 'UPDATE_WINS_ERROR';
 export const UPDATE_LOSES = 'UPDATE_LOSES';
 export const UPDATE_DRAWS = 'UPDATE_DRAWS';
 
@@ -243,7 +246,27 @@ function setPlayerInfo(player) {
   }
 }
 
+export function updateWins(username) {
+  const token = localStorage.getItem('token');
+  const reqBody = { statToUpdate: 'gamesWon' }
+  return (dispatch) => {
+    axios.put(`${ROOT_URL}/account/update/${username}/stats?token=${token}`, reqBody)
+      .then((player) => {
+        return {
+          type: UPDATE_WINS,
+          payload: player
+        }
+      })
+      .catch((err) => { dispatch(updateWinsError(err))})
+  }
+}
 
+function updateWinsError(err) {
+  return {
+    type: UPDATE_WINS_ERROR,
+    payload: { errorMessage: err}
+  }
+}
 // ******************************************************************************
 // Action creators for logging in a player and handling errors
 // ******************************************************************************
@@ -290,7 +313,6 @@ function loginError(message) {
     player: {}
   }
 }
-// ----------------------------------
 
 /**
  * [loginPlayer - main function to initiate logging in a player]

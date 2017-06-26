@@ -84,8 +84,39 @@ module.exports = {
               })
               .catch((err) => res.json({ success: false, message: err }))
           }
-
         }
       })
+  },
+  updateAccountStats(req,res,next) {
+    const { statToUpdate } = req.body;
+    const { username } = req.params;
+    let playerStat;
+    if(statToUpdate === 'gamesWon') {
+      playerStat = { $inc: { gamesWon: 1 } };
+    } else if(statToUpdate === 'gamesLost') {
+      playerStat = { $inc: { gamesLost: 1 } };
+    } else if(statToUpdate === 'gamesDrawn') {
+      playerStat = { $inc: { gamesDrawn: 1 } };
+    } else {
+      res.json({ success: false, message: 'not a stat to update'})
+    }
+
+    Player.findOneAndUpdate({ username: username }, playerStat, {new: true})
+      .then((player) => {
+        const { _id, name, email, username, gamesDrawn, gamesLost, gamesWon, gamesPlayed, avatar } = updatedPlayerInfo;
+        const theUpdatedPlayer = {
+          _id,
+          name,
+          email,
+          username,
+          gamesDrawn,
+          gamesLost,
+          gamesWon,
+          gamesPlayed,
+          avatar
+        }
+        res.json({success: true, player: theUpdatedPlayer})
+      })
+      .catch((err) => res.json({ success: false, message: err }))
   }
 }
