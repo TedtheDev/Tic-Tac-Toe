@@ -24,6 +24,7 @@ class GameBoard extends Component {
     this.checkPlayer = this.checkPlayer.bind(this);
     this.checkRows = this.checkRows.bind(this);
     this.checkColumns = this.checkColumns.bind(this);
+    this.checkDiagonals = this.checkDiagonals.bind(this);
   }
 
   playComputer(newBoard) {
@@ -72,8 +73,22 @@ class GameBoard extends Component {
     return won;
   }
 
+  checkDiagonals(player, board) {
+    let won = false;
+    if(board[0][0] === player && board[1][1] === player && board[2][2] === player) {
+      won = true;
+    } else if(board[2][0] === player && board[1][1] === player && board[0][2] === player) {
+      won = true;
+    }
+    return won;
+  }
+
   checkPlayer(player, board) {
-    return this.checkColumns(player, board) || this.checkRows(player, board)
+    return (
+      this.checkColumns(player, board) ||
+      this.checkRows(player, board) ||
+      this.checkDiagonals(player, board)
+    );
   }
 
   checkForWinner(newBoard) {
