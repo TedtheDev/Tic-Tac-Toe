@@ -7,7 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import CreateAccountForm from './create_account_form'
-import LoadingCircle from '../components/loadingMaterialUICircular';
+import LoadingCircle from '../components/loading_material_ui_circular';
 import AccountSettings from './account_settings';
 
 class CreateAccount extends Component {

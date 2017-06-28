@@ -4,7 +4,7 @@ import { fetchChatMessages, deleteChatMessage } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import CreateChatMessage from './create_chat_message';
-import LoadingIcon from '../components/loadingMaterialUICircular';
+import LoadingIcon from '../components/loading_material_ui_circular';
 
 class Chat extends Component {
   constructor(props) {

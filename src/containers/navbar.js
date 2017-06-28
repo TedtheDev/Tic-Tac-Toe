@@ -9,7 +9,7 @@ import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
 import Paper from 'material-ui/Paper';
 import Drawer from 'material-ui/Drawer';
-import NavbarRightElement from './navbarrightelement';
+import NavbarRightElement from './navbar_right_element';
 
 class Navbar extends Component {
   constructor(props){

@@ -1,5 +1,5 @@
 import React from 'react';
-import GameBoard from './gameboard';
+import GameBoard from './game_board';
 
 const TicTacToeGrid = () => {
   return (

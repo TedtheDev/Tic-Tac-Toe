@@ -6,7 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import UpdateAccountForm from './update_account_form'
-import LoadingCircle from '../components/loadingMaterialUICircular';
+import LoadingCircle from '../components/loading_material_ui_circular';
 import AccountSettings from './account_settings';
 
 class UpdateAccount extends Component {

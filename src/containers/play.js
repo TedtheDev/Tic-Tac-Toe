@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import Chat from './chat';
-import TicTacToeGrid from './tictactoegrid';
+import TicTacToeGrid from './tic_tac_toe_grid';
 
 class Play extends Component {
   render() {

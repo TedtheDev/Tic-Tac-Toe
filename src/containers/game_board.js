@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { updateStats } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import SvgIcon from 'material-ui/SvgIcon';
-import GameBoardBox from './gameboardbox';
+import GameBoardBox from './game_board_box';
 
 class GameBoard extends Component {
   constructor(props) {

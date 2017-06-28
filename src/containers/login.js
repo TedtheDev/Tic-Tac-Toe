@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import LoadingIcon from '../components/loadingMaterialUICircular';
+import LoadingIcon from '../components/loading_material_ui_circular';
 import { Link, Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
-import LoginForm from './loginform';
+import LoginForm from './login_form';
 
 
 class LoginScreen extends Component {
