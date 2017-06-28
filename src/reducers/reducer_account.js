@@ -8,8 +8,8 @@ import {
   UPDATING_PLAYER,
   UPDATE_PLAYER_SUCCESS,
   SET_PLAYER_INFO,
-  UPDATE_WINS,
-  UPDATE_WINS_ERROR
+  UPDATE_STATS,
+  UPDATE_STATS_ERROR
 } from '../actions/index'
 
 const INITIAL_STATE = { isCreating: false, created: false, player: {}, errorMessage: '' };
@@ -77,12 +77,12 @@ export default function(state = INITIAL_STATE, action) {
         errorMessage: action.payload.errorMessage
       }
       return { ...state, ...newState }
-    case UPDATE_WINS:
+    case UPDATE_STATS:
       newState = {
         player: action.payload.player
       }
       return { ...state, ...newState }
-    case UPDATE_WINS_ERROR:
+    case UPDATE_STATS_ERROR:
       newState = {
       errorMessage: action.payload.errorMessage
       }

@@ -102,7 +102,7 @@ module.exports = {
     }
 
     Player.findOneAndUpdate({ username: username }, playerStat, {new: true})
-      .then((player) => {
+      .then((updatedPlayerInfo) => {
         const { _id, name, email, username, gamesDrawn, gamesLost, gamesWon, gamesPlayed, avatar } = updatedPlayerInfo;
         const theUpdatedPlayer = {
           _id,

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
-import { updateWins } from '../actions/index';
+import { updateStats } from '../actions/index';
 import { bindActionCreators } from 'redux';
 import SvgIcon from 'material-ui/SvgIcon';
 import GameBoardBox from './gameboardbox';
@@ -108,14 +108,16 @@ class GameBoard extends Component {
         if(XWin) {
           // add action win here
           alert('X Wins');
-          this.props.updateWins(this.props.player.username);
+          this.props.updateStats(this.props.player.username, 'gamesWon');
         } else {
           // add action lose here
           alert('O Wins');
+          this.props.updateStats(this.props.player.username, 'gamesLost');
         }
       } else {
         // add action draw here
         alert('draw');
+        this.props.updateStats(this.props.player.username, 'gamesDrawn');
       }
       this.setState({board: [
         ['','',''],
@@ -162,7 +164,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ updateWins }, dispatch);
+  return bindActionCreators({ updateStats }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(GameBoard)

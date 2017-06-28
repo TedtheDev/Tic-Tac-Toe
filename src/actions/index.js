@@ -29,10 +29,8 @@ export const UPDATE_PLAYER_ERROR = 'UPDATE_PLAYER_ERROR';
 export const UPDATE_PLAYER_SUCCESS = 'UPDATE_PLAYER_SUCCESS';
 export const SET_PLAYER_INFO = 'SET_PLAYER_INFO';
 // Update player/account wins, draws, loses
-export const UPDATE_WINS = 'UPDATE_WINS';
-export const UPDATE_WINS_ERROR = 'UPDATE_WINS_ERROR';
-export const UPDATE_LOSES = 'UPDATE_LOSES';
-export const UPDATE_DRAWS = 'UPDATE_DRAWS';
+export const UPDATE_STATS = 'UPDATE_STATS';
+export const UPDATE_STATS_ERROR = 'UPDATE_STATS_ERROR';
 
 // Root url for api
 // for now when deploying to prod
@@ -246,24 +244,24 @@ function setPlayerInfo(player) {
   }
 }
 
-export function updateWins(username) {
+export function updateStats(username, statToUpdate) {
   const token = localStorage.getItem('token');
-  const reqBody = { statToUpdate: 'gamesWon' }
+  const reqBody = { statToUpdate: statToUpdate }
   return (dispatch) => {
     axios.put(`${ROOT_URL}/account/update/${username}/stats?token=${token}`, reqBody)
       .then((player) => {
         return {
-          type: UPDATE_WINS,
+          type: UPDATE_STATS,
           payload: player
         }
       })
-      .catch((err) => { dispatch(updateWinsError(err))})
+      .catch((err) => { dispatch(updateStatsError(err))})
   }
 }
 
-function updateWinsError(err) {
+function updateStatsError(err) {
   return {
-    type: UPDATE_WINS_ERROR,
+    type: UPDATE_STATS_ERROR,
     payload: { errorMessage: err}
   }
 }

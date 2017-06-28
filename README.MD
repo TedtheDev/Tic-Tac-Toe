@@ -1,6 +1,6 @@
 # Tic Tac Toe with Socket.IO
 
-Play tic tac toe with a friend! Battle them out with X's and O's. Send them messages via chat. Check your stats and see how far you are on the leaderboard
+Play tic tac toe with a friend! Battle them out with X's and O's. Send them messages via chat. Check your stats and see your rank on the leaderboards.
 
 ### Install Instructions
 Will be added soon
@@ -34,4 +34,4 @@ Will be added soon
 - avatar and logout seem to close to Tic Tac Toe title on mobile
 - user not authenticated when total page refresh
 - cannot pick X or O, can only be X
-~~does not mark win for diagonals~~
+- ~~does not mark win for diagonals~~
