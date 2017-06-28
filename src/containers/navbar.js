@@ -66,6 +66,13 @@ class Navbar extends Component {
               Account Settings
             </MenuItem>
           </Link>
+          <Link style={linkStyle} to="/leaderboard">
+            <MenuItem
+              onTouchTap={this.onTouchTapDrawerClose}
+            >
+              Leaderboards
+            </MenuItem>
+          </Link>
         </Drawer>
       </header>
     )
