@@ -73,6 +73,13 @@ class Navbar extends Component {
               Leaderboards
             </MenuItem>
           </Link>
+          <Link style={linkStyle} to="/stats">
+            <MenuItem
+              onTouchTap={this.onTouchTapDrawerClose}
+            >
+              Personal Stats
+            </MenuItem>
+          </Link>
         </Drawer>
       </header>
     )

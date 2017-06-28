@@ -9,6 +9,7 @@ import Play from '../containers/play';
 import CreateAccount from '../containers/create_account';
 import UpdateAccount from '../containers/update_account';
 import Leaderboard from '../containers/leaderboard';
+import PersonalStats from '../containers/personal_stats';
 import FourOhFourNotFound from '../components/404';
 
 class App extends Component {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route path="/account" component={CreateAccount}/>
             <Route path="/update" component={UpdateAccount}/>
             <Route path="/leaderboard" component={Leaderboard}/>
+            <Route path="/stats" component={PersonalStats}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
         </section>
