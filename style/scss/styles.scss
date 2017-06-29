@@ -72,9 +72,10 @@ html, body, .app {
 .message-board {
   display: flex;
   flex-flow: column nowrap;
+  justify-content: center;
   align-items: center;
   overflow-y: auto;
-  background: #9af4ff;
+  background: #FFFFFF;
   height: 50%;
   width: 100%;
 }
@@ -85,19 +86,21 @@ html, body, .app {
 }
 
 .message-bubble {
-  width: 50%;
+  width: 60%;
   height: 100%;
-  background: green;
+  background: #00bcd4;
   position: relative;
   margin: .5rem;
-  border: .2rem red solid;
   border-radius: .2rem;
+  font-size: calc(1vh + .8vw);
+  padding: 1em
+}
+
+.message-bubble .player {
+  font-size: 2vh;
 }
 
 .message-bubble .time {
-  position: absolute;
-  top: 60%;
-  right: 0px;
 }
 
 .message-bubble .message {
@@ -108,6 +111,7 @@ html, body, .app {
   position: absolute;
   top: 0px;
   right: 0px;
+  font-size: 3vh;
   cursor: pointer;
 }
 

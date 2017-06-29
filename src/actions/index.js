@@ -244,6 +244,12 @@ function setPlayerInfo(player) {
   }
 }
 
+/**
+ * [updateStats - updates player stats such as gamesWon, gamesLost, gamesDrawn]
+ * @param  {[type]} username     [username related to player/person signed in]
+ * @param  {[type]} statToUpdate [action to handle which stat to update]
+ * @return {[type]}              [redux action]
+ */
 export function updateStats(username, statToUpdate) {
   const token = localStorage.getItem('token');
   const reqBody = { statToUpdate: statToUpdate }
@@ -259,12 +265,19 @@ export function updateStats(username, statToUpdate) {
   }
 }
 
+/**
+ * [updateStatsError - handles error when updating a stat]
+ * @param  {[type]} err [errorMessage to pass on to front end related to updating a stat]
+ * @return {[type]}     [description]
+ */
 function updateStatsError(err) {
   return {
     type: UPDATE_STATS_ERROR,
     payload: { errorMessage: err}
   }
 }
+
+
 // ******************************************************************************
 // Action creators for logging in a player and handling errors
 // ******************************************************************************

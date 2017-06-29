@@ -14,7 +14,7 @@ import FourOhFourNotFound from '../components/404';
 
 class App extends Component {
   componentDidMount() {
-
+    //refresh token action goes here
   }
 
   render() {
