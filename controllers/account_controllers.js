@@ -37,7 +37,6 @@ module.exports = {
         if(!player) {
           res.json({ success: false, message: "Username incorrect"});
         } else if(player){
-          console.log(body)
           if(body.oldPassword !== null && body.oldPassword.length > 0
             && body.newPassword !== null && body.newPassword.length > 0) {
             bcrypt.compare(req.body.oldPassword, player.password, (err, response) => {

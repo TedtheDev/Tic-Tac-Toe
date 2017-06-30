@@ -26,12 +26,27 @@ Will be added soon
 - Morgan logs - HTTP methods
 - GameBoard
 --alert who wins
+--1.1---------------------------------------
+-Update Account
+--Email
+--Password
+-Personal stats
+--win Rate
+--Loses
+--wins
+--Games Played
+--longest and shortest game (static values for now)
+-Leaderboards placeholder (coming soon)
+-Redesigned message bubble (still needs work)
 --------------------------------------------
 
 ### Issues/Bugs
-- Forget Password on login screen overflows and looks smaller
-- chat message bubble - time overflows
-- avatar and logout seem to close to Tic Tac Toe title on mobile
+- 'Forget Password' button on login screen overflows and looks smaller, doesnt work either
+- ~~chat message bubble - time overflows~~
+- avatar and logout seem too close to Tic Tac Toe title on mobile
 - user not authenticated when total page refresh
 - cannot pick X or O, can only be X
 - ~~does not mark win for diagonals~~
+- desktop -> X and 0 are HUGE!
+- desktop -> message bubble really huge and if more than one, you can't see top
+- on form submission if error occurs, state is lose even though it looks the field is filled with text
