@@ -21,7 +21,7 @@ class PersonalStats extends Component {
     return (
       <div>
         <Paper zDepth={5} style={paperStyle}>
-          <div>Win Rate: {((parseInt(this.props.player.gamesWon) / parseInt(this.props.player.gamesPlayed)) * 100).toPrecision(4)}%</div>
+          <div>Win Rate: {(this.props.player.gamesPlayed !== null && this.props.player.gamesPlayed > 0) ? ((parseInt(this.props.player.gamesWon) / parseInt(this.props.player.gamesPlayed)) * 100).toPrecision(4) : 0}%</div>
           <div>Wins: {this.props.player.gamesWon}</div>
           <div>Loses: {this.props.player.gamesLost}</div>
           <div>Draws: {this.props.player.gamesDrawn}</div>
