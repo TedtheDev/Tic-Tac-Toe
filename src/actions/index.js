@@ -38,7 +38,7 @@ export const UPDATE_STATS_ERROR = 'UPDATE_STATS_ERROR';
 // switch to ./api
 // prod = ./api
 // dev = http://localhost:3050/api
-const ROOT_URL = 'http://localhost:3050/api';
+const ROOT_URL = './api';
 
 
 // **********************************************************************************************
