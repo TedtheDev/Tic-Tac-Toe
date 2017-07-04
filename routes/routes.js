@@ -36,11 +36,11 @@ module.exports = (app) => {
     const token = req.body.token || req.query.token || req.header['x-access-token'];
     // check token on request to validate user is authenticated
     if(token && req.path !== '/api/authenticate') {
-      jwt.verify(token, secret.theSecret, (err, decoded) => {
+      jwt.verify(token, secret.theSecret, (err, user) => {
         if(err) {
           return res.json({ succes: false, message: 'Failed to authenticate token'});
         } else {
-          req.decoded = decoded;
+          req.user = user;
           next();
         }
       })

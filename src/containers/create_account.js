@@ -86,7 +86,7 @@ class CreateAccount extends Component {
 
     if(this.props.isAuthenticated && this.props.created) {
       return (
-        <Redirect to="/play" push />
+        <Redirect push from='/account' to="/play" />
       )
     }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import {  } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +13,17 @@ import Leaderboard from '../containers/leaderboard';
 import PersonalStats from '../containers/personal_stats';
 import FourOhFourNotFound from '../components/404';
 
+function PrivateRoute({ component: Component, isAuthenticated, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => isAuthenticated === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+      />
+  )
+}
+
 class App extends Component {
   componentDidMount() {
     //refresh token action goes here
@@ -23,12 +35,12 @@ class App extends Component {
         <Navbar />
         <section className='main' >
           <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route path="/play" component={Play}/>
+            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/play" component={Play}/>
             <Route path="/account" component={CreateAccount}/>
-            <Route path="/update" component={UpdateAccount}/>
-            <Route path="/leaderboard" component={Leaderboard}/>
-            <Route path="/stats" component={PersonalStats}/>
+            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/update" component={UpdateAccount}/>
+            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/leaderboard" component={Leaderboard}/>
+            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/stats" component={PersonalStats}/>
+            <Route exact path="/" component={Home}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
         </section>
@@ -38,11 +50,13 @@ class App extends Component {
 };
 
 function mapStateToProps(state) {
-  return
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch)
 }
 
-export default App;
+export default withRouter(connect(mapStateToProps, null)(App));
