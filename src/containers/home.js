@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import LoginScreen from './login';
 import { Link, Route } from 'react-router-dom';
 import io from 'socket.io-client';
+// production = change to ()
+// dev = io('http://localhost:3050/')
 const socket = io('http://localhost:3050/');
 import RaisedButton from 'material-ui/RaisedButton';
 
