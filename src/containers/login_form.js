@@ -4,31 +4,17 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const validate = (values) => {
+const validate = (values, props) => {
+  values = {username: props.username, password: props.password};
   const errors = {};
   const requiredFields = [ 'username', 'password' ];
   requiredFields.forEach(field => {
-    if(!values[field]) {
+    if(!values[field] && values[field] === '') {
       errors[field] = 'Required';
     }
   })
   return errors;
 }
-
-const renderTextField = ({input, label, meta: {touched, error}, onInputChangeUsername, ...custom}) => (
-    <TextField
-      {...input}
-      type='text'
-      floatingLabelText={label}
-      floatingLabelStyle={{color:"#000000"}}
-      underlineStyle={{color:"#000000"}}
-      errorText={touched && error}
-      value={custom.username}
-      onChange={onInputChangeUsername}
-      autoComplete="off"
-      style={{width:"90%"}}
-    />
-)
 
 const renderTextFieldPassword = ({input, label, meta: {touched, error}, ...custom}) => (
     <TextField
@@ -58,6 +44,8 @@ class LoginForm extends Component {
     super(props);
 
     this.renderErrorMessage = this.renderErrorMessage.bind(this);
+    this.renderTextField = this.renderTextField.bind(this);
+    this.renderTextFieldPassword = this.renderTextFieldPassword.bind(this);
   }
 
   renderErrorMessage(errorMessage) {
@@ -68,13 +56,46 @@ class LoginForm extends Component {
     )
   }
 
+   renderTextField = ({input, label, meta: {touched, error}, onInputChangeUsername, ...custom}) => {
+      return (
+        <TextField
+          {...input}
+          type='text'
+          floatingLabelText={label}
+          floatingLabelStyle={{color:"#000000"}}
+          underlineStyle={{color:"#000000"}}
+          errorText={touched && error}
+          value={custom.username}
+          onChange={onInputChangeUsername}
+          autoComplete="off"
+          style={{width:"90%"}}
+        />
+      )
+  }
+
+  renderTextFieldPassword = ({input, label, meta: {touched, error}, ...custom}) => {
+      return (<TextField
+        {...input}
+        type='password'
+        floatingLabelText={label}
+        floatingLabelStyle={{color:"#000000"}}
+        underlineStyle={{color:"#000000"}}
+        errorText={touched && error}
+        value={custom.password}
+        onChange={custom.onInputChangePassword}
+        autoComplete="off"
+        style={{width:"90%"}}
+      />
+    )
+  }
+
   render() {
     const { handleSubmit, onLoginSubmit, username, onInputChangeUsername, password, onInputChangePassword, errorMessage } = this.props;
     return (
       <form onSubmit={ handleSubmit(onLoginSubmit) }>
         <Paper zDepth={5} style={paperStyle}>
-          <Field name='username' username={username} onInputChangeUsername={onInputChangeUsername} component={renderTextField} label='Username' />
-          <Field name='password' password={password} onInputChangePassword={onInputChangePassword} component={renderTextFieldPassword} label='Password' />
+          <Field name='username' username={username} onInputChangeUsername={onInputChangeUsername} component={this.renderTextField} label='Username' />
+          <Field name='password' password={password} onInputChangePassword={onInputChangePassword} component={this.renderTextFieldPassword} label='Password' />
           {this.renderErrorMessage(errorMessage) }
           <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
               <RaisedButton type='submit' primary={true} label='Login' onSubmit={ handleSubmit(onLoginSubmit) } />
