@@ -4,7 +4,13 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const validate = (values) => {
+const validate = (values, props) => {
+  values = {
+    email: props.email,
+    username: props.username,
+    password: props.password,
+    confirmPassword: props.confirmPassword
+  };
   const errors = {};
   const requiredFields = [
     "email",

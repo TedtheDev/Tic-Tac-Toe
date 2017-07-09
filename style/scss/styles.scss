@@ -6,7 +6,7 @@ $materialLightBlue: #00bcd4;
 }
 
 html, body, .app {
-  height: 100%;
+  height: 99%;
   overflow-y: hidden;
 }
 
@@ -33,7 +33,7 @@ html, body, .app {
   align-items: center;
   border: 1px $background-theme solid;
   font-family: roboto;
-  font-size: calc(10vw + 5vh)
+  font-size: calc(10vh + 1vw);
 }
 
 .col-1 {
@@ -72,7 +72,7 @@ html, body, .app {
 .message-board {
   display: flex;
   flex-flow: column nowrap;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   overflow-y: auto;
   background: #FFFFFF;
@@ -86,7 +86,7 @@ html, body, .app {
 }
 
 .message-bubble {
-  width: 60%;
+  width: 30vw;
   height: 100%;
   background: #00bcd4;
   position: relative;
@@ -175,4 +175,9 @@ html, body, .app {
   .tic-tac-toe-grid {
     height: 50%;
   }
+}
+
+.loading-circle {
+  display: flex;
+  justify-content: center;
 }

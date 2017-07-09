@@ -49,7 +49,7 @@ const ROOT_URL = './api';
  * @param  {[string]} username [username related to player]
  * @return {[action]} action [redux action]
  */
-export function fetchChatMessages(username) {``
+export function fetchChatMessages(username) {
   const token = localStorage.getItem('token');
   const request = axios.get(`${ROOT_URL}/chatsystem/messages/${username}?token=${token}`);
   return {
@@ -109,10 +109,10 @@ function creatingPlayer() {
  * @param  {[type]} player [information related to person playing on the site]
  * @return {[type]}        [redux action]
  */
-function createdPlayerSuccess(player) {
+function createdPlayerSuccess() {
   return {
     type: CREATED_PLAYER_CHANGE,
-    payload: { isCreating: false, created: true, player: player, errorMessage: '' }
+    payload: { isCreating: false, created: true, player: {}, errorMessage: '' }
   }
 }
 
@@ -143,6 +143,7 @@ export function createPlayer(player) {
         const { data } = request
         if(data.success) {
           dispatch(createdPlayerSuccess(data.player));
+          const created = true;
           dispatch(loginPlayer({username: username, password: password}))
         } else if(!data.success) {
           dispatch(createdPlayerError(data.message));
@@ -155,6 +156,7 @@ export function createPlayer(player) {
     type: CREATING_PLAYER,
     payload: request
   }
+
 }
 
 // ****************************************************************************
@@ -292,7 +294,7 @@ function requestLogin(creds) {
     type: LOGIN_REQUEST,
     isFetching: true,
     isAuthenticated: false,
-    creds
+    creds: creds
   }
 }
 
@@ -301,13 +303,12 @@ function requestLogin(creds) {
  * @param  {[object]} player [player info]
  * @return {[type]}        [redux action]
  */
-function receiveLogin(player) {
+function receiveLogin() {
   return {
     type: LOGIN_SUCCESS,
     isFetching: false,
     isAuthenticated: true,
-    token: player.token,
-    player: {}
+    creds: {}
   }
 }
 
@@ -321,7 +322,7 @@ function loginError(message) {
   return {
     type: LOGIN_FAILURE,
     payload: payload,
-    player: {}
+    creds: {}
   }
 }
 
@@ -346,7 +347,7 @@ export function loginPlayer(creds) {
           // If login was successful, set the token in local storage
           localStorage.setItem('token', res.data.token);
           // Dispatch the success action
-          dispatch(receiveLogin(res.data.player))
+          dispatch(receiveLogin())
           dispatch(setPlayerInfo(res.data.player))
         }
       })
@@ -367,7 +368,7 @@ function requestLogout() {
     type: LOGOUT_REQUEST,
     isFetching: true,
     isAuthenticated: true,
-    player: {}
+    creds: {}
   }
 }
 
@@ -381,7 +382,7 @@ function receiveLogout() {
     type: LOGOUT_SUCCESS,
     isFetching: false,
     isAuthenticated: false,
-    player: {}
+    creds: {}
   }
 }
 
@@ -392,8 +393,9 @@ function receiveLogout() {
  */
 export function logoutUser() {
   return (dispatch) => {
-    dispatch(requestLogout())
-    localStorage.removeItem('token')
-    dispatch(receiveLogout())
+    dispatch(requestLogout());
+    localStorage.removeItem('token');
+    dispatch(setPlayerInfo({}));
+    dispatch(receiveLogout());
   }
 }

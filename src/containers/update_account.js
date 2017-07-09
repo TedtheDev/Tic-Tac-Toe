@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { updatePlayer } from '../actions/index';
+import { Redirect } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -37,7 +38,6 @@ class UpdateAccount extends Component {
     };
 
     this.props.updatePlayer(player);
-
   }
 
   onInputChangeEmail(event) {
@@ -62,15 +62,15 @@ class UpdateAccount extends Component {
   }
 
   render() {
-    if(this.props.isCreating) {
+    if(!this.props.isAuthenticated) {
       return (
-        <LoadingCircle />
+        <Redirect to="/" />
       )
     }
 
-    if(this.props.isAuthenticated && this.props.created) {
+    if(this.props.isCreating) {
       return (
-        <Redirect to="/play" push />
+        <LoadingCircle />
       )
     }
 
@@ -99,7 +99,8 @@ function mapStateToProps(state){
   return {
     player: state.account.player,
     errorMessage: state.account.errorMessage,
-    isCreating: state.account.isCreating
+    isCreating: state.account.isCreating,
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

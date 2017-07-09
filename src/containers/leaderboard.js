@@ -1,7 +1,16 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 class Leaderboard extends Component {
     render() {
+      if(!this.props.isAuthenticated) {
+        return (
+          <div>
+            <Redirect to='/' />
+          </div>
+        )
+      }
       return (
         <div>Leaderboards coming soon</div>
         // get all players. show games played, wins, win rate, fun stats
@@ -13,4 +22,9 @@ class Leaderboard extends Component {
     }
 }
 
-export default Leaderboard;
+function mapStateToProps(state) {
+  return  {
+    isAuthenticated: state.auth.isAuthenticated
+  }
+}
+export default connect(mapStateToProps)(Leaderboard);

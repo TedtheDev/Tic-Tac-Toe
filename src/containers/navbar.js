@@ -89,7 +89,8 @@ class Navbar extends Component {
 function mapStateToProps(state) {
   return {
     isAuthenticated: state.auth.isAuthenticated,
-    isFetching: state.auth.isFetching
+    isFetching: state.auth.isFetching,
+    player: state.account.player
   }
 }
 

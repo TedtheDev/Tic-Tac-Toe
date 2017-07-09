@@ -14,8 +14,8 @@ class Chat extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchChatMessages(this.props.player.username);
-    this.scrollToBottomChatMessages();
+      this.props.fetchChatMessages(this.props.player.username);
+      this.scrollToBottomChatMessages();
   }
 
   componentDidUpdate() {
@@ -23,7 +23,7 @@ class Chat extends Component {
   }
 
   renderChatMessages(messages) {
-      return messages.map((message) => {
+      return messages.map((message, index) => {
           return (
             <div key={message._id} className='message-bubble' >
               <p className="player">{message.user}</p>

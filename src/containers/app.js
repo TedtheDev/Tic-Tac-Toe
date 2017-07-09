@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import {  } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,6 +13,22 @@ import Leaderboard from '../containers/leaderboard';
 import PersonalStats from '../containers/personal_stats';
 import FourOhFourNotFound from '../components/404';
 
+// tried to implement this but was  having issues with redirects and updating
+// will work on at a later point
+//
+// to handle 'private routes', each component has its own check if isAuthenticated === false
+// and not have a higher component
+function PrivateRoute({ component: Component, isAuthenticated, ...rest}) {
+  return (
+    <Route
+      {...rest}
+      render={(props) => isAuthenticated === true
+        ? <Component {...props} />
+        : <Redirect to={{pathname: '/', state: { from: props.location } }} />}
+      />
+  )
+}
+
 class App extends Component {
   componentDidMount() {
     //refresh token action goes here
@@ -23,12 +40,12 @@ class App extends Component {
         <Navbar />
         <section className='main' >
           <Switch>
+            <Route exact path="/play" component={Play}/>
+            <Route exact path="/account" component={CreateAccount}/>
+            <Route exact path="/update" component={UpdateAccount}/>
+            <Route exact path="/leaderboard" component={Leaderboard}/>
+            <Route exact path="/stats" component={PersonalStats}/>
             <Route exact path="/" component={Home}/>
-            <Route path="/play" component={Play}/>
-            <Route path="/account" component={CreateAccount}/>
-            <Route path="/update" component={UpdateAccount}/>
-            <Route path="/leaderboard" component={Leaderboard}/>
-            <Route path="/stats" component={PersonalStats}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
         </section>
@@ -38,11 +55,19 @@ class App extends Component {
 };
 
 function mapStateToProps(state) {
-  return
+  return {
+    isAuthenticated: state.auth.isAuthenticated
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch)
 }
 
+//withRouter doesnt update isAuthenticated at this level but login isAuthenticated is updated to true
+// if we take out withRouter, they update
+// issue with redirects
+// app js doesnt get update so redirects to / which then renders logincsreen which is isAuthenticated as true which then redirects to play which causes a loop
+// ISSUE: isAuthenticated in app is not updated, isAuthenticated in login is updated cuases redirect loops
+// withRouter might be making the connect not be connected to the store thus it isAuthenticated isn't updated
 export default App;

@@ -3,7 +3,7 @@ import { loginPlayer } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import LoadingIcon from '../components/loading_material_ui_circular';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
@@ -48,8 +48,7 @@ class LoginScreen extends Component {
     if(this.props.isAuthenticated === true) {
       return (
         <div>
-          <Link to='/play'>Play a Game</Link>
-          <Redirect push to='/play'/>
+          <Redirect to='/play' from='/'/>
         </div>
       )
     }

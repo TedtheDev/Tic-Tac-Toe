@@ -4,7 +4,13 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const validate = (values) => {
+const validate = (values,props) => {
+  values = {
+    email: props.email,
+    newPassword: props.newPassword,
+    oldPassword: props.oldPassword,
+    confirmNewPassword: props.confirmNewPassword
+  };
   const errors = {};
   const requiredFields = [
     "email"
@@ -15,12 +21,12 @@ const validate = (values) => {
     }
   });
 
-  if(values.newPassword !== undefined && values.newPassword.length > 0
-    && values.oldPassword === undefined ) {
+  if(values.newPassword !== '' && values.newPassword.length > 0
+    && values.oldPassword === '' ) {
     errors['oldPassword'] = 'Please enter your old password';
   }
 
-  if(values.newPassword === undefined && values.oldPassword !== undefined && values.oldPassword.length > 0) {
+  if(values.newPassword === '' && values.oldPassword !== '' && values.oldPassword.length > 0) {
     errors['newPassword'] = 'Please enter a new password';
   }
 
@@ -29,7 +35,7 @@ const validate = (values) => {
     errors['newPassword'] = 'Passwords do not match';
   }
 
-  if(values.email !== undefined && values.email.indexOf('@') === -1) {
+  if(values.email !== '' && values.email.indexOf('@') === -1) {
     errors['email'] = 'Invalid Email: use @';
   }
 
@@ -47,6 +53,7 @@ class UpdateAccountForm extends Component {
     super(props);
 
     this.renderTextField = this.renderTextField.bind(this);
+    this.renderTextFieldDisabled = this.renderTextFieldDisabled.bind(this);
     this.renderErrorMessage = this.renderErrorMessage.bind(this);
   }
 
