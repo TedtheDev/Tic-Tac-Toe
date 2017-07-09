@@ -3,7 +3,9 @@ import CircularProgress from 'material-ui/CircularProgress';
 
 const LoadingCircle = (props) => {
   return (
-    <CircularProgress size={80} thickness={7} />
+    <div className='loading-circle'>
+      <CircularProgress size={80} thickness={7} />
+    </div>
   )
 }
 

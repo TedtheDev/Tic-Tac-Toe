@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import Paper from 'material-ui/Paper';
 
 
@@ -15,9 +16,15 @@ class PersonalStats extends Component {
   constructor(props) {
     super(props);
 
-
   }
   render() {
+    if(!this.props.isAuthenticated) {
+      return (
+        <div>
+          <Redirect to='/' />
+        </div>
+      )
+    }
     return (
       <div>
         <Paper zDepth={5} style={paperStyle}>
@@ -36,7 +43,8 @@ class PersonalStats extends Component {
 
 function mapStateToProps(state) {
   return {
-    player: state.account.player
+    player: state.account.player,
+    isAuthenticated: state.auth.isAuthenticated
   }
 }
 

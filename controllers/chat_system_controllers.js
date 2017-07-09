@@ -5,13 +5,12 @@ module.exports = {
     res.send({ hi: 'there' });
   },
   getMessages(req, res, next) {
-    ChatSystem
     ChatSystem.find({ user: req.params.username})
       .then((messages) => {
         const theMessages = messages.map((message) => {
-          return { "user": message.user, "date": message.date, "message": message.message }
+          return { "_id": message._id, "user": message.user, "date": message.date, "message": message.message }
         })
-        res.json(messages);
+        res.json(theMessages);
       })
       .catch(next);
   },
@@ -25,7 +24,7 @@ module.exports = {
   deleteMessage(req, res, next) {
     const user = req.params.username;
     const theId = req.params.id;
-    ChatSystem.findByIdAndRemove({ user: user, _id: theId })
+    ChatSystem.findByIdAndRemove(theId)
       .then((messageDeleted) => res.json(messageDeleted))
       .catch(next);
   }

@@ -20,7 +20,19 @@ module.exports = {
 
               newPlayer.save()
                 .then((player) => {
-                  res.json({success: true, message: 'Player Created'})
+                  const { _id, name, email, username, gamesDrawn, gamesLost, gamesWon, gamesPlayed, avatar } = player;
+                  const theCreatedPlayer = {
+                    _id,
+                    name,
+                    email,
+                    username,
+                    gamesDrawn,
+                    gamesLost,
+                    gamesWon,
+                    gamesPlayed,
+                    avatar
+                  }
+                  res.json({success: true, message: 'Player Created', player: theCreatedPlayer})
                 })
                 .catch((err) => res.json({success: false, message: err}))
             })

@@ -1,6 +1,6 @@
 import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT_SUCCESS } from '../actions/index';
 
-const INITIAL_STATE = { isFetching: false, isAuthenticated: localStorage.getItem('token') ? true : false, player: {}};
+const INITIAL_STATE = { isFetching: false, isAuthenticated: false, errorMessage: '', creds: {}};
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
@@ -8,24 +8,26 @@ export default function(state = INITIAL_STATE, action) {
       return Object.assign({}, state, {
         isFetching: true,
         isAuthenticated: false,
-        player: action.creds
+        errorMessage: '',
+        creds: action.creds
       });
     case LOGIN_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: true,
-        player: action.player
+        errorMessage: '',
+        creds: action.creds
       });
     case LOGIN_FAILURE:
-      const { isFetching, isAuthenticated, errorMessage, player } = action.payload;
-      return {isFetching: isFetching, isAuthenticated: isAuthenticated, errorMessage: errorMessage, player: player}
+      const { isFetching, isAuthenticated, errorMessage, creds } = action.payload;
+      return {isFetching: isFetching, isAuthenticated: isAuthenticated, errorMessage: errorMessage, creds: creds}
     case LOGOUT_SUCCESS:
       return Object.assign({}, state, {
         isFetching: false,
         isAuthenticated: false,
-        player: action.player
+        errorMessage: '',
+        creds: action.creds
       })
-
     default:
       return state;
   }

@@ -13,13 +13,18 @@ import Leaderboard from '../containers/leaderboard';
 import PersonalStats from '../containers/personal_stats';
 import FourOhFourNotFound from '../components/404';
 
+// tried to implement this but was  having issues with redirects and updating
+// will work on at a later point
+//
+// to handle 'private routes', each component has its own check if isAuthenticated === false
+// and not have a higher component
 function PrivateRoute({ component: Component, isAuthenticated, ...rest}) {
   return (
     <Route
       {...rest}
       render={(props) => isAuthenticated === true
         ? <Component {...props} />
-        : <Redirect to={{pathname: '/', state: {from: props.location}}} />}
+        : <Redirect to={{pathname: '/', state: { from: props.location } }} />}
       />
   )
 }
@@ -35,11 +40,11 @@ class App extends Component {
         <Navbar />
         <section className='main' >
           <Switch>
-            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/play" component={Play}/>
-            <Route path="/account" component={CreateAccount}/>
-            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/update" component={UpdateAccount}/>
-            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/leaderboard" component={Leaderboard}/>
-            <PrivateRoute isAuthenticated={this.props.isAuthenticated} path="/stats" component={PersonalStats}/>
+            <Route exact path="/play" component={Play}/>
+            <Route exact path="/account" component={CreateAccount}/>
+            <Route exact path="/update" component={UpdateAccount}/>
+            <Route exact path="/leaderboard" component={Leaderboard}/>
+            <Route exact path="/stats" component={PersonalStats}/>
             <Route exact path="/" component={Home}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
@@ -59,4 +64,10 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({}, dispatch)
 }
 
-export default withRouter(connect(mapStateToProps, null)(App));
+//withRouter doesnt update isAuthenticated at this level but login isAuthenticated is updated to true
+// if we take out withRouter, they update
+// issue with redirects
+// app js doesnt get update so redirects to / which then renders logincsreen which is isAuthenticated as true which then redirects to play which causes a loop
+// ISSUE: isAuthenticated in app is not updated, isAuthenticated in login is updated cuases redirect loops
+// withRouter might be making the connect not be connected to the store thus it isAuthenticated isn't updated
+export default App;
