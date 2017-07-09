@@ -27,17 +27,20 @@ Will be added soon
 - GameBoard
 --alert who wins
 --1.1---------------------------------------
--Update Account
+- Update Account
 --Email
 --Password
--Personal stats
+- Personal stats
 --win Rate
 --Loses
 --wins
 --Games Played
 --longest and shortest game (static values for now)
--Leaderboards placeholder (coming soon)
--Redesigned message bubble (still needs work)
+- Leaderboards placeholder (coming soon)
+- Redesigned message bubble (still needs work)
+--1.2-------07.08.2017-----------------------
+- Fixed form issues with state
+- Added private/protected routes with Redirects
 --------------------------------------------
 
 ### Issues/Bugs
@@ -47,6 +50,9 @@ Will be added soon
 - user not authenticated when total page refresh
 - cannot pick X or O, can only be X
 - ~~does not mark win for diagonals~~
-- desktop -> X and 0 are HUGE!
-- desktop -> message bubble really huge and if more than one, you can't see top
-- on form submission if error occurs, state is lose even though it looks the field is filled with text
+- ~~desktop -> X and 0 are HUGE!~~
+- desktop -> message bubble really huge
+- ~~if more than message bubble, you can't see top~~
+- ~~on form submission if error occurs, state is lost even though it looks the field is filled with text~~
+- Personal stats do not update after each Games
+- time on chat is not saving actual time, it is saving time logged in
