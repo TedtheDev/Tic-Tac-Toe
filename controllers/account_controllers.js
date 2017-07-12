@@ -1,5 +1,13 @@
 const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
+const jwt = require('jsonwebtoken');
+
+let secret;
+if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
+  secret = { theSecret: process.env.THE_SECRET }
+} else {
+  secret = require('../creds/secret');
+}
 
 module.exports = {
   createAccount(req, res, next) {

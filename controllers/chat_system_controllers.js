@@ -1,9 +1,6 @@
 const ChatSystem = require('../models/chatsystem');
 
 module.exports = {
-  greeting(req, res) {
-    res.send({ hi: 'there' });
-  },
   getMessages(req, res, next) {
     ChatSystem.find({ user: req.params.username})
       .then((messages) => {
