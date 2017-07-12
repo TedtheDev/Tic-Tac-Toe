@@ -28,7 +28,7 @@ module.exports = (app) => {
   }
   app.use(cors(corsOptionsDelegate));
 
-/*
+/* commented out, need more testing with checkToken below
   // Setup middleware to handle that all requests
   // have a token to access
   //
@@ -60,16 +60,14 @@ module.exports = (app) => {
       if(err) {
         return res.json({ succes: false, message: 'Failed to authenticate token'});
       } else {
-        console.log('ddd',req.params.username)
-        console.log('ddd',user.username)
         if(req.params.username !== undefined && req.params.username !== user.username) {
           return res.json({ succes: false, message: 'Failed to authenticate tokdddden'});
         }
-        console.log('no params')
         next();
       }
     })
   }
+  
   // chatsystem API
   // routes for the chat system with an api test greeting
   app.get('/api/chatsystem/messages/:username', checkToken, ChatSystemController.getMessages);
