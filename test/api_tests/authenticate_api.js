@@ -11,6 +11,24 @@ describe('Authenticate an Account/Player', () => {
       username: 'mochatests',
       password: 'mochatests'
   };
+
+  beforeEach((done) => {
+    request(app)
+      .post('/api/account/create')
+      .send(thePlayer)
+      .expect(200)
+      .end((err, res) => {
+        done();
+      })
+  })
+
+  afterEach((done)=> {
+    Player.remove({username: thePlayer.username})
+      .then((player) => {
+        done();
+      })
+  })
+
   it('POST /api/authenticate should authenticate and receive a token', (done) => {
     request(app)
       .post('/api/authenticate')

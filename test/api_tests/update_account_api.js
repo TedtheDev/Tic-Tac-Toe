@@ -11,7 +11,7 @@ describe('Update an Account/Player\'s information', () => {
       username: 'mochatests',
       password: 'mochatests'
   };
-  it('POST /api/account/update/:username should update account email', (done) => {
+  xit('POST /api/account/update/:username should update account email', (done) => {
     request(app)
       .post(`/api/account/update/${thePlayer.username}`)
       .send({username: thePlayer.username})
@@ -29,7 +29,7 @@ describe('Update an Account/Player\'s information', () => {
       })
   })
 
-  it('POST /api/authenticate should throw error on correct username and incorrect password', (done) => {
+  xit('POST /api/authenticate should throw error on correct username and incorrect password', (done) => {
     request(app)
       .post('/api/authenticate')
       .send({username: thePlayer.username, password: 'incorrect password'})
@@ -45,7 +45,7 @@ describe('Update an Account/Player\'s information', () => {
   })
 
 
-  it('POST /api/authenticate should throw error on incorrect username and correct password', (done) => {
+  xit('POST /api/authenticate should throw error on incorrect username and correct password', (done) => {
     request(app)
       .post('/api/authenticate')
       .send({username: 'incorrect username', password: thePlayer.password})
@@ -60,7 +60,7 @@ describe('Update an Account/Player\'s information', () => {
       })
   })
 
-  it('POST /api/authenticate should throw error on passing no creds', (done) => {
+  xit('POST /api/authenticate should throw error on passing no creds', (done) => {
     request(app)
       .post('/api/authenticate')
       .send({})

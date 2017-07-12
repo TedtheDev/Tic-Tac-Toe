@@ -15,7 +15,7 @@ module.exports = {
     Player.findOne({ username: body.username })
       .then((player) => {
         if(player !== null) {
-          res.json({success: false, message: 'Username already exists. Create a new Username.'});
+          res.json({success: false, message: 'Username already exists. Create a new Username'});
         } else {
           bcrypt.genSalt(10, (err,salt) => {
             bcrypt.hash(body.password, salt, (err, hash) => {
