@@ -12,6 +12,9 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
 module.exports = {
   createAccount(req, res, next) {
     const { body } = req;
+    if(body.username === undefined) {
+      res.json({success: false, message:"Username not defined"})
+    }
     Player.findOne({ username: body.username })
       .then((player) => {
         if(player !== null) {
@@ -42,12 +45,12 @@ module.exports = {
                   }
                   res.json({success: true, message: 'Player Created', player: theCreatedPlayer})
                 })
-                .catch((err) => res.json({success: false, message: err}))
+                .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
             })
           })
         }
       })
-      .catch((err) => res.json({success: false, message: err}))
+      .catch((err) => res.json({success: false, message: "Invalid Request", err: err}))
   },
   updateAccount(req,res,next) {
     const { body } = req;

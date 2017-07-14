@@ -72,10 +72,10 @@ describe('Create an Account/Player', () => {
       .send({})
       .expect(200)
       .end((err, res) => {
-        console.log(res.body)
-        const { success, message, player } = res.body;
+        const { success, message } = res.body;
         assert(
-          false
+          success === false &&
+          message === 'Username not defined'
         );
         done();
       })
