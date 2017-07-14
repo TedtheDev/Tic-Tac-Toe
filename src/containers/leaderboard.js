@@ -1,8 +1,41 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import Helpers from '../helpers/helpers';
+import Paper from 'material-ui/Paper';
+
+const paperStyle = {
+  display:"flex",
+  flexDirection:"column",
+  justifyContent:"center",
+  alignItems: "center",
+  padding: "1rem"
+}
 
 class Leaderboard extends Component {
+    constructor(props) {
+      super(props);
+
+      this.state = {players: []}
+
+      this.renderLeaderboard = this.renderLeaderboard.bind(this);
+    }
+
+    componentDidMount() {
+      const token = localStorage.getItem('token');
+      Helpers.getLeaderboard()
+        .then((data) => {
+          this.setState({players: data.data.players});
+        })
+    }
+
+    renderLeaderboard(players) {
+      return (
+        players.map((player) => {
+          return <li key={player._id}>{player.username} {player.gamesWon} {player.gamesLost} {player.gamesDrawn}</li>
+        })
+      )
+    }
     render() {
       if(!this.props.isAuthenticated) {
         return (
@@ -12,12 +45,14 @@ class Leaderboard extends Component {
         )
       }
       return (
-        <div>Leaderboards coming soon</div>
-        // get all players. show games played, wins, win rate, fun stats
-        // do a list, just a one call
-        // will eventually make it sortabled maybe with a search?
-        // do it ascending on win rate, but somehow incorporate games played too
-        // include player logged in like in pubg
+        <div>
+          <Paper zDepth={5} style={paperStyle}>
+            <h2>Leaderboard</h2>
+            <ul>
+              {this.renderLeaderboard(this.state.players)}
+            </ul>
+          </Paper>
+        </div>
       )
     }
 }

@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 const ChatSystemController = require('../controllers/chat_system_controllers');
 const AuthenticationController = require('../controllers/authentication_controllers');
 const AccountController = require('../controllers/account_controllers');
+const LeaderboardController = require('../controllers/leaderboard_controllers');
 const cors = require('cors');
 const path = require('path');
 
@@ -28,29 +29,6 @@ module.exports = (app) => {
   }
   app.use(cors(corsOptionsDelegate));
 
-/* commented out, need more testing with checkToken below
-  // Setup middleware to handle that all requests
-  // have a token to access
-  //
-  app.use('*',(req, res, next) => {
-    const token = req.body.token || req.query.token || req.header['x-access-token'];
-    // check token on request to validate user is authenticated
-    if(token && req.path !== '/api/authenticate' ) {
-      jwt.verify(token, secret.theSecret, (err, user) => {
-        if(err) {
-          return res.json({ succes: false, message: 'Failed to authenticate token'});
-        }
-          next();
-      })
-    } else if(req.path === '/api/authenticate' || req.path === '/api/account/create' || req.path === '/' || req.path === '/dist/bundle.js' || req.path === '/dist/bundle.css' || req.path === '/favicon.ico') {
-      next();
-    } else {
-      return res.sendFile(path.resolve(__dirname + '/'));
-    }
-  });
-
-*/
-
   // Function to check token username with param username
   // If they don't match, throw a failed authentication
   // If they match, move along
@@ -67,7 +45,7 @@ module.exports = (app) => {
       }
     })
   }
-  
+
   // chatsystem API
   // routes for the chat system with an api test greeting
   app.get('/api/chatsystem/messages/:username', checkToken, ChatSystemController.getMessages);
@@ -81,5 +59,8 @@ module.exports = (app) => {
   app.post('/api/account/create', AccountController.createAccount)
   app.put('/api/account/update/:username', checkToken, AccountController.updateAccount)
   app.put('/api/account/update/:username/stats', checkToken, AccountController.updateAccountStats)
+
+  // get leaderboards
+  app.get('/api/leaderboard', checkToken, LeaderboardController.getLeaderboard)
 
 }
