@@ -9,9 +9,9 @@ import axios from 'axios';
 const ROOT_URL = 'http://localhost:3050/api';
 
 const helpers = {
-  getLeaderboard() {
+  getLeaderboard(page) {
     const token = localStorage.getItem('token');
-    return axios.get(`${ROOT_URL}/leaderboard?token=${token}`)
+    return axios.get(`${ROOT_URL}/leaderboard?page=${page}&token=${token}`)
   }
 }
 
