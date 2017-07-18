@@ -38,5 +38,24 @@ module.exports = {
         }
       })
       .catch(next)
+  },
+  reauthToken(req,res,next) {
+    const { token } = req.body;
+    jwt.verify(token, secret.theSecret, (err,user) => {t
+
+      if(err) {
+        res.json({success: false, message: 'Token Expired'})
+      }
+
+      Player.findById(user._id)
+        .then((player) => {
+          if(player) {
+
+          } else {
+            res.json({success: false, message: 'Could not find player'})
+          }
+        })
+
+    })
   }
 }

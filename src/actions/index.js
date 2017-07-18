@@ -14,6 +14,8 @@ export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
+//Reauthenticate token on browser refresh
+export const REAUTH_TOKEN = 'REAUTH_TOKEN';
 
 // Create Account/Player Types
 export const CREATING_PLAYER = 'CREATING_PLAYER';
@@ -399,3 +401,15 @@ export function logoutUser() {
     dispatch(receiveLogout());
   }
 }
+
+/*
+export function reauthToken() {
+  return (dispatch) => {
+    const token = localStorage.getItem('token')
+    if(!token) {
+      return dispatch(logoutUser());
+    }
+
+  }
+}
+*/

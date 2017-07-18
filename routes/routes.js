@@ -54,6 +54,7 @@ module.exports = (app) => {
 
   // authentication API
   app.post('/api/authenticate', AuthenticationController.getToken);
+  app.post('/api/reauthenticate', AuthenticationController.reauthToken);
 
   // account API
   app.post('/api/account/create', AccountController.createAccount)

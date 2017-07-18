@@ -43,7 +43,7 @@ class Leaderboard extends Component {
       return (
         players.map((player,index) => {
           return (
-            <div key={player._id} style={{display:"flex",justifyContent:"space-between"}}>
+            <div className={"row-"+(index + 1)} key={player._id} >
               <div>
                 {Number((currentPage * 10) + (index + 1))}
               </div>
@@ -88,7 +88,14 @@ class Leaderboard extends Component {
             <div>
               {this.renderAmountOfButtons(this.state.amountOfPages, () => this.fetchLeaderboard())}
             </div>
-            <div className=".leaderboard-stats">
+            <div className="leaderboard-stats">
+              <div className='row-0'>
+                <div>Number</div>
+                <div>Username</div>
+                <div>Wins</div>
+                <div>Losts</div>
+                <div>Draws</div>
+              </div>
               {this.renderLeaderboard(this.state.players, this.state.currentPage)}
             </div>
           </Paper>
