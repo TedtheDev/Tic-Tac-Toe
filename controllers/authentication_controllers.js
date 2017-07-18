@@ -21,7 +21,6 @@ module.exports = {
             if(!response) {
               res.json({ success: false, message: 'Username or Password incorrect'});
             } else {
-              const token = jwt.sign(player._id, secret.theSecret, { expiresIn: 60 * 60 });
               const thePlayer = {
                 _id: player._id,
                 username: player.username,
@@ -32,11 +31,31 @@ module.exports = {
                 gamesWon: player.gamesWon,
                 gamesPlayed: player.gamesPlayed
               }
+              const token = jwt.sign({ _id: player._id, username: player.username}, secret.theSecret, { expiresIn: 60 * 60 });
               res.json({ success: true, message: "YAY TOKEN", token: token, player: thePlayer})
             }
           })
         }
       })
       .catch(next)
+  },
+  reauthToken(req,res,next) {
+    const { token } = req.body;
+    jwt.verify(token, secret.theSecret, (err,user) => {t
+
+      if(err) {
+        res.json({success: false, message: 'Token Expired'})
+      }
+
+      Player.findById(user._id)
+        .then((player) => {
+          if(player) {
+
+          } else {
+            res.json({success: false, message: 'Could not find player'})
+          }
+        })
+
+    })
   }
 }

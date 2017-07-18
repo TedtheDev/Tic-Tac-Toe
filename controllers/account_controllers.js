@@ -1,13 +1,24 @@
 const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
+const jwt = require('jsonwebtoken');
+
+let secret;
+if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
+  secret = { theSecret: process.env.THE_SECRET }
+} else {
+  secret = require('../creds/secret');
+}
 
 module.exports = {
   createAccount(req, res, next) {
     const { body } = req;
+    if(body.username === undefined) {
+      res.json({success: false, message:"Username not defined"})
+    }
     Player.findOne({ username: body.username })
       .then((player) => {
         if(player !== null) {
-          res.json({success: false, message: 'Username already exists. Create a new Username.'});
+          res.json({success: false, message: 'Username already exists. Create a new Username'});
         } else {
           bcrypt.genSalt(10, (err,salt) => {
             bcrypt.hash(body.password, salt, (err, hash) => {
@@ -34,12 +45,12 @@ module.exports = {
                   }
                   res.json({success: true, message: 'Player Created', player: theCreatedPlayer})
                 })
-                .catch((err) => res.json({success: false, message: err}))
+                .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
             })
           })
         }
       })
-      .catch((err) => res.json({success: false, message: err}))
+      .catch((err) => res.json({success: false, message: "Invalid Request", err: err}))
   },
   updateAccount(req,res,next) {
     const { body } = req;

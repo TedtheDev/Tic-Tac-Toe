@@ -41,6 +41,9 @@ Will be added soon
 --1.2-------07.08.2017-----------------------
 - Fixed form issues with state
 - Added private/protected routes with Redirects
+--1.3-------07.18.2017-----------------------
+- Added Leaderboards layout with Pagination
+- Updated License
 --------------------------------------------
 
 ### Issues/Bugs
@@ -56,3 +59,5 @@ Will be added soon
 - ~~on form submission if error occurs, state is lost even though it looks the field is filled with text~~
 - Personal stats do not update after each Games
 - time on chat is not saving actual time, it is saving time logged in
+- Leaderboard need to be cleaned up with a better scalable layout
+- Leaderboard needs better Pagination
