@@ -60,6 +60,8 @@ module.exports = (app) => {
   app.post('/api/account/create', AccountController.createAccount)
   app.put('/api/account/update/:username', checkToken, AccountController.updateAccount)
   app.put('/api/account/update/:username/stats', checkToken, AccountController.updateAccountStats)
+  // account verify
+  app.post('/api/account/verify/:username/:hash', AccountController.verifyAccount);
 
   // get leaderboards
   app.get('/api/leaderboard', checkToken, LeaderboardController.getLeaderboard)

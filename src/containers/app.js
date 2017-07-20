@@ -12,6 +12,7 @@ import UpdateAccount from '../containers/update_account';
 import Leaderboard from '../containers/leaderboard';
 import PersonalStats from '../containers/personal_stats';
 import FourOhFourNotFound from '../components/404';
+import VerifyAccountWrapper from '../containers/verify_account_wrapper';
 
 // tried to implement this but was  having issues with redirects and updating
 // will work on at a later point
@@ -45,6 +46,7 @@ class App extends Component {
             <Route exact path="/update" component={UpdateAccount}/>
             <Route exact path="/leaderboard" component={Leaderboard}/>
             <Route exact path="/stats" component={PersonalStats}/>
+            <Route exact path="/verify/:username/:hash" component={VerifyAccountWrapper}/>
             <Route exact path="/" component={Home}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
