@@ -84,9 +84,11 @@ class CreateAccount extends Component {
       )
     }
 
-    if(this.props.isAuthenticated) {
+    if(this.props.created) {
       return (
-        <Redirect push from='/account' to="/play" />
+        <div>
+          <h1>Please verify your account via the email address you supplied.</h1>
+        </div>
       )
     }
 
