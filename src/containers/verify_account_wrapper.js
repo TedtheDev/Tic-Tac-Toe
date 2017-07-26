@@ -6,17 +6,15 @@ class VerifyAccountWrapper extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { verified: false, isVerifying: true}
+    this.state = { verified: false, isVerifying: true};
+    this.redirectToLoginTimer = this.redirectToLoginTimer.bind(this);
   }
 
   componentDidMount() {
     // call to api to verify account with hash
-    // this.props.match.param.username
-    // this.props.match.param.hash
     const { username, hash } = this.props.match.params;
     axios.post(`http://localhost:3050/api/account/verify/${username}/${hash}`)
       .then((data) => {
-        console.log(data)
         if(data.data.success) {
           this.setState({verified: true, isVerifying: false});
         } else {
@@ -28,10 +26,20 @@ class VerifyAccountWrapper extends Component {
       })
   }
 
+  redirectToLoginTimer() {
+    setTimeout(() => {
+      this.props.history.push('/')
+    },5000);
+  }
+
   render() {
     return (
       <div>
-        <VerifyAccount verified={this.state.verified} verifying={this.state.verifying} />
+        <VerifyAccount
+          redirectToLoginTimer={this.redirectToLoginTimer}
+          verified={this.state.verified}
+          verifying={this.state.verifying}
+        />
       </div>
     )
   }

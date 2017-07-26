@@ -83,12 +83,13 @@ module.exports = {
 
                         transporter.sendMail(mailOptions, (err, info) => {
                           if(err) {
-                            return console.log(err);
+                            console.log(err.response);
+                            res.json({success: false, message: "Invalid Email", err: err.response});
+                          } else {
+                            console.log('Message %s sent: %s', info.messageId, info.response)
+                            res.json({success: true, message: 'Temp Player Created'})
                           }
-                          console.log('Message %s sent: %s', info.messageId, info.response)
                         });
-
-                        res.json({success: true, message: 'Temp Player Created', player: theCreatedPlayer})
                       })
                       .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
                   })

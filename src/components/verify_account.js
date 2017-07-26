@@ -1,11 +1,12 @@
 import React from 'react';
 
-const VerifyAccount = ({ verified, verifying }) => {
+const VerifyAccount = ({ redirectToLoginTimer, history, verified, verifying }) => {
   // if verified account and done loading
   if(verified && !verifying) {
     return (
       <div>
-        Verified!
+        Verified! You will be redirected to the login screen shortly
+        { redirectToLoginTimer() }
       </div>
     )
   }
