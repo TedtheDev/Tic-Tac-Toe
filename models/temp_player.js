@@ -20,7 +20,11 @@ const TempPlayerSchema = new Schema({
   },
   verificationHash: {
     type: String,
-    require: [true, 'Verifcation Hash is required']
+    required: [true, 'Verifcation Hash is required']
+  },
+  isVerified: {
+    type: Boolean,
+    default: false
   }
 });
 

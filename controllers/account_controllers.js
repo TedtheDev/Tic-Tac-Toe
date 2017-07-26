@@ -44,7 +44,7 @@ module.exports = {
     }
     TempPlayer.findOne({ username: body.username })
       .then((tempPlayer) => {
-        if(tempPlayer !== null) {
+        if(tempPlayer !== null) { // by pass, might not even need
           res.json({success: false, message: 'Username already exists. Create a new Username'});
         } else {
           Player.findOne({ username: body.username })
@@ -195,20 +195,29 @@ module.exports = {
     const { username, hash } = req.params
     TempPlayer.findOne({ username: username, verificationHash: hash})
       .then((tempPlayer) => {
-        if(!tempPlayer) {
+        if(1===2 && !tempPlayer) {
           res.json({success: false, message: 'Username was not found'});
         } else {
-          const newPlayer = new Player({
-              name: tempPlayer.name,
-              email: tempPlayer.email,
-              username: tempPlayer.username,
-              password: tempPlayer.password
-          });
-          newPlayer.save()
-          .then(() => {
-                res.json({success: true, message: 'Verified Account'})
-              })
-              .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
+          if(tempPlayer.isVerified) {
+            res.json({success: true, message: 'Already Verified'})
+          } else {
+            const newPlayer = new Player({
+                name: tempPlayer.name,
+                email: tempPlayer.email,
+                username: tempPlayer.username,
+                password: tempPlayer.password
+            });
+            newPlayer.save()
+            .then(() => {
+                  TempPlayer.findByIdAndUpdate(tempPlayer._id, {isVerified: true})
+                    .then((temp) => {
+                      console.log(temp)
+                      res.json({success: true, message: 'Verified Account'})
+                    })
+                    .catch((err) => res.json({ success: false, message: "Temp Player didn't update correctly", err: err}));
+                })
+                .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}));
+          }
         }
       })
   }

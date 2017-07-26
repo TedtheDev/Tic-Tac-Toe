@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { } from '../actions/index';
 import VerifyAccount from '../components/verify_account';
 import axios from 'axios';
 
@@ -6,7 +9,7 @@ class VerifyAccountWrapper extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { verified: false, isVerifying: true};
+    this.state = { verified: false, isVerifying: true, alreadyVerified: false};
     this.redirectToLoginTimer = this.redirectToLoginTimer.bind(this);
   }
 
@@ -16,7 +19,12 @@ class VerifyAccountWrapper extends Component {
     setTimeout(() => {
       axios.post(`http://localhost:3050/api/account/verify/${username}/${hash}`)
         .then((data) => {
+          console.log(data)
           if(data.data.success) {
+            console.log(data.data)
+            if(data.data.message === 'Already Verified') {
+              this.setState({alreadyVerified: true})
+            }
             this.setState({verified: true, isVerifying: false});
           } else {
             this.setState({verified: false, isVerifying: false});
@@ -42,10 +50,15 @@ class VerifyAccountWrapper extends Component {
           redirectToLoginTimer={this.redirectToLoginTimer}
           verified={this.state.verified}
           isVerifying={this.state.isVerifying}
+          alreadyVerified={this.state.alreadyVerified}
         />
       </div>
     )
   }
 }
 
-export default VerifyAccountWrapper;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ }, dispatch)
+}
+
+export default connect(null, mapDispatchToProps)(VerifyAccountWrapper);

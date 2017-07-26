@@ -116,8 +116,7 @@ function mapStateToProps(state) {
     isCreating: state.account.isCreating,
     created: state.account.created,
     player: state.account.player,
-    errorMessage: state.account.errorMessage,
-    isAuthenticated: state.auth.isAuthenticated
+    errorMessage: state.account.errorMessage
   }
 }
 
