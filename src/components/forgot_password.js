@@ -4,9 +4,9 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Field } from 'redux-form';
 
-const renderTextField = ({input, emailValue, label, meta: {touched, error}, onInputChangeEmail}) => {
-    input.onChange = onInputChangeEmail;
-    input.value = emailValue;
+const renderTextField = ({input, theValue, label, meta: {touched, error}, onInputChange}) => {
+    input.onChange = onInputChange;
+    input.value = theValue;
     return (
       <TextField
         {...input}
@@ -15,8 +15,8 @@ const renderTextField = ({input, emailValue, label, meta: {touched, error}, onIn
         floatingLabelStyle={{color:"#000000"}}
         errorText={touched && error}
         underlineStyle={{color:"#000000"}}
-        onChange={onInputChangeEmail}
-        value={emailValue}
+        onChange={onInputChange}
+        value={theValue}
         autoComplete="off"
         style={{width:"90%"}}
       />
@@ -29,11 +29,18 @@ const ForgotPassword = (props) => {
       <Paper zDepth={5} style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
         <h2>Reset Your Password</h2>
         <Field
+          name='username'
+          label='Username'
+          component={renderTextField}
+          onInputChange={props.onInputChangeUsername}
+          theValue={props.usernameValue}
+        />
+        <Field
           name='email'
           label='Email'
           component={renderTextField}
-          onInputChangeEmail={props.onInputChangeEmail}
-          emailValue={props.emailValue}
+          onInputChange={props.onInputChangeEmail}
+          theValue={props.emailValue}
         />
         <RaisedButton
           label='Reset Password'

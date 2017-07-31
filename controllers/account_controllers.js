@@ -12,7 +12,6 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
 } else {
   secret = require('../creds/secret');
   email = require('../creds/creds');
-
 }
 
 // nodemailer
