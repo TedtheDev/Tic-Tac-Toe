@@ -89,7 +89,7 @@ module.exports = {
             } else {
               res.json({success: true, message: 'Verified reset password'});
             }
-          });
+          })
           .catch((err) => res.json({success: false, message: 'Error with finding reset password record', err: err}))
       }
     });
@@ -97,6 +97,6 @@ module.exports = {
   },
   updateResetPassword(req,res,next) {
     const { password, username } = req.body;
-    
+
   }
 }
