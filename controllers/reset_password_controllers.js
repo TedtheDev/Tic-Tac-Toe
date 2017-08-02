@@ -77,6 +77,26 @@ module.exports = {
       .catch((err) => res.json({success: false, message: 'Error with query finding player username', err: err}));
   },
   verifyResetPassword(req,res,next) {
+    const token = req.query.token;
+    jwt.verify(token, secret.theSecret, (err, player) => {
+      if(err) {
+        res.json({success: false, message: 'Invalid token', err: err})
+      } else {
+        ResetPassword.findOne({username: player.username, email: player.playerEmail, token: token})
+          .then((record) => {
+            if(!record) {
+              res.json({success: false, message: 'Player not found'});
+            } else {
+              res.json({success: true, message: 'Verified reset password'});
+            }
+          });
+          .catch((err) => res.json({success: false, message: 'Error with finding reset password record', err: err}))
+      }
+    });
 
+  },
+  updateResetPassword(req,res,next) {
+    const { password, username } = req.body;
+    
   }
 }

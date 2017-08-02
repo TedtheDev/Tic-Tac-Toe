@@ -66,29 +66,34 @@ const validate = (values, props) => {
   //set values to '' if not defined
   values.password = values.password || '';
   values.confirmPassword = values.confirmPassword || '';
-  console.log('values', values)
+
+  //check if values are not unefined and if they are not empty string
   if(
     values.password &&
     values.confirmPassword &&
     values.password.length > 0 &&
     values.confirmPassword.length > 0
   ) {
-    console.log('in here')
+    //check if password and confirm password are not equal to each other
     if(values.password !== values.confirmPassword) {
-      errors.confirmPassword = 'Passwords do not match';
-      errors.password = 'Passwords do not match';
+      // when not equal to each other, see errors to passwords to not match
+      const passwordsError = 'Password do not match';
+      errors.confirmPassword = passwordsError;
+      errors.password = passwordsError;
     }
   } else {
-    console.log('shouldnt be in here')
+    // if password is empty string, set error to Required
     if(values.password === '') {
       errors.password = 'Required'
     }
 
+    // if confirm password is empty string, set error to Required
     if(values.confirmPassword === '') {
       errors.confirmPassword = 'Required'
     }
   }
 
+  //return errors to redux form
   return errors;
 }
 

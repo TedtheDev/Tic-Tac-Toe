@@ -70,5 +70,6 @@ module.exports = (app) => {
   // reset password
   app.post('/api/resetpassword', ResetPasswordController.resetPassword);
   app.post('/api/resetpassword/verify', ResetPasswordController.verifyResetPassword);
+  app.post('/api/resetpassword/update', ResetPasswordController.updateResetPassword);
 
 }
