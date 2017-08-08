@@ -11,7 +11,7 @@ class VerifyForgotPasswordWrapper extends Component {
 
     // set state to handle the player's password and
     // another field to confirm password
-    this.state = { password: '', confirmPassword: '' };
+    this.state = { password: '', confirmPassword: '', resetting: false, didReset: false, errorReset: false };
 
     // bind function to this
     this.onSubmitVerifyResetPassword = this.onSubmitVerifyResetPassword.bind(this);
@@ -38,10 +38,37 @@ class VerifyForgotPasswordWrapper extends Component {
   // function to submit password and confirm password to API call
   onSubmitVerifyResetPassword() {
     // axios calll
-    console.log('password: ' + this.state.password + ' and ' + this.state.confirmPassword);
+    this.setState({ resetting: true })
+    const { search } = this.props.history.location;
+    const token = search.substring(search.indexOf('=') + 1);
+    axios.post(
+      `http://localhost:3050/api/resetpassword/update`,
+      { password: this.state.password, token: token}
+    )
+    .then((res) => {
+      if(res.data.success) {
+        this.setState({ resetting: false, didReset: true });
+      } else {
+        this.setState({ resetting: false, errorReset: true})
+      }
+
+    })
+    .catch(() => this.setState({ resetting: false, errorReset: true}))
   }
 
   render() {
+    if(this.state.resetting ) {
+      return (
+        <div>Resetting...</div>
+      );
+    } else if(!this.state.resetting && this.state.didReset && !this.state.errorReset) {
+      return (
+        <div>Password was successfully updated</div>
+      )
+    } else {
+      <div>Error Resetting</div>
+    }
+
     return (
       <div>
         <VerifyForgotPassword

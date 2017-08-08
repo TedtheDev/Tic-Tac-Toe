@@ -2,6 +2,7 @@ const Player = require('../models/player');
 const ResetPassword = require('../models/reset_password');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const bcrypt = require('bcryptjs');
 
 let secret;
 let email;
@@ -96,7 +97,25 @@ module.exports = {
 
   },
   updateResetPassword(req,res,next) {
-    const { password, username } = req.body;
-
+    const { password, token } = req.body;
+    jwt.verify(token, secret.theSecret, (err, player) => {
+      if(err) {
+        res.json({ success: false, message: 'Invalid token', err: err});
+      } else {
+        bcrypt.genSalt(10, (err,salt) => {
+          bcrypt.hash(password, salt, (err, hash) => {
+            Player.findOneAndUpdate({ username: player.username, email: player.playerEmail},{password: hash})
+              .then(() => {
+                ResetPassword.findOneAndRemove({username: player.username})
+                  .then(() => {
+                    res.json({sucess: true, message: 'Reset Password Successful'});
+                  })
+                  .catch((err) => res.json({success: false, message: 'Error removing temp reset password record', err: err}))
+              })
+              .catch((err) => res.json({success: false, message: 'Error saving updating password on reset', err: err}));
+          });
+        });
+      }
+    });
   }
 }
