@@ -28,6 +28,20 @@ const renderTextField = ({input, theValue, label, meta: {touched, error}, onInpu
 // Presentational component to show Update Password when player verifies
 // through email sent from forgot password component
 const VerifyForgotPassword = (props) => {
+  if(props.resetting && !props.didReset && !props.errorReset) {
+    return (
+      <div>Resetting...</div>
+    );
+  } else if(!props.resetting && props.didReset && !props.errorReset) {
+    return (
+      <div>
+        <div>Password was successfully updated</div>
+      </div>
+    )
+  } else {
+    <div>Error Resetting</div>
+  }
+
   return (
     <div>
       <form onSubmit={props.handleSubmit(props.onSubmitVerifyResetPassword)}>

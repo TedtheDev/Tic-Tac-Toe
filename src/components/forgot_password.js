@@ -42,10 +42,11 @@ const ForgotPassword = (props) => {
           onInputChange={props.onInputChangeEmail}
           theValue={props.emailValue}
         />
+        <strong style={{color:"red", marginTop:"2%"}}>{props.errorMessage}</strong>
         <RaisedButton
           label='Reset Password'
           primary={true}
-          style={{marginTop:"10%"}}
+          style={{marginTop:"5%"}}
           type='submit'
         />
       </Paper>

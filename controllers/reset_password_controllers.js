@@ -98,24 +98,43 @@ module.exports = {
   },
   updateResetPassword(req,res,next) {
     const { password, token } = req.body;
-    jwt.verify(token, secret.theSecret, (err, player) => {
-      if(err) {
-        res.json({ success: false, message: 'Invalid token', err: err});
-      } else {
-        bcrypt.genSalt(10, (err,salt) => {
-          bcrypt.hash(password, salt, (err, hash) => {
-            Player.findOneAndUpdate({ username: player.username, email: player.playerEmail},{password: hash})
-              .then(() => {
-                ResetPassword.findOneAndRemove({username: player.username})
-                  .then(() => {
-                    res.json({sucess: true, message: 'Reset Password Successful'});
-                  })
-                  .catch((err) => res.json({success: false, message: 'Error removing temp reset password record', err: err}))
-              })
-              .catch((err) => res.json({success: false, message: 'Error saving updating password on reset', err: err}));
+    // check ResetPassword collection if token exists
+    ResetPassword.findOne({token: token})
+      .then((foundToken) => {
+        // checking if token was found in ResetPassword collection
+        if(foundToken) {
+          //verify token if valid
+          jwt.verify(token, secret.theSecret, (err, player) => {
+            if(err) {
+              // send response with Invalid token
+              res.json({ success: false, message: 'Invalid token', err: err});
+            } else {
+              // start salting with bcrypt
+              bcrypt.genSalt(10, (err,salt) => {
+                // generate hash
+                bcrypt.hash(password, salt, (err, hash) => {
+                  //find Player in Players collection with token info
+                  // add update player with hashed password
+                  Player.findOneAndUpdate({ username: player.username, email: player.playerEmail},{password: hash})
+                    .then((foundPlayer) => {
+                      console.log(foundPlayer)
+                      //remove document in ResetPassword collection
+                      ResetPassword.findOneAndRemove({username: player.username, email: player.playerEmail, token: token})
+                        .then(() => {
+                          // send response with success
+                          res.json({success: true, message: 'Reset password successful'});
+                        })
+                        .catch((err) => res.json({success: false, message: 'Error removing temp reset password record', err: err}))
+                    })
+                    .catch((err) => res.json({success: false, message: 'Error saving updating password on reset', err: err}));
+                });
+              });
+            }
           });
-        });
-      }
-    });
+        } else {
+          res.json({ success: false, message: 'Invalid token'})
+        }
+      })
+      .catch((err) => res.json({ success: false, message:'Error with finding token', err: err}));
   }
 }

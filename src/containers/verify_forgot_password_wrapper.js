@@ -11,13 +11,26 @@ class VerifyForgotPasswordWrapper extends Component {
 
     // set state to handle the player's password and
     // another field to confirm password
-    this.state = { password: '', confirmPassword: '', resetting: false, didReset: false, errorReset: false };
+    this.state = {
+      password: '',
+      confirmPassword: '',
+      resetting: false,
+      didReset: false,
+      errorReset: false,
+      alreadyResetPassword: false
+     };
 
     // bind function to this
     this.onSubmitVerifyResetPassword = this.onSubmitVerifyResetPassword.bind(this);
     this.onInputChangePassword = this.onInputChangePassword.bind(this);
     this.onInputChangeConfirmPassword = this.onInputChangeConfirmPassword.bind(this);
   }
+
+  componentDidMount() {
+    // axios call to verify token
+
+  }
+
 
   // function to change value on password field and state
   // controlled component
@@ -47,9 +60,9 @@ class VerifyForgotPasswordWrapper extends Component {
     )
     .then((res) => {
       if(res.data.success) {
-        this.setState({ resetting: false, didReset: true });
+        this.setState({ resetting: false, didReset: true, errorReset: false });
       } else {
-        this.setState({ resetting: false, errorReset: true})
+        this.setState({ resetting: false, errorReset: true, didReset: false})
       }
 
     })
@@ -57,18 +70,6 @@ class VerifyForgotPasswordWrapper extends Component {
   }
 
   render() {
-    if(this.state.resetting ) {
-      return (
-        <div>Resetting...</div>
-      );
-    } else if(!this.state.resetting && this.state.didReset && !this.state.errorReset) {
-      return (
-        <div>Password was successfully updated</div>
-      )
-    } else {
-      <div>Error Resetting</div>
-    }
-
     return (
       <div>
         <VerifyForgotPassword
@@ -78,6 +79,10 @@ class VerifyForgotPasswordWrapper extends Component {
           onInputChangeConfirmPassword={this.onInputChangeConfirmPassword}
           passwordValue={this.state.password}
           confirmPasswordValue={this.state.confirmPassword}
+          resetting={this.state.resetting}
+          didReset={this.state.didReset}
+          errorReset={this.state.errorReset}
+          alreadyResetPassword={this.state.alreadyResetPassword}
         />
       </div>
     )

@@ -6,7 +6,7 @@ import axios from 'axios';
 class ForgotPasswordWrapper extends Component {
   constructor(props) {
     super(props);
-    this.state = {email: '', username: '', isFetching: false, didResetPassword: false};
+    this.state = {email: '', username: '', isFetching: false, didResetPassword: false, errorMessage: ''};
     this.onSubmitResetPassword = this.onSubmitResetPassword.bind(this);
     this.onInputChangeEmail = this.onInputChangeEmail.bind(this);
     this.onInputChangeUsername = this.onInputChangeUsername.bind(this);
@@ -28,11 +28,10 @@ class ForgotPasswordWrapper extends Component {
     const body = { email: this.state.email, username: this.state.username}
     axios.post('http://localhost:3050/api/resetpassword', body)
       .then((data) => {
-        console.log(data.data)
         if(data.data.success) {
-          this.setState({didResetPassword: true, isFetching: false})
+          this.setState({didResetPassword: true, isFetching: false, errorMessage:''})
         } else {
-          this.setState({didResetPassword: false, isFetching: false})
+          this.setState({didResetPassword: false, isFetching: false, errorMessage:'Username or Email invalid'})
         }
       })
       .catch((err) => console.log(err) )
@@ -42,7 +41,7 @@ class ForgotPasswordWrapper extends Component {
   render() {
     if(this.state.isFetching) {
       return (
-        <div>Loading...</div>
+        <div>Sending Confirmation Email...</div>
       )
     }
     return (
@@ -54,6 +53,7 @@ class ForgotPasswordWrapper extends Component {
           onInputChangeUsername={this.onInputChangeUsername}
           emailValue={this.state.email}
           usernameValue={this.state.username}
+          errorMessage={this.state.errorMessage}
           {...this.props}
         />
       </div>

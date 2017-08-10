@@ -50,7 +50,7 @@ class App extends Component {
             <Route exact path="/stats" component={PersonalStats}/>
             <Route exact path="/verify/:username/:hash" component={VerifyAccountWrapper}/>
             <Route exact path="/resetpassword/verify" component={VerifyForgotPasswordWrapper}/>
-            <Route exact path="/resetpassword" component={ForgotPasswordWrapper}/>
+            <Route  path="/forgotpassword" component={ForgotPasswordWrapper}/>
             <Route exact path="/" component={Home}/>
             <Route path="*" component={FourOhFourNotFound}/>
           </Switch>
