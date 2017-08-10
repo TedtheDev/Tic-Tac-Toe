@@ -22,6 +22,12 @@ else {
 }
 
 if(process.env.NODE_ENV !== 'production') {
+  const webpack = require('webpack');
+  const webpackMiddleware = require('webpack-dev-middleware');
+  const webpackConfig = require('./webpack.config');
+
+  webpackMiddleware(webpack(webpackConfig));
+  
   const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
   app.use(morgan("common", {stream: accessLogStream}));
 }
