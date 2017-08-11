@@ -8,7 +8,7 @@ let secret;
 let email;
 if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   secret = { theSecret: process.env.THE_SECRET }
-  email = { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
+  email = { email: { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS} }
 } else {
   secret = require('../creds/secret');
   email = require('../creds/creds');
