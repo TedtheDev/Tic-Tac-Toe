@@ -49,6 +49,7 @@ Play tic tac toe with a friend! Battle them out with X's and O's. Send them mess
 - Updated License
 --------------------------------------------
 --1.4-------08.10.2017-----------------------
+- Verify Account with Email Confirmation
 - Added Forgot Password functionality
 --------------------------------------------
 
