@@ -45,6 +45,9 @@ Will be added soon
 - Added Leaderboards layout with Pagination
 - Updated License
 --------------------------------------------
+--1.4-------08.10.2017-----------------------
+- Added Forgot Password functionality
+--------------------------------------------
 
 ### Issues/Bugs
 - 'Forget Password' button on login screen overflows and looks smaller, doesnt work either
