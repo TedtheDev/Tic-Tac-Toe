@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router-dom';
 
 const validate = (values, props) => {
   values = {username: props.username, password: props.password};
@@ -99,7 +100,9 @@ class LoginForm extends Component {
           {this.renderErrorMessage(errorMessage) }
           <div style={{display:"flex", flexDirection:"row", margin:"3%"}}>
               <RaisedButton type='submit' primary={true} label='Login' onSubmit={ handleSubmit(onLoginSubmit) } />
-              <RaisedButton type='button' secondary={true} label='Forgot Password' labelStyle={{fontSize:".6rem"}}/>
+              <Link to='/forgotpassword'>
+                <RaisedButton type='button' secondary={true} label='Forgot Password' labelStyle={{fontSize:".6rem"}}/>
+              </Link>
           </div>
         </Paper>
       </form>

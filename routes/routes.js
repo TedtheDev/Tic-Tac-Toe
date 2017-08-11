@@ -3,6 +3,7 @@ const ChatSystemController = require('../controllers/chat_system_controllers');
 const AuthenticationController = require('../controllers/authentication_controllers');
 const AccountController = require('../controllers/account_controllers');
 const LeaderboardController = require('../controllers/leaderboard_controllers');
+const ResetPasswordController = require('../controllers/reset_password_controllers');
 const cors = require('cors');
 const path = require('path');
 
@@ -60,8 +61,16 @@ module.exports = (app) => {
   app.post('/api/account/create', AccountController.createAccount)
   app.put('/api/account/update/:username', checkToken, AccountController.updateAccount)
   app.put('/api/account/update/:username/stats', checkToken, AccountController.updateAccountStats)
+  // account verify
+  app.post('/api/account/verify/:username/:hash', AccountController.verifyAccount);
 
   // get leaderboards
-  app.get('/api/leaderboard', checkToken, LeaderboardController.getLeaderboard)
+  app.get('/api/leaderboard', checkToken, LeaderboardController.getLeaderboard);
+
+  // reset password
+  app.post('/api/resetpassword', ResetPasswordController.resetPassword);
+  app.post('/api/resetpassword/verify', ResetPasswordController.verifyResetPassword);
+  app.post('/api/resetpassword/update', ResetPasswordController.updateResetPassword);
+  app.post('/api/resetpassword/token', ResetPasswordController.verifyToken);
 
 }

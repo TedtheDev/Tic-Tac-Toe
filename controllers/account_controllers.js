@@ -1,12 +1,38 @@
 const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
+const TempPlayer = require('../models/temp_player');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
 
 let secret;
+let email;
 if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   secret = { theSecret: process.env.THE_SECRET }
+  email = { user: process.env.EMAIL_USER, pass: process.env.EMAIL_PASS }
 } else {
   secret = require('../creds/secret');
+  email = require('../creds/creds');
+}
+
+// nodemailer
+let transporter = nodemailer.createTransport({
+  host: 'smtp.gmail.com',
+  port: 465,
+  secure: true,
+  auth: {
+    user: email.email.user,
+    pass: email.email.pass
+  }
+});
+
+// generate hash for random link to verify account
+generateRandomHash = (length) => {
+    chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    let hash = "";
+    for(let i = 0; i < length; i++) {
+      hash += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return hash;
 }
 
 module.exports = {
@@ -15,38 +41,59 @@ module.exports = {
     if(body.username === undefined) {
       res.json({success: false, message:"Username not defined"})
     }
-    Player.findOne({ username: body.username })
-      .then((player) => {
-        if(player !== null) {
+    TempPlayer.findOne({ username: body.username })
+      .then((tempPlayer) => {
+        if(tempPlayer !== null) { // by pass, might not even need
           res.json({success: false, message: 'Username already exists. Create a new Username'});
         } else {
-          bcrypt.genSalt(10, (err,salt) => {
-            bcrypt.hash(body.password, salt, (err, hash) => {
-              const newPlayer = new Player({
-                name: `${body.firstname} ${body.lastname}`,
-                email: body.email,
-                username: body.username,
-                password: hash,
-              })
+          Player.findOne({ username: body.username })
+            .then((player) => {
+              if(player !== null) {
+                res.json({success: false, message: 'Username already exists. Create a new Username'});
+              } else {
+                bcrypt.genSalt(10, (err,salt) => {
+                  bcrypt.hash(body.password, salt, (err, hash) => {
+                    const newTempPlayer = new TempPlayer({
+                      name: `${body.firstname} ${body.lastname}`,
+                      email: body.email,
+                      username: body.username,
+                      password: hash,
+                      verificationHash: generateRandomHash(30)
+                    })
 
-              newPlayer.save()
-                .then((player) => {
-                  const { _id, name, email, username, gamesDrawn, gamesLost, gamesWon, gamesPlayed, avatar } = player;
-                  const theCreatedPlayer = {
-                    _id,
-                    name,
-                    email,
-                    username,
-                    gamesDrawn,
-                    gamesLost,
-                    gamesWon,
-                    gamesPlayed,
-                    avatar
-                  }
-                  res.json({success: true, message: 'Player Created', player: theCreatedPlayer})
+                    newTempPlayer.save()
+                      .then((tempPlayer) => {
+                        const { _id, name, email, username, verificationHash } = tempPlayer;
+                        const theCreatedTempPlayer = {
+                          _id,
+                          name,
+                          email,
+                          username,
+                          verificationHash
+                        }
+
+                        let mailOptions = {
+                          from: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
+                          to: tempPlayer.email,
+                          subject: 'Verify Your Account',
+                          text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                          html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                        };
+
+                        transporter.sendMail(mailOptions, (err, info) => {
+                          if(err) {
+                            console.log(err.response);
+                            res.json({success: false, message: "Invalid Email", err: err.response});
+                          } else {
+                            console.log('Message %s sent: %s', info.messageId, info.response)
+                            res.json({success: true, message: 'Temp Player Created'})
+                          }
+                        });
+                      })
+                      .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
+                  })
                 })
-                .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
-            })
+              }
           })
         }
       })
@@ -142,5 +189,35 @@ module.exports = {
         res.json({success: true, player: theUpdatedPlayer})
       })
       .catch((err) => res.json({ success: false, message: err }))
+  },
+  verifyAccount(req,res,next) {
+    const { username, hash } = req.params
+    TempPlayer.findOne({ username: username, verificationHash: hash})
+      .then((tempPlayer) => {
+        if(1===2 && !tempPlayer) {
+          res.json({success: false, message: 'Username was not found'});
+        } else {
+          if(tempPlayer.isVerified) {
+            res.json({success: true, message: 'Already Verified'})
+          } else {
+            const newPlayer = new Player({
+                name: tempPlayer.name,
+                email: tempPlayer.email,
+                username: tempPlayer.username,
+                password: tempPlayer.password
+            });
+            newPlayer.save()
+            .then(() => {
+                  TempPlayer.findByIdAndUpdate(tempPlayer._id, {isVerified: true})
+                    .then((temp) => {
+                      console.log(temp)
+                      res.json({success: true, message: 'Verified Account'})
+                    })
+                    .catch((err) => res.json({ success: false, message: "Temp Player didn't update correctly", err: err}));
+                })
+                .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}));
+          }
+        }
+      })
   }
 }

@@ -146,7 +146,7 @@ export function createPlayer(player) {
         if(data.success) {
           dispatch(createdPlayerSuccess(data.player));
           const created = true;
-          dispatch(loginPlayer({username: username, password: password}))
+          //dispatch(loginPlayer({username: username, password: password}))
         } else if(!data.success) {
           dispatch(createdPlayerError(data.message));
         }

@@ -41,7 +41,7 @@ module.exports = {
   },
   reauthToken(req,res,next) {
     const { token } = req.body;
-    jwt.verify(token, secret.theSecret, (err,user) => {t
+    jwt.verify(token, secret.theSecret, (err,user) => {
 
       if(err) {
         res.json({success: false, message: 'Token Expired'})

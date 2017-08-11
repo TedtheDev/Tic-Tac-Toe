@@ -3,7 +3,9 @@
 Play tic tac toe with a friend! Battle them out with X's and O's. Send them messages via chat. Check your stats and see your rank on the leaderboards.
 
 ### Install Instructions
-Will be added soon
+1. Clone directory to a folder: git clone https://github.com/TedtheDev/Tic-Tac-Toe
+2. Run 'npm install' in directory
+3. Run the server by using 'node index.js'
 
 ### Change Log
 --1.0----------------------------------------
@@ -44,6 +46,9 @@ Will be added soon
 --1.3-------07.18.2017-----------------------
 - Added Leaderboards layout with Pagination
 - Updated License
+--------------------------------------------
+--1.4-------08.10.2017-----------------------
+- Added Forgot Password functionality
 --------------------------------------------
 
 ### Issues/Bugs

@@ -43,7 +43,7 @@ class Leaderboard extends Component {
       return (
         players.map((player,index) => {
           return (
-            <div className={"row-"+(index + 1)} key={player._id} >
+            <div className={"stat-row-"+(index + 1)} key={player._id} >
               <div>
                 {Number((currentPage * 10) + (index + 1))}
               </div>
@@ -68,7 +68,7 @@ class Leaderboard extends Component {
     renderAmountOfButtons(pages) {
       let buttons = [];
       for(let i = 0; i < pages; i++) {
-        buttons.push(<button key={i} onClick={() => this.fetchLeaderboard(i)}>{i + 1}</button>);
+        buttons.push(<button className="pagination-button" key={i} onClick={() => this.fetchLeaderboard(i)}>{i + 1}</button>);
       }
       return buttons;
     }
@@ -85,11 +85,11 @@ class Leaderboard extends Component {
         <div>
           <Paper zDepth={5} style={paperStyle}>
             <h2>Leaderboard</h2>
-            <div>
+            <div style={{margin:"10%"}}>
               {this.renderAmountOfButtons(this.state.amountOfPages, () => this.fetchLeaderboard())}
             </div>
             <div className="leaderboard-stats">
-              <div className='row-0'>
+              <div className='stat-row-0'>
                 <div>Number</div>
                 <div>Username</div>
                 <div>Wins</div>

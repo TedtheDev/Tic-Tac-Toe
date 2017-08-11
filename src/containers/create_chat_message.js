@@ -6,6 +6,9 @@ import { reduxForm, Field } from 'redux-form';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
+import io from 'socket.io-client';
+
+const socket = io()
 
 const validate = (values) => {
   let errors = {}
@@ -47,6 +50,7 @@ class CreateChatMessage extends Component {
 
   onFormSubmitCreateMessage() {
     this.props.createChatMessage(this.props.player.username, this.state.messageToSend);
+    socket.broadcast.emit('chat message', this.state.messageToSend)
     this.setState({ messageToSend: '' });
   }
 

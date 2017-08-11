@@ -5,6 +5,9 @@ import { bindActionCreators } from 'redux';
 import moment from 'moment';
 import CreateChatMessage from './create_chat_message';
 import LoadingIcon from '../components/loading_material_ui_circular';
+import io from 'socket.io-client';
+
+const socket = io()
 
 class Chat extends Component {
   constructor(props) {
