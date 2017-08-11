@@ -24,6 +24,18 @@ const renderTextField = ({input, theValue, label, meta: {touched, error}, onInpu
 }
 
 const ForgotPassword = (props) => {
+  if(props.isFetching) {
+    return (
+      <div>Sending Confirmation Email...</div>
+    )
+  }
+
+  if(props.didResetPassword) {
+    return (
+      <div>Confirmation sent!</div>
+    )
+  }
+
   return (
     <form onSubmit={props.handleSubmit(props.onSubmitResetPassword)}>
       <Paper zDepth={5} style={{display:'flex',flexDirection:'column',justifyContent:'center',alignItems:'center'}}>
