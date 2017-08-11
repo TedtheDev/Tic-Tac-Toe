@@ -29,6 +29,25 @@ class VerifyForgotPasswordWrapper extends Component {
   componentDidMount() {
     // axios call to verify token
 
+    //get search object from history on react router
+    const { search } = this.props.history.location;
+
+    //get substring of the query string on the URL
+    const token = search.substring(search.indexOf('=') + 1);
+    //request to API to check if token exists and player
+    // has not already reset their password
+    axios.post(
+      'http://localhost:3050/api/resetpassword/token',
+      { token: token }
+    )
+      .then((data) => {
+        //check success if false, false meaning token is not found
+        if(!data.data.success) {
+          // set alreadyResetPassword to true to trigger message and redirect to home
+          this.setState({ alreadyResetPassword: true });
+        }
+      })
+      .catch((err) => console.log('Error getting token from database: ' + err));
   }
 
 
@@ -83,6 +102,7 @@ class VerifyForgotPasswordWrapper extends Component {
           didReset={this.state.didReset}
           errorReset={this.state.errorReset}
           alreadyResetPassword={this.state.alreadyResetPassword}
+          {...this.props}
         />
       </div>
     )

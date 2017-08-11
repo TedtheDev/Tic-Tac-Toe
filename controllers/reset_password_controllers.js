@@ -46,12 +46,10 @@ module.exports = {
         })
         ResetPassword.findOne({username: req.body.username, email: req.body.email})
           .then((resetpassword) => {
-            console.log(resetpassword)
           })
         // saving reset password info to db
         newResetPassword.save()
           .then(() => {
-            console.log('saved info')
 
             const mailOptions = {
               rom: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
@@ -62,12 +60,9 @@ module.exports = {
             }
 
             transporter.sendMail(mailOptions, (err, info) => {
-              console.log('sending email')
               if(err) {
-                console.log(err);
                 res.json({success: false, message: 'Error sending email', err: err.response});
               } else {
-                console.log('Message %s sent: %s', info.messageId, info.response);
                 res.json({success: true, message: 'Saved reset password info'});
               }
             });
@@ -136,5 +131,23 @@ module.exports = {
         }
       })
       .catch((err) => res.json({ success: false, message:'Error with finding token', err: err}));
+  },
+  verifyToken(req,res,next) {
+    //grab token off of the request body
+    const { token } = req.body;
+
+    //Use the ResetPassword model to find the
+    // token in the collection
+    ResetPassword.findOne({ token: token})
+      .then((token) => {
+        //if token exists in the reset password collection, send
+        //back successful response that token is found
+        if(token) {
+          res.json({ success: true, message: 'Token found' })
+        } else {
+          res.json({ success: false, message: 'Token not found'})
+        }
+      })
+      .catch((err) => res.json({success: false, message: 'Error finding token in database', err: err}));
   }
 }
