@@ -76,8 +76,8 @@ module.exports = {
                           from: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
                           to: tempPlayer.email,
                           subject: 'Verify Your Account',
-                          text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                          html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                          text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                          html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
                         };
 
                         transporter.sendMail(mailOptions, (err, info) => {
