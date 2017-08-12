@@ -194,7 +194,7 @@ module.exports = {
     const { username, hash } = req.params
     TempPlayer.findOne({ username: username, verificationHash: hash})
       .then((tempPlayer) => {
-        if(1===2 && !tempPlayer) {
+        if(!tempPlayer) {
           res.json({success: false, message: 'Username was not found'});
         } else {
           if(tempPlayer.isVerified) {
