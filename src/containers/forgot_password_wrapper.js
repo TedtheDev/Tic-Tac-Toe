@@ -26,7 +26,7 @@ class ForgotPasswordWrapper extends Component {
     // axios call to reset pass
     this.setState({isFetching: true, errorMessage: ''})
     const body = { email: this.state.email, username: this.state.username}
-    axios.post('./api/resetpassword', body)
+    axios.post('/api/resetpassword', body)
       .then((data) => {
         if(data.data.success) {
           this.setState({didResetPassword: true, isFetching: false, errorMessage:''})
