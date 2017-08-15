@@ -37,7 +37,7 @@ class VerifyForgotPasswordWrapper extends Component {
     //request to API to check if token exists and player
     // has not already reset their password
     axios.post(
-      './api/resetpassword/token',
+      '/api/resetpassword/token',
       { token: token }
     )
       .then((data) => {
