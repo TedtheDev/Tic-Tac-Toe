@@ -19,9 +19,7 @@ class VerifyAccountWrapper extends Component {
     setTimeout(() => {
       axios.post(`/api/account/verify/${username}/${hash}`)
         .then((data) => {
-          console.log(data)
           if(data.data.success) {
-            console.log(data.data)
             if(data.data.message === 'Already Verified') {
               this.setState({alreadyVerified: true})
             }
