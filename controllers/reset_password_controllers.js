@@ -1,7 +1,8 @@
 const Player = require('../models/player');
 const ResetPassword = require('../models/reset_password');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
+const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 const bcrypt = require('bcryptjs');
 
 let secret;
@@ -13,16 +14,6 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   secret = require('../creds/secret');
   email = require('../creds/creds');
 }
-
-let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: email.email.user,
-    pass: email.email.pass
-  }
-});
 
 module.exports = {
   resetPassword(req,res,next) {
@@ -59,13 +50,10 @@ module.exports = {
               html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
             }
 
-            transporter.sendMail(mailOptions, (err, info) => {
-              if(err) {
-                res.json({success: false, message: 'Error sending email', err: err.response});
-              } else {
-                res.json({success: true, message: 'Saved reset password info'});
-              }
-            });
+            MailgunService(msg)
+              .then((theMessage) => res.json({success: true, message: "Sent Email for Password Reset"}))
+              .catch((err) => res.json({success: false, message: "MailgunService failed", err: err}));
+
           })
           .catch((err) => res.json({success: false, message: 'Error with saving new reset password info', err: err}));
 

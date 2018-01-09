@@ -2,7 +2,8 @@ const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
 const TempPlayer = require('../models/temp_player');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+const EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
+const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 
 let secret;
 let email;
@@ -13,17 +14,6 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   secret = require('../creds/secret');
   email = require('../creds/creds');
 }
-
-// nodemailer
-let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: email.email.user,
-    pass: email.email.pass
-  }
-});
 
 // generate hash for random link to verify account
 generateRandomHash = (length) => {
@@ -61,36 +51,32 @@ module.exports = {
                       verificationHash: generateRandomHash(30)
                     })
 
-                    newTempPlayer.save()
-                      .then((tempPlayer) => {
-                        const { _id, name, email, username, verificationHash } = tempPlayer;
-                        const theCreatedTempPlayer = {
-                          _id,
-                          name,
-                          email,
-                          username,
-                          verificationHash
-                        }
-
-                        let mailOptions = {
-                          from: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
-                          to: tempPlayer.email,
-                          subject: 'Verify Your Account',
-                          text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                          html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
-                        };
-
-                        transporter.sendMail(mailOptions, (err, info) => {
-                          if(err) {
-                            console.log(err.response);
-                            res.json({success: false, message: "Invalid Email", err: err.response});
-                          } else {
-                            console.log('Message %s sent: %s', info.messageId, info.response)
-                            res.json({success: true, message: 'Temp Player Created'})
-                          }
-                        });
+                    const msg = {
+                      to: tempPlayer.email,
+                      from: '"<Tic Tac Toe>" tic.tac.toe.socket.io@gmail.com',
+                      subject: 'Verify Your Account',
+                      text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                      html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                    };
+                    
+                    MailgunService(msg)
+                      .then((theMessage) => {
+                        newTempPlayer.save()
+                          .then((tempPlayer) => {
+                            const { _id, name, email, username, verificationHash } = tempPlayer;
+                            const theCreatedTempPlayer = {
+                              _id,
+                              name,
+                              email,
+                              username,
+                              verificationHash
+                            }
+                          })
+                          .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}));
                       })
-                      .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
+                      .catch((err) => res.json({success: false, message: "MailgunService failed", err: err}));
+
+                    
                   })
                 })
               }
