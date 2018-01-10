@@ -2,7 +2,15 @@ const bcrypt = require('bcryptjs');
 const Player = require('../models/player');
 const TempPlayer = require('../models/temp_player');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
+
+let EMAIL_API_CREDS;
+if(process.env.NODE_ENV === 'production' && process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+  EMAIL_API_CREDS = { key: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN}
+} else {
+  EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
+}
+
+const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 
 let secret;
 let email;
@@ -13,17 +21,6 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   secret = require('../creds/secret');
   email = require('../creds/creds');
 }
-
-// nodemailer
-let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: email.email.user,
-    pass: email.email.pass
-  }
-});
 
 // generate hash for random link to verify account
 generateRandomHash = (length) => {
@@ -61,6 +58,7 @@ module.exports = {
                       verificationHash: generateRandomHash(30)
                     })
 
+<<<<<<< HEAD
                     newTempPlayer.save()
                       .then((tempPlayer) => {
                         const { _id, name, email, username, verificationHash } = tempPlayer;
@@ -79,18 +77,36 @@ module.exports = {
                           text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
                           html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
                         };
+=======
+                    const msg = {
+                      to: body.email,
+                      from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
+                      subject: 'Verify Your Account',
+                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                    };
+                    
+                    MailgunService(msg)
+                      .then((theMessage) => {
+                        newTempPlayer.save()
+                          .then((tempPlayer) => {
+                            const { _id, name, email, username, verificationHash } = tempPlayer;
+                            const theCreatedTempPlayer = {
+                              _id,
+                              name,
+                              email,
+                              username,
+                              verificationHash
+                            };
+>>>>>>> release1.4.1
 
-                        transporter.sendMail(mailOptions, (err, info) => {
-                          if(err) {
-                            console.log(err.response);
-                            res.json({success: false, message: "Invalid Email", err: err.response});
-                          } else {
-                            console.log('Message %s sent: %s', info.messageId, info.response)
-                            res.json({success: true, message: 'Temp Player Created'})
-                          }
-                        });
+                            res.json({success: true, message: "Temp Player created"});
+                          })
+                          .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}));
                       })
-                      .catch((err) => res.json({success: false, message: "Player did not save correctly", err: err}))
+                      .catch((err) => res.json({success: false, message: "MailgunService failed", err: err}));
+
+                    
                   })
                 })
               }

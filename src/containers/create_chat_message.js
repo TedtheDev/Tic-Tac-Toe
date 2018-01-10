@@ -50,7 +50,7 @@ class CreateChatMessage extends Component {
 
   onFormSubmitCreateMessage() {
     this.props.createChatMessage(this.props.player.username, this.state.messageToSend);
-    socket.broadcast.emit('chat message', this.state.messageToSend)
+    socket.emit('chat message', this.state.messageToSend)
     this.setState({ messageToSend: '' });
   }
 

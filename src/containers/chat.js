@@ -19,6 +19,10 @@ class Chat extends Component {
   componentDidMount() {
       this.props.fetchChatMessages(this.props.player.username);
       this.scrollToBottomChatMessages();
+
+      socket.on('chat message', (data) => {
+        console.log(data)
+      })
   }
 
   componentDidUpdate() {

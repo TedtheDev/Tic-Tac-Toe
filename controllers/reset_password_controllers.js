@@ -1,8 +1,16 @@
 const Player = require('../models/player');
 const ResetPassword = require('../models/reset_password');
 const jwt = require('jsonwebtoken');
-const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
+
+let EMAIL_API_CREDS;
+if(process.env.NODE_ENV === 'production' && process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+  EMAIL_API_CREDS = { key: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN}
+} else {
+  EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
+}
+
+const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 
 let secret;
 let email;
@@ -14,19 +22,8 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
   email = require('../creds/creds');
 }
 
-let transporter = nodemailer.createTransport({
-  host: 'smtp.gmail.com',
-  port: 465,
-  secure: true,
-  auth: {
-    user: email.email.user,
-    pass: email.email.pass
-  }
-});
-
 module.exports = {
   resetPassword(req,res,next) {
-
     // NOTE
     // check if username and email are already there, then update token, other wise create new
     Player.findOne({username: req.body.username, email: req.body.email})
@@ -51,21 +48,29 @@ module.exports = {
         newResetPassword.save()
           .then(() => {
 
-            const mailOptions = {
-              rom: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
+            const msg = {
               to: player.email,
+<<<<<<< HEAD
               subject: 'Password Reset',
               text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='https://tic-tac-toe-socketio.herokuapp.com/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
               html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='https://tic-tac-toe-socketio.herokuapp.com/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
             }
+=======
+              from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
+              subject: 'Verify Your Account',
+              text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
+              html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
+            };
 
-            transporter.sendMail(mailOptions, (err, info) => {
-              if(err) {
-                res.json({success: false, message: 'Error sending email', err: err.response});
-              } else {
-                res.json({success: true, message: 'Saved reset password info'});
-              }
-            });
+            MailgunService(msg)
+              .then((theMessage) => {
+                console.log(theMessage)
+                res.json({success: true, message: "Sent Email for Password Reset"})
+
+              })
+              .catch((err) => res.json({success: false, message: "MailgunService failed", err: err}));
+>>>>>>> release1.4.1
+
           })
           .catch((err) => res.json({success: false, message: 'Error with saving new reset password info', err: err}));
 
