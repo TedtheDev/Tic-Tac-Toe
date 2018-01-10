@@ -17,7 +17,7 @@ class VerifyAccountWrapper extends Component {
     // call to api to verify account with hash
     const { username, hash } = this.props.match.params;
     setTimeout(() => {
-      axios.post(`http://localhost:3050/api/account/verify/${username}/${hash}`)
+      axios.post(`/api/account/verify/${username}/${hash}`)
         .then((data) => {
           if(data.data.success) {
             if(data.data.message === 'Already Verified') {

@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField';
 import Paper from 'material-ui/Paper';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3050/')
+const socket = io()
 
 const validate = (values) => {
   let errors = {}

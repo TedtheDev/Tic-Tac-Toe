@@ -6,7 +6,7 @@ import axios from 'axios';
 // switch to ./api
 // prod = ./api
 // dev = http://localhost:3050/api
-const ROOT_URL = 'http://localhost:3050/api';
+const ROOT_URL = './api';
 
 const helpers = {
   getLeaderboard(page) {
