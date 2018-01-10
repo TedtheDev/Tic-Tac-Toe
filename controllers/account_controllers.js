@@ -62,8 +62,8 @@ module.exports = {
                       to: body.email,
                       from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
                       subject: 'Verify Your Account',
-                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
                     };
                     
                     MailgunService(msg)
