@@ -58,26 +58,6 @@ module.exports = {
                       verificationHash: generateRandomHash(30)
                     })
 
-<<<<<<< HEAD
-                    newTempPlayer.save()
-                      .then((tempPlayer) => {
-                        const { _id, name, email, username, verificationHash } = tempPlayer;
-                        const theCreatedTempPlayer = {
-                          _id,
-                          name,
-                          email,
-                          username,
-                          verificationHash
-                        }
-
-                        let mailOptions = {
-                          from: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
-                          to: tempPlayer.email,
-                          subject: 'Verify Your Account',
-                          text: `Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                          html: `<div>Hello ${tempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${tempPlayer.username}/${tempPlayer.verificationHash}' target="_blank">HERE</a>.`
-                        };
-=======
                     const msg = {
                       to: body.email,
                       from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
@@ -98,7 +78,6 @@ module.exports = {
                               username,
                               verificationHash
                             };
->>>>>>> release1.4.1
 
                             res.json({success: true, message: "Temp Player created"});
                           })
