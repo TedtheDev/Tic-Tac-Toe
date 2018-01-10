@@ -9,7 +9,7 @@
     "npm": "5.0.1"
   },
   "scripts": {
-    "postinstall": "webpack -p",
+    "postinstall": "npm run build",
     "start": "node index.js",
     "_start": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
