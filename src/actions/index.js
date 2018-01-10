@@ -141,8 +141,8 @@ export function createPlayer(player) {
   return (dispatch) => {
     dispatch(creatingPlayer());
     return axios.post(`${ROOT_URL}/account/create`, reqBody)
-      .then((request) => {
-        const { data } = request
+      .then((response) => {
+        const { data } = response;
         if(data.success) {
           dispatch(createdPlayerSuccess(data.player));
           const created = true;
@@ -156,7 +156,7 @@ export function createPlayer(player) {
 
   return {
     type: CREATING_PLAYER,
-    payload: request
+    payload: response
   }
 
 }

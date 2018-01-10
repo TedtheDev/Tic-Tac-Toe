@@ -11,7 +11,7 @@ function MailgunService(apiKey, domain) {
               };
         
               mailgun.messages().send(message, function(err, body){
-                if(err !== null) {
+                if(err !== undefined) {
                     reject(err);
                 } else {
                     resolve(body);

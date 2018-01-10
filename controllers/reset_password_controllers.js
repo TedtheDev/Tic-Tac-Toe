@@ -1,9 +1,16 @@
 const Player = require('../models/player');
 const ResetPassword = require('../models/reset_password');
 const jwt = require('jsonwebtoken');
-const EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
-const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 const bcrypt = require('bcryptjs');
+
+let EMAIL_API_CREDS;
+if(process.env.NODE_ENV === 'production' && process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+  EMAIL_API_CREDS = { key: process.env.MAILGUN_API_KEY, domain: process.env.MAILGUN_DOMAIN}
+} else {
+  EMAIL_API_CREDS = require('../creds/creds').EMAIL_API;
+}
+
+const MailgunService = require('../utils/mailgun_service')(EMAIL_API_CREDS.key, EMAIL_API_CREDS.domain);
 
 let secret;
 let email;
@@ -17,7 +24,6 @@ if(process.env.NODE_ENV === 'production' && process.env.THE_SECRET) {
 
 module.exports = {
   resetPassword(req,res,next) {
-
     // NOTE
     // check if username and email are already there, then update token, other wise create new
     Player.findOne({username: req.body.username, email: req.body.email})
@@ -42,16 +48,20 @@ module.exports = {
         newResetPassword.save()
           .then(() => {
 
-            const mailOptions = {
-              rom: '"Tic Tac Toe SocketIO" <tic.tac.toe.socket.io@gmail.com',
+            const msg = {
               to: player.email,
-              subject: 'Password Reset',
+              from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
+              subject: 'Verify Your Account',
               text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
               html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
-            }
+            };
 
             MailgunService(msg)
-              .then((theMessage) => res.json({success: true, message: "Sent Email for Password Reset"}))
+              .then((theMessage) => {
+                console.log(theMessage)
+                res.json({success: true, message: "Sent Email for Password Reset"})
+
+              })
               .catch((err) => res.json({success: false, message: "MailgunService failed", err: err}));
 
           })
