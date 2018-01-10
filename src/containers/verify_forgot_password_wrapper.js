@@ -74,11 +74,7 @@ class VerifyForgotPasswordWrapper extends Component {
     const { search } = this.props.history.location;
     const token = search.substring(search.indexOf('=') + 1);
     axios.post(
-<<<<<<< HEAD
       `./api/resetpassword/update`,
-=======
-      `/api/resetpassword/update`,
->>>>>>> release1.4.1
       { password: this.state.password, token: token}
     )
     .then((res) => {
