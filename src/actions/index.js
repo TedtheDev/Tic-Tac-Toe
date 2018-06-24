@@ -35,13 +35,7 @@ export const UPDATE_STATS = 'UPDATE_STATS';
 export const UPDATE_STATS_ERROR = 'UPDATE_STATS_ERROR';
 
 // Root url for api
-// for now when deploying to prod
-// (yes i know that's not good, need to research a better way)
-// switch to ./api
-// prod = ./api
-// dev = http://localhost:3050/api
-const ROOT_URL = 'http://localhost:3050/api';
-
+const ROOT_URL = process.env.NODE_ENV === 'production' && './api' || 'http://localhost:3050/api';
 
 // **********************************************************************************************
 // Action Creators for creating, fetching, and deleting a message related to one player
@@ -338,7 +332,6 @@ export function loginPlayer(creds) {
   const config = { headers: { "Content-Type": "application/json" } };
   return (dispatch) => {
     dispatch(requestLogin(creds))
-
     return axios.post(`${ROOT_URL}/authenticate`, reqBody)
       .then((res) => {
         if (!res.status || res.status !== 200 || res.data.success === false) {

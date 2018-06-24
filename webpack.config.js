@@ -50,6 +50,10 @@ module.exports = {
     contentBase: './'
   },
   plugins: [
-    extractCSS
+    extractCSS,
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+      'global.host': process.env.NODE_DEV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050'
+    })
   ]
 };

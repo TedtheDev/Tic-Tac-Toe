@@ -58,12 +58,13 @@ module.exports = {
                       verificationHash: generateRandomHash(30)
                     })
 
+                    const host = process.env.NODE_ENV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050';
                     const msg = {
                       to: body.email,
-                      from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
-                      subject: 'Verify Your Account',
-                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='http://localhost:8080/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
+                      from: 'Tic Tac Toe SocketIO tic.tac.toe.socket.io@gmail.com',
+                      subject: 'Tic Tac Toe - Verify Your Account',
+                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='${host}/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
+                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='${host}/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
                     };
                     
                     MailgunService(msg)
@@ -205,7 +206,6 @@ module.exports = {
             .then(() => {
                   TempPlayer.findByIdAndUpdate(tempPlayer._id, {isVerified: true})
                     .then((temp) => {
-                      console.log(temp)
                       res.json({success: true, message: 'Verified Account'})
                     })
                     .catch((err) => res.json({ success: false, message: "Temp Player didn't update correctly", err: err}));

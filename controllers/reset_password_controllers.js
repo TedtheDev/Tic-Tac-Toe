@@ -47,18 +47,18 @@ module.exports = {
         // saving reset password info to db
         newResetPassword.save()
           .then(() => {
+            const host = process.env.NODE_ENV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050';
 
             const msg = {
               to: player.email,
-              from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
-              subject: 'Verify Your Account',
-              text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
-              html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='http://localhost:8080/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
+              from: 'Tic Tac Toe SocketIO tic.tac.toe.socket.io@gmail.com',
+              subject: 'Tic Tac Toe - Reset Password',
+              text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='${host}/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
+              html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='${host}/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
             };
 
             MailgunService(msg)
               .then((theMessage) => {
-                console.log(theMessage)
                 res.json({success: true, message: "Sent Email for Password Reset"})
 
               })
@@ -110,7 +110,6 @@ module.exports = {
                   // add update player with hashed password
                   Player.findOneAndUpdate({ username: player.username, email: player.playerEmail},{password: hash})
                     .then((foundPlayer) => {
-                      console.log(foundPlayer)
                       //remove document in ResetPassword collection
                       ResetPassword.findOneAndRemove({username: player.username, email: player.playerEmail, token: token})
                         .then(() => {

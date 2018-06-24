@@ -8,9 +8,12 @@ const morgan = require('morgan');
 const fs = require('file-system');
 const mongoose = require('mongoose');
 const routes = require('./routes/routes');
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
 
 const startDB = require('./utils/mongoconnection');
-
+const config = require('./webpack.config');
+const compiler = webpack(config);
 
 mongoose.Promise = global.Promise;
 
@@ -23,13 +26,9 @@ else {
 
 if(process.env.NODE_ENV !== 'production') {
   // require webpack configed to run with node
-  //const webpack = require('webpack');
-  //const webpackMiddleware = require('webpack-dev-middleware');
-  //const webpackConfig = require('./webpack.config');
-
-  // webpack middleware to interact with webpack and config
-  //webpackMiddleware(webpack(webpackConfig));
-
+  app.use(webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath
+  }));
   // log requests to a file
   const accessLogStream = fs.createWriteStream(__dirname + '/logs/' + "access.log", {flags: 'a'});
   app.use(morgan("common", {stream: accessLogStream}));
