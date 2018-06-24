@@ -37,11 +37,7 @@ class VerifyForgotPasswordWrapper extends Component {
     //request to API to check if token exists and player
     // has not already reset their password
     axios.post(
-<<<<<<< HEAD
-      '/api/resetpassword/token',
-=======
       `${env.host}/api/resetpassword/token`,
->>>>>>> development
       { token: token }
     )
       .then((data) => {
@@ -78,11 +74,7 @@ class VerifyForgotPasswordWrapper extends Component {
     const { search } = this.props.history.location;
     const token = search.substring(search.indexOf('=') + 1);
     axios.post(
-<<<<<<< HEAD
-      `./api/resetpassword/update`,
-=======
       `${env.host}/api/resetpassword/update`,
->>>>>>> development
       { password: this.state.password, token: token}
     )
     .then((res) => {
