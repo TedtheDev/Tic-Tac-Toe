@@ -51,17 +51,10 @@ module.exports = {
 
             const msg = {
               to: player.email,
-<<<<<<< HEAD
-              from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
-              subject: 'Verify Your Account',
-              text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='https://tic-tac-toe-socketio.herokuapp.com/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
-              html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='https://tic-tac-toe-socketio.herokuapp.com/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
-=======
               from: 'Tic Tac Toe SocketIO tic.tac.toe.socket.io@gmail.com',
               subject: 'Tic Tac Toe - Reset Password',
               text: `Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='${host}/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`,
               html: `<div>Hello ${player.username}! You requested to reset your password (or someone else did). Please reset your password <a href='${host}/resetpassword/verify?token=${token}' target="_blank">HERE</a>.`
->>>>>>> development
             };
 
             MailgunService(msg)

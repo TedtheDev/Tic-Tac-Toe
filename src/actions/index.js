@@ -35,17 +35,7 @@ export const UPDATE_STATS = 'UPDATE_STATS';
 export const UPDATE_STATS_ERROR = 'UPDATE_STATS_ERROR';
 
 // Root url for api
-<<<<<<< HEAD
-// for now when deploying to prod
-// (yes i know that's not good, need to research a better way)
-// switch to ./api
-// prod = ./api
-// dev = http://localhost:3050/api
-const ROOT_URL = '/api';
-
-=======
 const ROOT_URL = process.env.NODE_ENV === 'production' && './api' || 'http://localhost:3050/api';
->>>>>>> development
 
 // **********************************************************************************************
 // Action Creators for creating, fetching, and deleting a message related to one player

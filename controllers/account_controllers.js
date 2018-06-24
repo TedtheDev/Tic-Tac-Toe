@@ -61,17 +61,10 @@ module.exports = {
                     const host = process.env.NODE_ENV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050';
                     const msg = {
                       to: body.email,
-<<<<<<< HEAD
-                      from: '"Tic Tac Toe SocketIO" tic.tac.toe.socket.io@gmail.com',
-                      subject: 'Verify Your Account',
-                      text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
-                      html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='https://tic-tac-toe-socketio.herokuapp.com/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
-=======
                       from: 'Tic Tac Toe SocketIO tic.tac.toe.socket.io@gmail.com',
                       subject: 'Tic Tac Toe - Verify Your Account',
                       text: `Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='${host}/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`,
                       html: `<div>Hello ${newTempPlayer.username}! Please verify your account by clicking this <a href='${host}/verify/${newTempPlayer.username}/${newTempPlayer.verificationHash}' target="_blank">HERE</a>.`
->>>>>>> development
                     };
                     
                     MailgunService(msg)
