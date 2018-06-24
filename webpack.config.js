@@ -53,7 +53,7 @@ module.exports = {
     extractCSS,
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'env.host': process.env.NODE_DEV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050'
+      'env.host': (process.env.NODE_DEV === 'production' && 'https://tic-tac-toe-socketio.herokuapp.com' || 'http://localhost:3050')
     })
   ]
 };
