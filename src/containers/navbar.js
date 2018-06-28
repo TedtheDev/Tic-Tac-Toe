@@ -19,12 +19,12 @@ class Navbar extends Component {
       drawerOpen: false
     })
 
-    this.onLeftIconButtonTouchTapMenu = this.onLeftIconButtonTouchTapMenu.bind(this);
+    this.onLeftIconButtonClick = this.onLeftIconButtonClick.bind(this);
     this.onTouchTapDrawerClose = this.onTouchTapDrawerClose.bind(this);
     this.onDrawerClose = this.onDrawerClose.bind(this);
   }
 
-  onLeftIconButtonTouchTapMenu() {
+  onLeftIconButtonClick() {
     this.setState({drawerOpen: true})
   }
 
@@ -44,7 +44,7 @@ class Navbar extends Component {
         <AppBar
           showMenuIconButton={this.props.isAuthenticated}
           title={<Link to='/' style={{cursor:"pointer",textDecoration:"none", color:"white"}}>Tic Tac Toe</Link>}
-          onLeftIconButtonTouchTap={this.onLeftIconButtonTouchTapMenu}
+          onLeftIconButtonClick={this.onLeftIconButtoonLeftIconButtonClicknTouchTapMenu}
           iconElementRight={(this.props.isAuthenticated) ? <NavbarRightElement/> : <div></div>}
         />
         <Drawer
