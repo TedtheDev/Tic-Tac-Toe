@@ -43,12 +43,12 @@ app.use((err, req, res, next) => {
   res.status(422).send({ error: err.message });
 });
 
-app.get('/dist/bundle.css', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/dist/bundle.css'));
+app.get('/dist/styles.bundle.css', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/dist/styles.bundle.css'));
 });
 
-app.get('/dist/bundle.js', (req, res) => {
-  res.sendFile(path.resolve(__dirname + '/dist/bundle.js'));
+app.get('/dist/app.bundle.js', (req, res) => {
+  res.sendFile(path.resolve(__dirname + '/dist/app.bundle.js'));
 });
 
 app.get('/favicon.ico', (req, res) => {
