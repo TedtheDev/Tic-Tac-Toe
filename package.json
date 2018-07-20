@@ -9,7 +9,7 @@
     "npm": "6.1.0"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "npm run build && node index.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test_mongodb": "nodemon --exec \"mocha --recursive ./test/mongodb\"",
     "test_api": "nodemon --exec \"mocha --recursive ./test/api_tests\"",
