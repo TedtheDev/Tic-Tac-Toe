@@ -29,9 +29,7 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           'css-loader',
-          {
-            loader: 'postcss-loader',
-          },
+          'postcss-loader',
           'sass-loader',
         ]
       }
@@ -39,7 +37,8 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
-    contentBase: './'
+    contentBase: './',
+    mode: 'development'
   },
   plugins: [
     new MiniCssExtractPlugin({
@@ -50,22 +49,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
-      'env.host': process.env.NODE_DEV === 'production' && '"https://tic-tac-toe-socketio.herokuapp.com"' || '"http://localhost:3050"'
+      'env.host': process.env.NODE_ENV === 'production' && '"https://tic-tac-toe-socketio.herokuapp.com"' || '"http://localhost:3050"'
     })
   ]
 };
-
-/*
-,
-          {
-            loader: 'postcss-loader',
-            options: {
-              ident: 'postcss',
-              plugins: (loader) => [
-                require('postcss-import')({ root: loader.resourcePath }),
-                require('postcss-cssnext')(),
-                require('cssnano')()
-              ]
-            }
-          }       
-*/
