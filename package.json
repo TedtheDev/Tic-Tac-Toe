@@ -10,7 +10,6 @@
   },
   "scripts": {
     "start": "node index.js",
-    "_start": "SET NODE_ENV=dev && node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test_mongodb": "nodemon --exec \"mocha --recursive ./test/mongodb\"",
     "test_api": "nodemon --exec \"mocha --recursive ./test/api_tests\"",
